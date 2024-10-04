@@ -109,7 +109,8 @@ void *btree_delete(BTree *btree, void *id, int (*compare)(void *, void *)) {
     // goes through the tree to find the node
     BTree **temp = &btree;
     while (*temp && compare((*temp)->data, id) != 0)
-        temp = compare((*temp)->data, id) ? &((*temp)->right) : &((*temp)->left);
+        temp =
+            compare((*temp)->data, id) ? &((*temp)->right) : &((*temp)->left);
 
     // return the data
     if (compare((*temp)->data, id) == 0)
@@ -127,10 +128,46 @@ void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *)) {
     BTree *temp = btree;
     while (temp && compare(temp->data, id) != 0)
         temp = compare(temp->data, id) ? temp->right : temp->left;
-    
+
     // return the data
     if (compare(temp->data, id) == 0)
         return temp->data;
     else
         return NULL; // does not belong to the tree
+}
+
+bool btree_is_empty(BTree *btree) { return btree == NULL; }
+
+unsigned int btree_size(BTree *btree) {
+    // tree is empty
+    if (btree == NULL)
+        return 0;
+
+    return btree_size(btree->left) + btree_size(btree->right);
+}
+
+void btree_destroy(BTree *btree, void (*free_data)(void *)) {
+    if (btree != NULL) {
+        // free the object
+        free_data(btree->data);
+
+        BTree *l_tmp = btree->left;
+        BTree *r_tmp = btree->right;
+
+        // free the structure
+        free(btree);
+        btree_destroy(l_tmp);
+        btree_destroy(r_tmp);
+    }
+}
+
+unsigned int btree_height(BTree *btree) {
+    // tree is empty
+    if (btree == NULL)
+        return 0;
+
+    unsigned int left = btree_height(btree->left);
+    unsigned int right = btree_height(btree->right);
+
+    return 1 + (left > right) ? left : right;
 }
