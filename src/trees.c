@@ -154,7 +154,7 @@ unsigned int btree_size(BTree *btree) {
     if (btree == NULL)
         return 0;
 
-    return btree_size(btree->left) + btree_size(btree->right);
+    return 1 + btree_size(btree->left) + btree_size(btree->right);
 }
 
 void btree_destroy(BTree *btree, void (*free_data)(void *)) {
@@ -180,7 +180,7 @@ unsigned int btree_height(BTree *btree) {
     unsigned int left = btree_height(btree->left);
     unsigned int right = btree_height(btree->right);
 
-    return 1 + (left > right) ? left : right;
+    return 1 + ((left > right) ? left : right);
 }
 
 /**
