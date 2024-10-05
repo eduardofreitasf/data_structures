@@ -26,7 +26,7 @@ LList *llist_create(void *data);
  * @return true If insertion was sucessfull
  * @return false If insertion was not possible
  */
-bool llist_insert(LList *list, void *data, int (*compare)(void *, void *));
+void llist_insert(LList **list, void *data, int (*compare)(void *, void *));
 
 /**
  * @brief Inserts an element at the end of a List
@@ -104,7 +104,7 @@ void llist_destroy(LList *list, void (*free_data)(void *));
  * @param list Linked List
  * @param show_data Function to show each object
  */
-void show_llist(LList *list, void (*show_data)(void *));
+void llist_show(LList *list, void (*show_data)(void *));
 
 /**
  * @brief Determines the minimum value in a Linked List
@@ -127,5 +127,7 @@ void *llist_min(LList *list, void *(*duplicate)(void *),
  */
 void *llist_max(LList *list, void *(*duplicate)(void *),
                 int (*compare)(void *, void *));
+
+bool llist_is_ordered(LList *list, int (*compare)(void *, void *));
 
 #endif

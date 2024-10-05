@@ -13,6 +13,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * This module supports ordered List, functions that opperate under that
+ * condition: llist_insert() llist_delete() (works on both) The remaining
+ * function don't support such condition. Reminder NOT to mix both modes.
+ */
+
 typedef struct l_list {
     void *data;
     struct l_list *next;
@@ -26,18 +32,15 @@ LList *llist_create(void *data) {
     return new;
 }
 
-bool llist_insert(LList *list, void *data, int (*compare)(void *, void *)) {
-    LList **temp = &list;
-    while (*temp && compare((*temp)->data, data) < 0)
-        temp = &((*temp)->next);
+void llist_insert(LList **list, void *data, int (*compare)(void *, void *)) {
+    while (*list && compare((*list)->data, data) < 0)
+        list = &((*list)->next);
 
     // create new node
     LList *new = llist_create(data);
     // conect it to the list
-    new->next = *temp;
-    *temp = new;
-
-    return true;
+    new->next = *list;
+    *list = new;
 }
 
 void llist_append(LList *list, void *data) {
@@ -136,12 +139,14 @@ void llist_destroy(LList *list, void (*free_data)(void *)) {
     }
 }
 
-void show_llist(LList *list, void (*show_data)(void *)) {
+void llist_show(LList *list, void (*show_data)(void *)) {
     while (list) {
         show_data(list->data);
-        printf(" -> ");
+        printf("-> ");
         // printf("\n");
+        list = list->next;
     }
+    printf("X\n");
 }
 
 void *llist_min(LList *list, void *(*duplicate)(void *),

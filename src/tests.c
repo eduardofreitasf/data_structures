@@ -1,5 +1,15 @@
-
-#include "test_trees.h"
+/**
+ * @file test_trees.c
+ * @author Eduardo Fernandes (ef05238@gmail.com)
+ * @brief Module for testing Binary Search Trees
+ * @version 0.1
+ * @date 2024-10-05
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
+#include "tests.h"
+#include "lists.h"
 #include "trees.h"
 #include <assert.h>
 #include <stdio.h>
@@ -49,8 +59,7 @@ void test_trees(void) {
 
     // Creating a tree
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
-    int *aux = create_int(value);
-    tree = btree_create(aux);
+    tree = btree_create(create_int(value));
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
 
     show_tree(tree);
@@ -97,4 +106,28 @@ void test_trees(void) {
     show_tree(tree);
 
     btree_destroy(tree, &free_int);
+}
+
+void test_lists(void) {
+    srand(time(NULL));
+
+    int value = rand() % 100;
+    LList *list = NULL;
+
+    printf("List is empty: %s\n", llist_is_empty(list) ? "true" : "false");
+    list = llist_create(create_int(value));
+    printf("List is empty: %s\n", llist_is_empty(list) ? "true" : "false");
+
+    llist_show(list, &show_int);
+
+    int limit = rand() % 30;
+    for (int i = 0; i < limit; i++) {
+        value = rand() % 100;
+        int *temp = create_int(value);
+        llist_insert(&list, temp, &compare_int);
+
+        printf("Inserted: %d\n", value);
+    }
+
+    llist_show(list, &show_int);
 }
