@@ -102,7 +102,7 @@ void btree_destroy(BTree *btree, void (*free_data)(void *));
  * @param btree Binary Search Tree
  * @return BTree* Cloned Tree
  */
-BTree *btree_clone(BTree *btree);
+BTree *btree_clone(BTree *btree, void *(*duplicate)(void *));
 
 /**
  * @brief Tests if a Tree is a Binary Search Tree
@@ -111,6 +111,30 @@ BTree *btree_clone(BTree *btree);
  * @return true Is Ordered
  * @return false Not Ordered
  */
-bool btree_is_ordered(BTree *btree, int (*compare)(void *)(void *));
+bool btree_is_ordered(BTree *btree, int (*compare)(void *, void *));
+
+/**
+ * @brief Shows a Binary Tree following a In Order traversal
+ *
+ * @param btree Binary Tree
+ * @param show Function to show data
+ */
+void btree_inorder(BTree *btree, void (*show)(void *));
+
+/**
+ * @brief Shows a Binary Tree following a Pre Order traversal
+ *
+ * @param btree Binary Tree
+ * @param show Function to show data
+ */
+void btree_preorder(BTree *btree, void (*show)(void *));
+
+/**
+ * @brief Shows a Binary Tree following a Pos Order traversal
+ *
+ * @param btree Binary Tree
+ * @param show Function to show data
+ */
+void btree_posorder(BTree *btree, void (*show)(void *));
 
 #endif
