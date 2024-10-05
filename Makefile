@@ -31,7 +31,7 @@ setup:
 
 # tools for debugging
 .PHONY: debug
-debug: CFLAGS = -Wall -Wextra -pedantic -O0 -g
+debug: CFLAGS = -Wall -Wextra -pedantic -O0 -g -I $(INC_DIR)
 debug: all
 	@gdb $(PROGRAM)
 

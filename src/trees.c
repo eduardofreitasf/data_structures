@@ -43,11 +43,12 @@ bool btree_insert(BTree *btree, void *data, int (*compare)(void *, void *)) {
 
     // go through the tree to find the place to insert (or the element)
     BTree **temp = &btree;
-    while (*temp && compare(btree->data, data) != 0)
+    while (*temp && compare((*temp)->data, data) != 0) {
         temp =
-            compare(btree->data, data) ? &((*temp)->right) : &((*temp)->left);
+            compare((*temp)->data, data) > 0 ? &((*temp)->left) : &((*temp)->right);
+    }
 
-    if (compare(btree->data, data) == 0)
+    if (*temp)
         return false; // already exists in the tree
 
     // generate a new node
@@ -199,7 +200,7 @@ bool btree_bigger(BTree *btree, void *id, int (*compare)(void *, void *)) {
 }
 
 /**
- * @brief Tests if a the values in a Binary Search Tree are smaller than id
+ * @brief Tests if the values in a Binary Search Tree are smaller than id
  *
  * @param btree Binary Search Tree
  * @param id Object

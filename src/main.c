@@ -10,13 +10,13 @@
  */
 
 #include "trees.h"
-#include <assert.h>
+#include "test_trees.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(int argc, char **argv) {
 
-    printf("Hello World!!\n");
+    test_trees();
+
 
     return 0;
 }
