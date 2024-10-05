@@ -9,14 +9,13 @@
  *
  */
 
-#include "trees.h"
 #include "test_trees.h"
+#include "trees.h"
 #include <stdio.h>
 
 int main(int argc, char **argv) {
 
     test_trees();
-
 
     return 0;
 }

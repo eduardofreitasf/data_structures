@@ -49,7 +49,7 @@ void test_trees(void) {
 
     // Creating a tree
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
-    int * aux = create_int(value);
+    int *aux = create_int(value);
     tree = btree_create(aux);
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
 
@@ -59,7 +59,7 @@ void test_trees(void) {
     int limit = rand() % 30;
     for (int i = 0; i < limit; i++) {
         value = rand() % 100;
-        int * temp = create_int(value);
+        int *temp = create_int(value);
         bool result = btree_insert(tree, temp, &compare_int);
 
         if (result) {
@@ -72,8 +72,12 @@ void test_trees(void) {
 
     show_tree(tree);
 
-    // printf("Tree is Ordered: %s\n", btree_is_ordered(tree, &compare_int) ?
-    // "true" : "false");
+    printf("Tree size: %u\n", btree_size(tree));
+
+    printf("Tree is Ordered: %s\n",
+           btree_is_ordered(tree, &compare_int) ? "true" : "false");
+
+    printf("Tree height: %u\n", btree_height(tree));
 
     // for (int i = 0; i < limit; i++) {
     //     value = rand() % 100;
@@ -83,9 +87,9 @@ void test_trees(void) {
 
     //     if (result) {
     //         free(result);
-    
+
     //         printf("Deletion sucessfull: %d\n", value);
-    
+
     //         show_tree(tree);
     //     }
     // }

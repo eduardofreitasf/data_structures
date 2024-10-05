@@ -44,8 +44,8 @@ bool btree_insert(BTree *btree, void *data, int (*compare)(void *, void *)) {
     // go through the tree to find the place to insert (or the element)
     BTree **temp = &btree;
     while (*temp && compare((*temp)->data, data) != 0) {
-        temp =
-            compare((*temp)->data, data) > 0 ? &((*temp)->left) : &((*temp)->right);
+        temp = compare((*temp)->data, data) > 0 ? &((*temp)->left)
+                                                : &((*temp)->right);
     }
 
     if (*temp)
@@ -120,8 +120,8 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *)) {
     // goes through the tree to find the node
     BTree **temp = btree;
     while (*temp && compare((*temp)->data, id) != 0)
-        temp =
-            compare((*temp)->data, id) > 0 ? &((*temp)->left) : &((*temp)->right);
+        temp = compare((*temp)->data, id) > 0 ? &((*temp)->left)
+                                              : &((*temp)->right);
 
     // return the data
     if (*temp)
