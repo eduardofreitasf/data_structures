@@ -35,35 +35,62 @@ int *create_int(int value) {
 // shows the value stored in an integer pointer
 void show_int(void *value) { printf("%d ", *(int *)value); }
 
+void show_tree(BTree *tree) {
+    printf("Tree: ");
+    btree_inorder(tree, &show_int);
+    printf("\n");
+}
+
 void test_trees(void) {
     srand(time(NULL));
 
     int value = rand() % 100;
     BTree *tree = NULL;
 
+    // Creating a tree
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
-    tree = btree_create(create_int(value));
+    int * aux = create_int(value);
+    tree = btree_create(aux);
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
 
-    printf("Tree: ");
-    btree_inorder(tree, &show_int);
-    printf("\n");
+    show_tree(tree);
 
+    // Testing Insertion
     int limit = rand() % 30;
     for (int i = 0; i < limit; i++) {
         value = rand() % 100;
-        bool result = btree_insert(tree, create_int(value), &compare_int);
+        int * temp = create_int(value);
+        bool result = btree_insert(tree, temp, &compare_int);
 
-        result ? printf("Insertion sucessfull: %d\n", value) : printf("Insertion not possible: %d\n", value);
+        if (result) {
+            printf("Insertion sucessfull: %d\n", value);
+        } else {
+            printf("--- Insertion not possible: %d\n", value);
+            free(temp);
+        }
     }
 
-    printf("Tree: ");
-    btree_inorder(tree, &show_int);
-    printf("\n");
+    show_tree(tree);
 
-    printf("Tree is Ordered: %s\n", btree_is_ordered(tree, &compare_int) ? "true" : "false");
+    // printf("Tree is Ordered: %s\n", btree_is_ordered(tree, &compare_int) ?
+    // "true" : "false");
 
+    // for (int i = 0; i < limit; i++) {
+    //     value = rand() % 100;
+    //     int * temp = create_int(value);
+    //     BTree *result = btree_delete(&tree, temp, &compare_int);
+    //     free(temp);
+
+    //     if (result) {
+    //         free(result);
+    
+    //         printf("Deletion sucessfull: %d\n", value);
+    
+    //         show_tree(tree);
+    //     }
+    // }
+
+    show_tree(tree);
 
     btree_destroy(tree, &free_int);
-
 }

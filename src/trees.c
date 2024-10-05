@@ -64,13 +64,13 @@ bool btree_insert(BTree *btree, void *data, int (*compare)(void *, void *)) {
  * @param btree Binary Search Tree
  * @return BTree* Smallest node
  */
-BTree *btree_remove_smallest(BTree *btree) {
+BTree *btree_remove_smallest(BTree **btree) {
     // tree is empty
-    if (btree == NULL)
+    if (*btree == NULL)
         return NULL;
 
     // go to the left side of the tree
-    BTree **temp = &btree;
+    BTree **temp = btree;
     while ((*temp)->left)
         temp = &((*temp)->left);
 
@@ -86,45 +86,46 @@ BTree *btree_remove_smallest(BTree *btree) {
  * @param btree Binary Search Tree
  * @return void* Data stored on the root (NULL if tree is empty)
  */
-void *btree_remove_root(BTree *btree) {
+void *btree_remove_root(BTree **btree) {
     // tree is empty
-    if (btree == NULL)
+    if (*btree == NULL)
         return NULL;
 
     BTree *temp = NULL;
     // there is nothing on the right
-    if (btree->right == NULL)
-        temp = btree->left;
+    if ((*btree)->right == NULL)
+        temp = (*btree)->left;
     else {
         // replace the root with the smallest node on the right side (ensures
         // Search property)
-        temp = btree_remove_smallest(btree->right);
-        temp->left = btree->left;
-        temp->right = btree->right;
+        temp = btree_remove_smallest(&((*btree)->right));
+        temp->left = (*btree)->left;
+        temp->right = (*btree)->right;
     }
 
     // store the data
-    void *aux = btree->data;
+    void *aux = (*btree)->data;
     // free the allocated space on the node
-    free(btree);
+    free(*btree);
+    *btree = temp;
 
     return aux;
 }
 
-void *btree_delete(BTree *btree, void *id, int (*compare)(void *, void *)) {
+void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *)) {
     // tree is empty
-    if (btree == NULL)
+    if (*btree == NULL)
         return NULL;
 
     // goes through the tree to find the node
-    BTree **temp = &btree;
+    BTree **temp = btree;
     while (*temp && compare((*temp)->data, id) != 0)
         temp =
-            compare((*temp)->data, id) ? &((*temp)->right) : &((*temp)->left);
+            compare((*temp)->data, id) > 0 ? &((*temp)->left) : &((*temp)->right);
 
     // return the data
-    if (compare((*temp)->data, id) == 0)
-        return btree_remove_root(*temp);
+    if (*temp)
+        return btree_remove_root(temp);
     else
         return NULL; // does not belong to the tree
 }
@@ -137,10 +138,10 @@ void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *)) {
     // go through the tree, to find the node
     BTree *temp = btree;
     while (temp && compare(temp->data, id) != 0)
-        temp = compare(temp->data, id) ? temp->right : temp->left;
+        temp = compare(temp->data, id) > 0 ? temp->left : temp->right;
 
     // return the data
-    if (compare(temp->data, id) == 0)
+    if (temp)
         return temp->data;
     else
         return NULL; // does not belong to the tree
@@ -187,6 +188,7 @@ unsigned int btree_height(BTree *btree) {
  *
  * @param btree Binary Search Tree
  * @param id Object
+ * @param compare Positive if first argument is greater, zero if equal
  * @return true Is bigger
  * @return false Not bigger
  */
@@ -204,6 +206,7 @@ bool btree_bigger(BTree *btree, void *id, int (*compare)(void *, void *)) {
  *
  * @param btree Binary Search Tree
  * @param id Object
+ * @param compare Positive if first argument is greater, zero if equal
  * @return true Is smaller
  * @return false Not smaller
  */

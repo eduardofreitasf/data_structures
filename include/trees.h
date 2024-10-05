@@ -33,7 +33,7 @@ bool btree_insert(BTree *btree, void *data, int (*compare)(void *, void *));
  * @return void* Element that was removed (NULL in case it doesn't exist in the
  * Tree)
  */
-void *btree_delete(BTree *btree, void *id, int (*compare)(void *, void *));
+void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *));
 
 /**
  * @brief Searchs for an element in a Binary Search Tree
@@ -100,6 +100,7 @@ void btree_destroy(BTree *btree, void (*free_data)(void *));
  * @brief Creates an identical Binary Search Tree
  *
  * @param btree Binary Search Tree
+ * @param duplicate Function to duplicate data
  * @return BTree* Cloned Tree
  */
 BTree *btree_clone(BTree *btree, void *(*duplicate)(void *));
@@ -108,6 +109,7 @@ BTree *btree_clone(BTree *btree, void *(*duplicate)(void *));
  * @brief Tests if a Tree is a Binary Search Tree
  *
  * @param btree Binary Search Tree
+ * @param compare Function to compare elements on the Tree
  * @return true Is Ordered
  * @return false Not Ordered
  */

@@ -7,7 +7,7 @@ SRC_DIR=src
 CC=gcc
 OPTS=-O2
 LDFLAGS=-lm
-CFLAGS=-Wall -Wextra $(OPTS) -pedantic-errors -I $(INC_DIR)
+CFLAGS=-Wall -Wextra -g -pedantic-errors -I $(INC_DIR)
 #------------------------------------------------------------------------------------------
 C_FILES=$(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES=$(patsubst $(SRC_DIR)/%.c, $(BLD_DIR)/%.o, $(C_FILES))
@@ -38,7 +38,7 @@ debug: all
 # generates the documentation
 .PHONY: docs
 docs:
-	@doxygen $(DOC_DIR)/Doxyfile
+	@doxygen -q $(DOC_DIR)/Doxyfile
 
 # determines the complexity of each function in your code
 .PHONY: complexity
