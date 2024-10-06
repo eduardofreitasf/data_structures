@@ -25,11 +25,11 @@ int compare_int(void *x, void *y) { return *(int *)x - *(int *)y; }
 void free_int(void *data) { free(data); }
 
 // allocates space for an int, and copys the value of data into new
-int *duplicate_int(int *data) {
+void *duplicate_int(void *data) {
     int *new = malloc(sizeof(int));
     assert(new);
 
-    *new = *data;
+    *new = *(int *)data;
     return new;
 }
 
@@ -91,7 +91,7 @@ void test_trees(void) {
     // for (int i = 0; i < limit; i++) {
     //     value = rand() % 100;
     //     int * temp = create_int(value);
-    //     BTree *result = btree_delete(&tree, temp, &compare_int);
+    //     int *result = btree_delete(&tree, temp, &compare_int);
     //     free(temp);
 
     //     if (result) {
@@ -111,6 +111,9 @@ void test_trees(void) {
 void test_lists(void) {
     srand(time(NULL));
 
+    // List with order
+
+    puts("\nList with order:");
     int value = rand() % 100;
     LList *list = NULL;
 
@@ -130,4 +133,76 @@ void test_lists(void) {
     }
 
     llist_show(list, &show_int);
+
+    for (int i = 0; i < limit; i++) {
+        value = rand() % 100;
+        int *temp = create_int(value);
+        int *result = llist_delete(&list, temp, &compare_int);
+
+        if (result) {
+            printf("Deleted: %d\n", value);
+            free(result);
+        }
+    }
+
+    llist_show(list, &show_int);
+
+    // List with no order
+    puts("\nList with NO order:");
+
+    value = rand() % 100;
+    // no order list
+    LList *no_list = llist_create(create_int(value));
+    llist_show(no_list, &show_int);
+
+    limit = rand() % 20;
+    for (int i = 0; i < limit; i++) {
+        value = rand() % 100;
+        int *temp = create_int(value);
+        llist_append(no_list, temp);
+
+        printf("Appended: %d\n", value);
+    }
+
+    llist_show(no_list, &show_int);
+
+    limit = rand() % 20;
+    for (int i = 0; i < limit; i++) {
+        value = rand() % 100;
+        int *temp = create_int(value);
+        llist_prepend(&no_list, temp);
+
+        printf("Prepended: %d\n", value);
+    }
+
+    llist_show(no_list, &show_int);
+
+    int tb_found = 0;
+    printf("Insert a value to search for: ");
+    scanf("%d", &tb_found);
+
+    int *aux = create_int(tb_found);
+    int *result = llist_search(no_list, aux, &compare_int, &duplicate_int);
+    if (result) {
+        printf("Found: %d\n", *result);
+        free(result);
+    } else {
+        printf("Not found.\n");
+    }
+    free(aux);
+
+    printf("Length of the list: %d\n", llist_length(no_list));
+
+    int *min = llist_min(no_list, &duplicate_int, &compare_int);
+    int *max = llist_max(no_list, &duplicate_int, &compare_int);
+
+    printf("Minimum: %d\n", *min);
+    printf("Maximum: %d\n", *max);
+
+    LList *copy = llist_clone(no_list, &duplicate_int);
+    printf("Copy: ");
+    llist_show(copy, &show_int);
+
+    llist_destroy(list, &free_int);
+    llist_destroy(no_list, &free_int);
 }

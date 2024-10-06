@@ -42,7 +42,7 @@ void llist_append(LList *list, void *data);
  * @param list Linked List
  * @param data Data to be stored
  */
-void llist_prepend(LList *list, void *data);
+void llist_prepend(LList **list, void *data);
 
 /**
  * @brief Deletes an element from a Linked List
@@ -52,7 +52,7 @@ void llist_prepend(LList *list, void *data);
  * @param compare Function to compare elements on a List
  * @return void* Null if it does not belong to List
  */
-void *llist_delete(LList *list, void *data, int (*compare)(void *, void *));
+void *llist_delete(LList **list, void *data, int (*compare)(void *, void *));
 
 /**
  * @brief Looks for an element on a Linked List
@@ -62,7 +62,8 @@ void *llist_delete(LList *list, void *data, int (*compare)(void *, void *));
  * @param compare Function to compare elements on a List
  * @return void* Null if it does not belong to List
  */
-void *llist_search(LList *list, void *data, int (*compare)(void *, void *));
+void *llist_search(LList *list, void *data, int (*compare)(void *, void *),
+                   void *(*duplicate)(void *));
 
 /**
  * @brief Calculates the length of a Linked List

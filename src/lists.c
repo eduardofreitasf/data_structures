@@ -54,38 +54,37 @@ void llist_append(LList *list, void *data) {
     *temp = new;
 }
 
-void llist_prepend(LList *list, void *data) {
+void llist_prepend(LList **list, void *data) {
     LList *new = llist_create(data);
 
-    new->next = list;
-    list = new;
+    new->next = *list;
+    *list = new;
 }
 
-void *llist_delete(LList *list, void *data, int (*compare)(void *, void *)) {
+void *llist_delete(LList **list, void *data, int (*compare)(void *, void *)) {
     // list is empty
     if (list == NULL)
         return NULL;
 
-    LList **temp = &list;
-
     // go to the wanted node
-    while (*temp && compare((*temp)->data, data) != 0)
-        temp = &((*temp)->next);
+    while (*list && compare((*list)->data, data) != 0)
+        list = &((*list)->next);
 
     // end of the list
-    if (*temp == NULL)
+    if (*list == NULL)
         return NULL;
 
-    LList *aux_next = (*temp)->next;
-    void *aux_data = (*temp)->data;
+    LList *aux_next = (*list)->next;
+    void *aux_data = (*list)->data;
     // free the node
-    free(*temp);
-    *temp = aux_next;
+    free(*list);
+    *list = aux_next;
 
     return aux_data;
 }
 
-void *llist_search(LList *list, void *data, int (*compare)(void *, void *)) {
+void *llist_search(LList *list, void *data, int (*compare)(void *, void *),
+                   void *(*duplicate)(void *)) {
     // list is empty
     if (list == NULL)
         return NULL;
@@ -100,7 +99,7 @@ void *llist_search(LList *list, void *data, int (*compare)(void *, void *)) {
     if (*temp == NULL)
         return NULL;
 
-    return (*temp)->data;
+    return duplicate((*temp)->data);
 }
 
 unsigned int llist_length(LList *list) {
