@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['b_5ftree_0',['b_tree',['../structb__tree.html',1,'']]],
+  ['btree_1',['btree',['../trees_8c.html#aaccc16629dab8b2b9704a36d533523ae',1,'BTree:&#160;trees.c'],['../trees_8h.html#aaccc16629dab8b2b9704a36d533523ae',1,'BTree:&#160;trees.h']]],
+  ['btree_5fbalance_2',['btree_balance',['../trees_8c.html#a0c23021d9247abe82e08e7183111ddfc',1,'btree_balance(BTree **btree):&#160;trees.c'],['../trees_8h.html#a0c23021d9247abe82e08e7183111ddfc',1,'btree_balance(BTree **btree):&#160;trees.c']]],
+  ['btree_5fbalance_5fspine_3',['btree_balance_spine',['../trees_8c.html#ae739f5ac400066a960b25b65f26a108d',1,'trees.c']]],
+  ['btree_5fbigger_4',['btree_bigger',['../trees_8c.html#a598c3649cb56d7787906e28655704d56',1,'trees.c']]],
+  ['btree_5fbuild_5fspine_5',['btree_build_spine',['../trees_8c.html#af29e3aa4009968e79d38b67e7d2f30f6',1,'trees.c']]],
+  ['btree_5fbuild_5fspine_5faux_6',['btree_build_spine_aux',['../trees_8c.html#a144a9dce4d63b8ceb00d546a2ce8689f',1,'trees.c']]],
+  ['btree_5fclone_7',['btree_clone',['../trees_8c.html#a60ed6d1373b8cd425fe4c4effd2eba3d',1,'btree_clone(BTree *btree, void *(*duplicate)(void *)):&#160;trees.c'],['../trees_8h.html#a60ed6d1373b8cd425fe4c4effd2eba3d',1,'btree_clone(BTree *btree, void *(*duplicate)(void *)):&#160;trees.c']]],
+  ['btree_5fcreate_8',['btree_create',['../trees_8c.html#ae2ab18a19532402242b4e805781d09d4',1,'btree_create(void *data):&#160;trees.c'],['../trees_8h.html#ae2ab18a19532402242b4e805781d09d4',1,'btree_create(void *data):&#160;trees.c']]],
+  ['btree_5fdelete_9',['btree_delete',['../trees_8c.html#ab72da2d42d89830f3a0721e6ac7ebb31',1,'btree_delete(BTree **btree, void *id, int(*compare)(void *, void *)):&#160;trees.c'],['../trees_8h.html#ab72da2d42d89830f3a0721e6ac7ebb31',1,'btree_delete(BTree **btree, void *id, int(*compare)(void *, void *)):&#160;trees.c']]],
+  ['btree_5fdestroy_10',['btree_destroy',['../trees_8c.html#a667cb5020796638b8d4d17bdf8421d9f',1,'btree_destroy(BTree *btree, void(*free_data)(void *)):&#160;trees.c'],['../trees_8h.html#a667cb5020796638b8d4d17bdf8421d9f',1,'btree_destroy(BTree *btree, void(*free_data)(void *)):&#160;trees.c']]],
+  ['btree_5fheight_11',['btree_height',['../trees_8c.html#a02d32f7ad03d66fb22bd4db25b1a2e48',1,'btree_height(BTree *btree):&#160;trees.c'],['../trees_8h.html#a02d32f7ad03d66fb22bd4db25b1a2e48',1,'btree_height(BTree *btree):&#160;trees.c']]],
+  ['btree_5finorder_12',['btree_inorder',['../trees_8h.html#aa231750825f6e9059187b5a44973bec0',1,'btree_inorder(BTree *btree, void(*show)(void *)):&#160;trees.c'],['../trees_8c.html#aa231750825f6e9059187b5a44973bec0',1,'btree_inorder(BTree *btree, void(*show)(void *)):&#160;trees.c']]],
+  ['btree_5finsert_13',['btree_insert',['../trees_8c.html#ac862973ee5ce9b1a3b1f0c734d645ec5',1,'btree_insert(BTree *btree, void *data, int(*compare)(void *, void *)):&#160;trees.c'],['../trees_8h.html#ac862973ee5ce9b1a3b1f0c734d645ec5',1,'btree_insert(BTree *btree, void *data, int(*compare)(void *, void *)):&#160;trees.c']]],
+  ['btree_5fis_5fbalanced_14',['btree_is_balanced',['../trees_8c.html#a71d32be38234d4acc8cc69a97ef13ab2',1,'btree_is_balanced(BTree *btree):&#160;trees.c'],['../trees_8h.html#a71d32be38234d4acc8cc69a97ef13ab2',1,'btree_is_balanced(BTree *btree):&#160;trees.c']]],
+  ['btree_5fis_5fempty_15',['btree_is_empty',['../trees_8c.html#a8256a6eb633aaea85015b0fa37a3f6e7',1,'btree_is_empty(BTree *btree):&#160;trees.c'],['../trees_8h.html#a8256a6eb633aaea85015b0fa37a3f6e7',1,'btree_is_empty(BTree *btree):&#160;trees.c']]],
+  ['btree_5fis_5fordered_16',['btree_is_ordered',['../trees_8c.html#a296804184a546b9d056629868614b3be',1,'btree_is_ordered(BTree *btree, int(*compare)(void *, void *)):&#160;trees.c'],['../trees_8h.html#a296804184a546b9d056629868614b3be',1,'btree_is_ordered(BTree *btree, int(*compare)(void *, void *)):&#160;trees.c']]],
+  ['btree_5fposorder_17',['btree_posorder',['../trees_8h.html#a881d39bbbeadd56a1c16a2332e139a1d',1,'btree_posorder(BTree *btree, void(*show)(void *)):&#160;trees.c'],['../trees_8c.html#a881d39bbbeadd56a1c16a2332e139a1d',1,'btree_posorder(BTree *btree, void(*show)(void *)):&#160;trees.c']]],
+  ['btree_5fpreorder_18',['btree_preorder',['../trees_8c.html#a3340ef9e5ecf6600e34cb80b00ddd01c',1,'btree_preorder(BTree *btree, void(*show)(void *)):&#160;trees.c'],['../trees_8h.html#a3340ef9e5ecf6600e34cb80b00ddd01c',1,'btree_preorder(BTree *btree, void(*show)(void *)):&#160;trees.c']]],
+  ['btree_5fremove_5froot_19',['btree_remove_root',['../trees_8c.html#afea4ec6daebf28bd02598f0891202213',1,'trees.c']]],
+  ['btree_5fremove_5fsmallest_20',['btree_remove_smallest',['../trees_8c.html#a6a32ece9ffe57b5157c7da2886549516',1,'trees.c']]],
+  ['btree_5fsearch_21',['btree_search',['../trees_8c.html#aa0bf4f9206d6af05656338e95091e808',1,'btree_search(BTree *btree, void *id, int(*compare)(void *, void *), void *(*duplicate)(void *)):&#160;trees.c'],['../trees_8h.html#aa0bf4f9206d6af05656338e95091e808',1,'btree_search(BTree *btree, void *id, int(*compare)(void *, void *), void *(*duplicate)(void *)):&#160;trees.c']]],
+  ['btree_5fsize_22',['btree_size',['../trees_8c.html#ada5522228b050edfe146a4d850722257',1,'btree_size(BTree *btree):&#160;trees.c'],['../trees_8h.html#ada5522228b050edfe146a4d850722257',1,'btree_size(BTree *btree):&#160;trees.c']]],
+  ['btree_5fsmaller_23',['btree_smaller',['../trees_8c.html#a50e366582429acdb090c239efef04ac7',1,'trees.c']]]
+];

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structb__tree" kind="struct" language="C++" prot="public">
+    <compoundname>b_tree</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structb__tree_1a7dc55a88854fb8458c78b6f77d463053" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* b_tree::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>b_tree::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/trees.c" line="23" column="10" bodyfile="src/trees.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structb__tree_1aa3ed67e0941ab79d500ce150d75ffd82" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structb__tree" kindref="compound">b_tree</ref> *</type>
+        <definition>struct b_tree* b_tree::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <qualifiedname>b_tree::left</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/trees.c" line="24" column="17" bodyfile="src/trees.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structb__tree_1ac5a1b691d9c6bd5203999c4e1240ef1e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structb__tree" kindref="compound">b_tree</ref> *</type>
+        <definition>struct b_tree* b_tree::right</definition>
+        <argsstring></argsstring>
+        <name>right</name>
+        <qualifiedname>b_tree::right</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/trees.c" line="25" column="17" bodyfile="src/trees.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Data Structure of a Binary Tree. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>b_tree</label>
+        <link refid="structb__tree"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>left</edgelabel>
+          <edgelabel>right</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/trees.c" line="22" column="1" bodyfile="src/trees.c" bodystart="22" bodyend="26"/>
+    <listofallmembers>
+      <member refid="structb__tree_1a7dc55a88854fb8458c78b6f77d463053" prot="public" virt="non-virtual"><scope>b_tree</scope><name>data</name></member>
+      <member refid="structb__tree_1aa3ed67e0941ab79d500ce150d75ffd82" prot="public" virt="non-virtual"><scope>b_tree</scope><name>left</name></member>
+      <member refid="structb__tree_1ac5a1b691d9c6bd5203999c4e1240ef1e" prot="public" virt="non-virtual"><scope>b_tree</scope><name>right</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

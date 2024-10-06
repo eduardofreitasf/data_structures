@@ -70,13 +70,12 @@ BTree *btree_remove_smallest(BTree **btree) {
         return NULL;
 
     // go to the left side of the tree
-    BTree **temp = btree;
-    while ((*temp)->left)
-        temp = &((*temp)->left);
+    while ((*btree)->left)
+        btree = &((*btree)->left);
 
     // remove the node
-    BTree *small = *temp;
-    temp = &((*temp)->right);
+    BTree *small = *btree;
+    *btree = (*btree)->right;
     return small;
 }
 
@@ -118,19 +117,19 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *)) {
         return NULL;
 
     // goes through the tree to find the node
-    BTree **temp = btree;
-    while (*temp && compare((*temp)->data, id) != 0)
-        temp = compare((*temp)->data, id) > 0 ? &((*temp)->left)
-                                              : &((*temp)->right);
+    // BTree **temp = btree;
+    while (*btree && compare((*btree)->data, id) != 0)
+        btree = compare((*btree)->data, id) > 0 ? &((*btree)->left)
+                                              : &((*btree)->right);
 
     // return the data
-    if (*temp)
-        return btree_remove_root(temp);
+    if (*btree)
+        return btree_remove_root(btree);
     else
         return NULL; // does not belong to the tree
 }
 
-void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *)) {
+void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *), void *(*duplicate)(void *)) {
     // tree is empty
     if (btree == NULL)
         return NULL;
@@ -142,7 +141,7 @@ void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *)) {
 
     // return the data
     if (temp)
-        return temp->data;
+        return duplicate(temp->data);
     else
         return NULL; // does not belong to the tree
 }
@@ -196,7 +195,7 @@ bool btree_bigger(BTree *btree, void *id, int (*compare)(void *, void *)) {
     if (btree == NULL)
         return true;
 
-    return compare(id, btree->data) > 0 &&
+    return compare(id, btree->data) < 0 &&
            btree_bigger(btree->left, id, compare) &&
            btree_bigger(btree->right, id, compare);
 }
@@ -214,7 +213,7 @@ bool btree_smaller(BTree *btree, void *id, int (*compare)(void *, void *)) {
     if (btree == NULL)
         return true;
 
-    return compare(id, btree->data) < 0 &&
+    return compare(id, btree->data) > 0 &&
            btree_smaller(btree->left, id, compare) &&
            btree_smaller(btree->right, id, compare);
 }
@@ -252,25 +251,35 @@ BTree *btree_clone(BTree *btree, void *(*duplicate)(void *)) {
  * @param last Binary Tree
  * @return int Number of nodes
  */
-int btree_build_spine_aux(BTree *btree, BTree *last) {
-    if (btree == NULL)
+int btree_build_spine_aux(BTree **btree, BTree **last) {
+    if (*btree == NULL)
         return 0;
 
-    int count = 1;
+    // Recursively build spine from the left subtree
+    int count_l = btree_build_spine_aux(&((*btree)->left), last);
 
-    if (btree->left != NULL)
-        count += btree_build_spine_aux(btree->left, btree);
+    // Attach the current node to the last processed node in the spine
+    if (*last != NULL) {
+        (*last)->right = *btree;
+    }
 
-    last->right = btree;
-    last = btree;
-    btree->left = NULL;
+    // Set the left pointer of the current node to NULL (since it's a spine)
+    (*btree)->left = NULL;
 
-    BTree *r_tree = btree->right;
-    count += btree_build_spine_aux(r_tree, last);
+    // Update 'last' to point to the current node
+    *last = *btree;
 
-    last->right = r_tree;
+    // Temporarily store the right child of the current node
+    BTree *right = (*btree)->right;
 
-    return count;
+    // Recursively build spine from the right subtree
+    int count_r = btree_build_spine_aux(&right, last);
+
+    // Reattach the processed right subtree to the current node
+    (*btree)->right = right;
+
+    // Return the total number of nodes processed (left + current + right)
+    return 1 + count_l + count_r;
 }
 
 /**
@@ -279,10 +288,10 @@ int btree_build_spine_aux(BTree *btree, BTree *last) {
  * @param btree Binary Search Tree
  * @return int Number of nodes on the Tree
  */
-int btree_build_spine(BTree *btree) {
-    BTree *auxiliar = NULL;
+int btree_build_spine(BTree **btree) {
+    BTree * auxiliar = NULL;
 
-    return btree_build_spine_aux(btree, auxiliar);
+    return btree_build_spine_aux(btree, &auxiliar);
 }
 
 /**
@@ -292,30 +301,38 @@ int btree_build_spine(BTree *btree) {
  * @param n_nodes Number of nodes on the tree
  * @return BTree* Balanced Binary Search Tree
  */
-BTree *btree_balance_spine(BTree *btree, int n_nodes) {
-    // tree is empty
-    if (n_nodes == 0 || btree == NULL)
+BTree *btree_balance_spine(BTree **btree, int n_nodes) {
+    if (n_nodes <= 0 || *btree == NULL)
         return NULL;
 
-    BTree *l_tree = btree_balance_spine(btree, n_nodes / 2);
+    // Calculate the size of the left subtree
+    int left_size = (n_nodes - 1) / 2;
 
-    BTree *root = btree;
-    root->left = l_tree;
+    // Recursively balance the left subtree
+    BTree *left = btree_balance_spine(btree, left_size);
 
-    btree = btree->right;
+    // The current node will be the new root
+    BTree *current = *btree;
 
-    root->right = btree_balance_spine(btree, n_nodes - (n_nodes / 2) - 1);
+    // Move the pointer to the next node in the spine
+    *btree = (*btree)->right;
 
-    return root;
+    // Attach the balanced left subtree to the current node
+    current->left = left;
+
+    // Recursively balance the right subtree with remaining nodes
+    current->right = btree_balance_spine(btree, n_nodes - left_size - 1);
+
+    return current;
 }
 
-void btree_balance(BTree *btree) {
-    if (btree != NULL) {
+void btree_balance(BTree **btree) {
+    if (*btree != NULL) {
         // turn tree into spine
         int nodes = btree_build_spine(btree);
 
         // balance the spine
-        btree = btree_balance_spine(btree, nodes);
+        *btree = btree_balance_spine(btree, nodes);
     }
 }
 
@@ -329,8 +346,7 @@ bool btree_is_balanced(BTree *btree) {
     unsigned int r_height = btree_height(btree->right);
 
     // difference is above 1, not balanced
-    if (!(l_height + 1 == r_height || l_height == r_height ||
-          l_height == r_height + 1))
+    if ((l_height > r_height && l_height - r_height > 1) || (r_height > l_height && r_height - l_height > 1))
         return false;
 
     // check the left and right side

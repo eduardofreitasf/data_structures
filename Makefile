@@ -5,9 +5,9 @@ INC_DIR=include
 SRC_DIR=src
 #------------------------------------------------------------------------------------------
 CC=gcc
-OPTS=-O2
+OPTS=
 LDFLAGS=-lm
-CFLAGS=-Wall -Wextra -g -pedantic-errors -I $(INC_DIR)
+CFLAGS=-Wall -g -Wextra $(OPTS) -pedantic-errors -I $(INC_DIR)
 #------------------------------------------------------------------------------------------
 C_FILES=$(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES=$(patsubst $(SRC_DIR)/%.c, $(BLD_DIR)/%.o, $(C_FILES))
@@ -33,12 +33,20 @@ setup:
 .PHONY: debug
 debug: CFLAGS = -Wall -Wextra -pedantic -O0 -g -I $(INC_DIR)
 debug: all
-	@gdb $(PROGRAM)
+	gdb $(PROGRAM)
+
+# @gdb $(PROGRAM)
+
+.PHONY: memory
+memory: CFLAGS = -Wall -Wextra -pedantic -O0 -g -I $(INC_DIR)
+memory: all
+	@valgrind ./$(PROGRAM)
 
 # generates the documentation
 .PHONY: docs
 docs:
 	@doxygen -q $(DOC_DIR)/Doxyfile
+	@firefox docs/html/index.html
 
 # determines the complexity of each function in your code
 .PHONY: complexity
@@ -50,11 +58,6 @@ complexity:
 .PHONY: check
 check:
 	@cppcheck -I $(INC_DIR) --enable=all --suppress=missingIncludeSystem .
-
-# generates hints to improve code
-.PHONY: lint
-lint:
-	@splint -retvalint -hints -I $(INC_DIR) $(SRC_DIR)/*
 
 # formates the code
 .PHONY: fmt

@@ -1,0 +1,330 @@
+\doxysection{include/lists.h File Reference}
+\hypertarget{lists_8h}{}\label{lists_8h}\index{include/lists.h@{include/lists.h}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for lists.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{lists_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{lists_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structl__list}{l\+\_\+list}} \mbox{\hyperlink{lists_8h_a5f42409cb96c4d2a930f173b314be2af}{LList}}
+\begin{DoxyCompactList}\small\item\em Linked List. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_a91c18a1355ccb6cd8802a08d37c06257}{llist\+\_\+create}} (void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Creates a node of a linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lists_8h_ad4335ad41e03b4eaef716a0e4ef24cf0}{llist\+\_\+insert}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}data, int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Inserts an element in a Linked List (with order) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lists_8h_afe18ab41c27990f995740607de52efec}{llist\+\_\+append}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Inserts an element at the end of a List. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lists_8h_acee07baedbed5c2429327c2ecd4d3c19}{llist\+\_\+prepend}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Inserts an element at the head of a List. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_aa2a5745998e9f9ce11b5525b38cbc87b}{llist\+\_\+delete}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}data, int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Deletes an element from a Linked List. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_aab50d10e364e816eccc343f56bf6cb23}{llist\+\_\+search}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}data, int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}), void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*}duplicate)(void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Looks for an element on a Linked List. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{lists_8h_a9fb9d1f74ffaadb328e943a30019bd26}{llist\+\_\+length}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list)
+\begin{DoxyCompactList}\small\item\em Calculates the length of a Linked List. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{lists_8h_a8d4ef1a033132c878c787c156b745fe5}{llist\+\_\+is\+\_\+empty}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list)
+\begin{DoxyCompactList}\small\item\em Tests if a List is empty. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_a0e0df66a631fd9768cfb1b29fc137e5f}{llist\+\_\+clone}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*}duplicate)(void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Creates an identical Linked List. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lists_8h_a050ed8f6c4417a1560924a32c87e0048}{llist\+\_\+destroy}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void(\texorpdfstring{$\ast$}{*}free\+\_\+data)(void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Frees the allocated space from a List. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{lists_8h_ad7e068d4c1d17cde53e3c8a26fde295a}{llist\+\_\+show}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void(\texorpdfstring{$\ast$}{*}show\+\_\+data)(void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Shows a Linked List. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_aea56643b863ab91f5cb52f043192d6b3}{llist\+\_\+min}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*}duplicate)(void \texorpdfstring{$\ast$}{*}), int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Determines the minimum value in a Linked List. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{lists_8h_a0d0bbf94b1ca024423c3eebdeddd5b45}{llist\+\_\+max}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*}duplicate)(void \texorpdfstring{$\ast$}{*}), int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\begin{DoxyCompactList}\small\item\em Determines the maximum value in a Linked List. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{lists_8h_a1827cd59cdd098d4fac8bbff9687b9cd}{llist\+\_\+is\+\_\+ordered}} (\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}list, int(\texorpdfstring{$\ast$}{*}compare)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{lists_8h_a5f42409cb96c4d2a930f173b314be2af}\label{lists_8h_a5f42409cb96c4d2a930f173b314be2af} 
+\index{lists.h@{lists.h}!LList@{LList}}
+\index{LList@{LList}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{LList}{LList}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structl__list}{l\+\_\+list}} \mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}}}
+
+
+
+Linked List. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{lists_8h_afe18ab41c27990f995740607de52efec}\label{lists_8h_afe18ab41c27990f995740607de52efec} 
+\index{lists.h@{lists.h}!llist\_append@{llist\_append}}
+\index{llist\_append@{llist\_append}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_append()}{llist\_append()}}
+{\footnotesize\ttfamily void llist\+\_\+append (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Inserts an element at the end of a List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em data} & Data to be stored \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lists_8h_a0e0df66a631fd9768cfb1b29fc137e5f}\label{lists_8h_a0e0df66a631fd9768cfb1b29fc137e5f} 
+\index{lists.h@{lists.h}!llist\_clone@{llist\_clone}}
+\index{llist\_clone@{llist\_clone}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_clone()}{llist\_clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*} llist\+\_\+clone (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{duplicate }\end{DoxyParamCaption})}
+
+
+
+Creates an identical Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em duplicate} & Function to duplicate data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LList\texorpdfstring{$\ast$}{*} Copied Linked List 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_a91c18a1355ccb6cd8802a08d37c06257}\label{lists_8h_a91c18a1355ccb6cd8802a08d37c06257} 
+\index{lists.h@{lists.h}!llist\_create@{llist\_create}}
+\index{llist\_create@{llist\_create}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_create()}{llist\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*} llist\+\_\+create (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Creates a node of a linked list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data to store \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+LList\texorpdfstring{$\ast$}{*} Linked List 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_aa2a5745998e9f9ce11b5525b38cbc87b}\label{lists_8h_aa2a5745998e9f9ce11b5525b38cbc87b} 
+\index{lists.h@{lists.h}!llist\_delete@{llist\_delete}}
+\index{llist\_delete@{llist\_delete}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_delete()}{llist\_delete()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} llist\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare }\end{DoxyParamCaption})}
+
+
+
+Deletes an element from a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em data} & Element to look for \\
+\hline
+{\em compare} & Function to compare elements on a List \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} Null if it does not belong to List 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_a050ed8f6c4417a1560924a32c87e0048}\label{lists_8h_a050ed8f6c4417a1560924a32c87e0048} 
+\index{lists.h@{lists.h}!llist\_destroy@{llist\_destroy}}
+\index{llist\_destroy@{llist\_destroy}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_destroy()}{llist\_destroy()}}
+{\footnotesize\ttfamily void llist\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{free\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Frees the allocated space from a List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em free\+\_\+data} & Function to free each object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lists_8h_ad4335ad41e03b4eaef716a0e4ef24cf0}\label{lists_8h_ad4335ad41e03b4eaef716a0e4ef24cf0} 
+\index{lists.h@{lists.h}!llist\_insert@{llist\_insert}}
+\index{llist\_insert@{llist\_insert}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_insert()}{llist\_insert()}}
+{\footnotesize\ttfamily void llist\+\_\+insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare }\end{DoxyParamCaption})}
+
+
+
+Inserts an element in a Linked List (with order) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em data} & Data to be stored \\
+\hline
+{\em compare} & Function to compare elements on the List \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lists_8h_a8d4ef1a033132c878c787c156b745fe5}\label{lists_8h_a8d4ef1a033132c878c787c156b745fe5} 
+\index{lists.h@{lists.h}!llist\_is\_empty@{llist\_is\_empty}}
+\index{llist\_is\_empty@{llist\_is\_empty}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_is\_empty()}{llist\_is\_empty()}}
+{\footnotesize\ttfamily bool llist\+\_\+is\+\_\+empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list }\end{DoxyParamCaption})}
+
+
+
+Tests if a List is empty. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true List is empty 
+
+false List isn\textquotesingle{}t empty 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_a1827cd59cdd098d4fac8bbff9687b9cd}\label{lists_8h_a1827cd59cdd098d4fac8bbff9687b9cd} 
+\index{lists.h@{lists.h}!llist\_is\_ordered@{llist\_is\_ordered}}
+\index{llist\_is\_ordered@{llist\_is\_ordered}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_is\_ordered()}{llist\_is\_ordered()}}
+{\footnotesize\ttfamily bool llist\+\_\+is\+\_\+ordered (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare }\end{DoxyParamCaption})}
+
+\Hypertarget{lists_8h_a9fb9d1f74ffaadb328e943a30019bd26}\label{lists_8h_a9fb9d1f74ffaadb328e943a30019bd26} 
+\index{lists.h@{lists.h}!llist\_length@{llist\_length}}
+\index{llist\_length@{llist\_length}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_length()}{llist\_length()}}
+{\footnotesize\ttfamily unsigned int llist\+\_\+length (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list }\end{DoxyParamCaption})}
+
+
+
+Calculates the length of a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned int Length 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_a0d0bbf94b1ca024423c3eebdeddd5b45}\label{lists_8h_a0d0bbf94b1ca024423c3eebdeddd5b45} 
+\index{lists.h@{lists.h}!llist\_max@{llist\_max}}
+\index{llist\_max@{llist\_max}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_max()}{llist\_max()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} llist\+\_\+max (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{duplicate,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare }\end{DoxyParamCaption})}
+
+
+
+Determines the maximum value in a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em duplicate} & Function to duplicate an object \\
+\hline
+{\em compare} & Function to compare objects \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} maximum object 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_aea56643b863ab91f5cb52f043192d6b3}\label{lists_8h_aea56643b863ab91f5cb52f043192d6b3} 
+\index{lists.h@{lists.h}!llist\_min@{llist\_min}}
+\index{llist\_min@{llist\_min}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_min()}{llist\_min()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} llist\+\_\+min (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{duplicate,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare }\end{DoxyParamCaption})}
+
+
+
+Determines the minimum value in a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em duplicate} & Function to duplicate an object \\
+\hline
+{\em compare} & Function to compare objects \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} Minimum object 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_acee07baedbed5c2429327c2ecd4d3c19}\label{lists_8h_acee07baedbed5c2429327c2ecd4d3c19} 
+\index{lists.h@{lists.h}!llist\_prepend@{llist\_prepend}}
+\index{llist\_prepend@{llist\_prepend}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_prepend()}{llist\_prepend()}}
+{\footnotesize\ttfamily void llist\+\_\+prepend (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data }\end{DoxyParamCaption})}
+
+
+
+Inserts an element at the head of a List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em data} & Data to be stored \\
+\hline
+\end{DoxyParams}
+\Hypertarget{lists_8h_aab50d10e364e816eccc343f56bf6cb23}\label{lists_8h_aab50d10e364e816eccc343f56bf6cb23} 
+\index{lists.h@{lists.h}!llist\_search@{llist\_search}}
+\index{llist\_search@{llist\_search}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_search()}{llist\_search()}}
+{\footnotesize\ttfamily void \texorpdfstring{$\ast$}{*} llist\+\_\+search (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void \texorpdfstring{$\ast$}{*}}]{data,  }\item[{int(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*})}]{compare,  }\item[{void \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{duplicate }\end{DoxyParamCaption})}
+
+
+
+Looks for an element on a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em data} & Element to loom for \\
+\hline
+{\em compare} & Function to compare elements on a List \\
+\hline
+{\em duplicate} & Function to duplicate data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void\texorpdfstring{$\ast$}{*} Null if it does not belong to List 
+\end{DoxyReturn}
+\Hypertarget{lists_8h_ad7e068d4c1d17cde53e3c8a26fde295a}\label{lists_8h_ad7e068d4c1d17cde53e3c8a26fde295a} 
+\index{lists.h@{lists.h}!llist\_show@{llist\_show}}
+\index{llist\_show@{llist\_show}!lists.h@{lists.h}}
+\doxysubsubsection{\texorpdfstring{llist\_show()}{llist\_show()}}
+{\footnotesize\ttfamily void llist\+\_\+show (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{lists_8c_a5f42409cb96c4d2a930f173b314be2af}{LList}} \texorpdfstring{$\ast$}{*}}]{list,  }\item[{void(\texorpdfstring{$\ast$}{*})(void \texorpdfstring{$\ast$}{*})}]{show\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Shows a Linked List. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Linked List \\
+\hline
+{\em show\+\_\+data} & Function to show each object \\
+\hline
+\end{DoxyParams}

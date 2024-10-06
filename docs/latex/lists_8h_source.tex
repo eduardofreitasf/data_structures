@@ -1,0 +1,45 @@
+\doxysection{lists.\+h}
+\hypertarget{lists_8h_source}{}\label{lists_8h_source}\index{include/lists.h@{include/lists.h}}
+\mbox{\hyperlink{lists_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LISTS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LISTS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structl__list}{l\_list}}\ \mbox{\hyperlink{structl__list}{LList}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ \mbox{\hyperlink{structl__list}{LList}}\ *\mbox{\hyperlink{lists_8h_a91c18a1355ccb6cd8802a08d37c06257}{llist\_create}}(\textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}});}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lists_8h_ad4335ad41e03b4eaef716a0e4ef24cf0}{llist\_insert}}(\mbox{\hyperlink{structl__list}{LList}}\ **list,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lists_8h_afe18ab41c27990f995740607de52efec}{llist\_append}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lists_8h_acee07baedbed5c2429327c2ecd4d3c19}{llist\_prepend}}(\mbox{\hyperlink{structl__list}{LList}}\ **list,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{lists_8h_aa2a5745998e9f9ce11b5525b38cbc87b}{llist\_delete}}(\mbox{\hyperlink{structl__list}{LList}}\ **list,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{lists_8h_aab50d10e364e816eccc343f56bf6cb23}{llist\_search}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structl__list_a1c23b35ef46117e7e0e1e55ee5d189f3}{data}},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{lists_8h_a9fb9d1f74ffaadb328e943a30019bd26}{llist\_length}}(\mbox{\hyperlink{structl__list}{LList}}\ *list);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{lists_8h_a8d4ef1a033132c878c787c156b745fe5}{llist\_is\_empty}}(\mbox{\hyperlink{structl__list}{LList}}\ *list);}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00091\ \mbox{\hyperlink{structl__list}{LList}}\ *\mbox{\hyperlink{lists_8h_a0e0df66a631fd9768cfb1b29fc137e5f}{llist\_clone}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lists_8h_a050ed8f6c4417a1560924a32c87e0048}{llist\_destroy}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ (*free\_data)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{lists_8h_ad7e068d4c1d17cde53e3c8a26fde295a}{llist\_show}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ (*show\_data)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{lists_8h_aea56643b863ab91f5cb52f043192d6b3}{llist\_min}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *),}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{lists_8h_a0d0bbf94b1ca024423c3eebdeddd5b45}{llist\_max}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *),}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{lists_8h_a1827cd59cdd098d4fac8bbff9687b9cd}{llist\_is\_ordered}}(\mbox{\hyperlink{structl__list}{LList}}\ *list,\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,697 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="lists_8h" kind="file" language="C++">
+    <compoundname>lists.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="lists_8c" local="yes">src/lists.c</includedby>
+    <includedby refid="tests_8c" local="yes">src/tests.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/lists.h</label>
+        <link refid="lists_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdbool.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/lists.h</label>
+        <link refid="lists_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/lists.c</label>
+        <link refid="lists_8c"/>
+      </node>
+      <node id="3">
+        <label>src/tests.c</label>
+        <link refid="tests_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="lists_8h_1a5f42409cb96c4d2a930f173b314be2af" prot="public" static="no">
+        <type>struct <ref refid="structl__list" kindref="compound">l_list</ref></type>
+        <definition>typedef struct l_list LList</definition>
+        <argsstring></argsstring>
+        <name>LList</name>
+        <briefdescription>
+<para>Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="10" column="21" bodyfile="include/lists.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="lists_8h_1a91c18a1355ccb6cd8802a08d37c06257" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+        <definition>LList * llist_create</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>llist_create</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Creates a node of a linked list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to store </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>LList* Linked List </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="18" column="7" bodyfile="src/lists.c" bodystart="29" bodyend="35" declfile="include/lists.h" declline="18" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1ad4335ad41e03b4eaef716a0e4ef24cf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void llist_insert</definition>
+        <argsstring>(LList **list, void *data, int(*compare)(void *, void *))</argsstring>
+        <name>llist_insert</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> **</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <briefdescription>
+<para>Inserts an element in a Linked List (with order) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be stored </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compare</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to compare elements on the List </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="27" column="6" bodyfile="src/lists.c" bodystart="37" bodyend="46" declfile="include/lists.h" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1afe18ab41c27990f995740607de52efec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void llist_append</definition>
+        <argsstring>(LList *list, void *data)</argsstring>
+        <name>llist_append</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Inserts an element at the end of a List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be stored </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="35" column="6" bodyfile="src/lists.c" bodystart="48" bodyend="57" declfile="include/lists.h" declline="35" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1acee07baedbed5c2429327c2ecd4d3c19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void llist_prepend</definition>
+        <argsstring>(LList **list, void *data)</argsstring>
+        <name>llist_prepend</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> **</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Inserts an element at the head of a List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be stored </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="43" column="6" bodyfile="src/lists.c" bodystart="59" bodyend="64" declfile="include/lists.h" declline="43" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1aa2a5745998e9f9ce11b5525b38cbc87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * llist_delete</definition>
+        <argsstring>(LList **list, void *data, int(*compare)(void *, void *))</argsstring>
+        <name>llist_delete</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> **</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <briefdescription>
+<para>Deletes an element from a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Element to look for </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compare</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to compare elements on a List </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* Null if it does not belong to List </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="53" column="6" bodyfile="src/lists.c" bodystart="66" bodyend="86" declfile="include/lists.h" declline="53" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1aab50d10e364e816eccc343f56bf6cb23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * llist_search</definition>
+        <argsstring>(LList *list, void *data, int(*compare)(void *, void *), void *(*duplicate)(void *))</argsstring>
+        <name>llist_search</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <param>
+          <type>void *(*)(void *)</type>
+          <declname>duplicate</declname>
+        </param>
+        <briefdescription>
+<para>Looks for an element on a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Element to loom for </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compare</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to compare elements on a List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>duplicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to duplicate data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* Null if it does not belong to List </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="64" column="6" bodyfile="src/lists.c" bodystart="88" bodyend="105" declfile="include/lists.h" declline="64" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a9fb9d1f74ffaadb328e943a30019bd26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int llist_length</definition>
+        <argsstring>(LList *list)</argsstring>
+        <name>llist_length</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the length of a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>unsigned int Length </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="73" column="14" bodyfile="src/lists.c" bodystart="107" bodyend="115" declfile="include/lists.h" declline="73" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a8d4ef1a033132c878c787c156b745fe5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool llist_is_empty</definition>
+        <argsstring>(LList *list)</argsstring>
+        <name>llist_is_empty</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <briefdescription>
+<para>Tests if a List is empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true List is empty </para>
+</simplesect>
+<simplesect kind="return"><para>false List isn&apos;t empty </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="82" column="6" bodyfile="src/lists.c" bodystart="117" bodyend="117" declfile="include/lists.h" declline="82" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a0e0df66a631fd9768cfb1b29fc137e5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+        <definition>LList * llist_clone</definition>
+        <argsstring>(LList *list, void *(*duplicate)(void *))</argsstring>
+        <name>llist_clone</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *(*)(void *)</type>
+          <declname>duplicate</declname>
+        </param>
+        <briefdescription>
+<para>Creates an identical Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>duplicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to duplicate data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>LList* Copied Linked List </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="91" column="7" bodyfile="src/lists.c" bodystart="119" bodyend="130" declfile="include/lists.h" declline="91" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a050ed8f6c4417a1560924a32c87e0048" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void llist_destroy</definition>
+        <argsstring>(LList *list, void(*free_data)(void *))</argsstring>
+        <name>llist_destroy</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void(*)(void *)</type>
+          <declname>free_data</declname>
+        </param>
+        <briefdescription>
+<para>Frees the allocated space from a List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>free_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to free each object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="99" column="6" bodyfile="src/lists.c" bodystart="132" bodyend="141" declfile="include/lists.h" declline="99" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1ad7e068d4c1d17cde53e3c8a26fde295a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void llist_show</definition>
+        <argsstring>(LList *list, void(*show_data)(void *))</argsstring>
+        <name>llist_show</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void(*)(void *)</type>
+          <declname>show_data</declname>
+        </param>
+        <briefdescription>
+<para>Shows a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>show_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to show each object </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="107" column="6" bodyfile="src/lists.c" bodystart="143" bodyend="151" declfile="include/lists.h" declline="107" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1aea56643b863ab91f5cb52f043192d6b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * llist_min</definition>
+        <argsstring>(LList *list, void *(*duplicate)(void *), int(*compare)(void *, void *))</argsstring>
+        <name>llist_min</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *(*)(void *)</type>
+          <declname>duplicate</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <briefdescription>
+<para>Determines the minimum value in a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>duplicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to duplicate an object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compare</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to compare objects </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* Minimum object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="117" column="6" bodyfile="src/lists.c" bodystart="153" bodyend="175" declfile="include/lists.h" declline="117" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a0d0bbf94b1ca024423c3eebdeddd5b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * llist_max</definition>
+        <argsstring>(LList *list, void *(*duplicate)(void *), int(*compare)(void *, void *))</argsstring>
+        <name>llist_max</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>void *(*)(void *)</type>
+          <declname>duplicate</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <briefdescription>
+<para>Determines the maximum value in a Linked List. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linked List </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>duplicate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to duplicate an object </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>compare</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to compare objects </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* maximum object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="128" column="6" bodyfile="src/lists.c" bodystart="177" bodyend="199" declfile="include/lists.h" declline="128" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="lists_8h_1a1827cd59cdd098d4fac8bbff9687b9cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool llist_is_ordered</definition>
+        <argsstring>(LList *list, int(*compare)(void *, void *))</argsstring>
+        <name>llist_is_ordered</name>
+        <param>
+          <type><ref refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kindref="member">LList</ref> *</type>
+          <declname>list</declname>
+        </param>
+        <param>
+          <type>int(*)(void *, void *)</type>
+          <declname>compare</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/lists.h" line="131" column="6" declfile="include/lists.h" declline="131" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>LISTS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LISTS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="lists_8h_1a5f42409cb96c4d2a930f173b314be2af" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structl__list" kindref="compound">l_list</ref><sp/><ref refid="structl__list" kindref="compound">LList</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="structl__list" kindref="compound">LList</ref><sp/>*<ref refid="lists_8h_1a91c18a1355ccb6cd8802a08d37c06257" kindref="member">llist_create</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1ad4335ad41e03b4eaef716a0e4ef24cf0" kindref="member">llist_insert</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>**list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1afe18ab41c27990f995740607de52efec" kindref="member">llist_append</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1acee07baedbed5c2429327c2ecd4d3c19" kindref="member">llist_prepend</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>**list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="lists_8h_1aa2a5745998e9f9ce11b5525b38cbc87b" kindref="member">llist_delete</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>**list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="lists_8h_1aab50d10e364e816eccc343f56bf6cb23" kindref="member">llist_search</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kindref="member">data</ref>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*),</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*(*duplicate)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1a9fb9d1f74ffaadb328e943a30019bd26" kindref="member">llist_length</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1a8d4ef1a033132c878c787c156b745fe5" kindref="member">llist_is_empty</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><ref refid="structl__list" kindref="compound">LList</ref><sp/>*<ref refid="lists_8h_1a0e0df66a631fd9768cfb1b29fc137e5f" kindref="member">llist_clone</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*(*duplicate)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1a050ed8f6c4417a1560924a32c87e0048" kindref="member">llist_destroy</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*free_data)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1ad7e068d4c1d17cde53e3c8a26fde295a" kindref="member">llist_show</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*show_data)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="lists_8h_1aea56643b863ab91f5cb52f043192d6b3" kindref="member">llist_min</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*(*duplicate)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*),</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="lists_8h_1a0d0bbf94b1ca024423c3eebdeddd5b45" kindref="member">llist_max</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*(*duplicate)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*),</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="lists_8h_1a1827cd59cdd098d4fac8bbff9687b9cd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="lists_8h_1a1827cd59cdd098d4fac8bbff9687b9cd" kindref="member">llist_is_ordered</ref>(<ref refid="structl__list" kindref="compound">LList</ref><sp/>*list,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>(*compare)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*));</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="include/lists.h"/>
+  </compounddef>
+</doxygen>

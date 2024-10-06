@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="structb__tree" kind="struct"><name>b_tree</name>
+    <member refid="structb__tree_1a7dc55a88854fb8458c78b6f77d463053" kind="variable"><name>data</name></member>
+    <member refid="structb__tree_1aa3ed67e0941ab79d500ce150d75ffd82" kind="variable"><name>left</name></member>
+    <member refid="structb__tree_1ac5a1b691d9c6bd5203999c4e1240ef1e" kind="variable"><name>right</name></member>
+  </compound>
+  <compound refid="structl__list" kind="struct"><name>l_list</name>
+    <member refid="structl__list_1a1c23b35ef46117e7e0e1e55ee5d189f3" kind="variable"><name>data</name></member>
+    <member refid="structl__list_1a72c40ce7ef42d3cee3e69cc241504a62" kind="variable"><name>next</name></member>
+  </compound>
+  <compound refid="lists_8h" kind="file"><name>lists.h</name>
+    <member refid="lists_8h_1a5f42409cb96c4d2a930f173b314be2af" kind="typedef"><name>LList</name></member>
+    <member refid="lists_8h_1a91c18a1355ccb6cd8802a08d37c06257" kind="function"><name>llist_create</name></member>
+    <member refid="lists_8h_1ad4335ad41e03b4eaef716a0e4ef24cf0" kind="function"><name>llist_insert</name></member>
+    <member refid="lists_8h_1afe18ab41c27990f995740607de52efec" kind="function"><name>llist_append</name></member>
+    <member refid="lists_8h_1acee07baedbed5c2429327c2ecd4d3c19" kind="function"><name>llist_prepend</name></member>
+    <member refid="lists_8h_1aa2a5745998e9f9ce11b5525b38cbc87b" kind="function"><name>llist_delete</name></member>
+    <member refid="lists_8h_1aab50d10e364e816eccc343f56bf6cb23" kind="function"><name>llist_search</name></member>
+    <member refid="lists_8h_1a9fb9d1f74ffaadb328e943a30019bd26" kind="function"><name>llist_length</name></member>
+    <member refid="lists_8h_1a8d4ef1a033132c878c787c156b745fe5" kind="function"><name>llist_is_empty</name></member>
+    <member refid="lists_8h_1a0e0df66a631fd9768cfb1b29fc137e5f" kind="function"><name>llist_clone</name></member>
+    <member refid="lists_8h_1a050ed8f6c4417a1560924a32c87e0048" kind="function"><name>llist_destroy</name></member>
+    <member refid="lists_8h_1ad7e068d4c1d17cde53e3c8a26fde295a" kind="function"><name>llist_show</name></member>
+    <member refid="lists_8h_1aea56643b863ab91f5cb52f043192d6b3" kind="function"><name>llist_min</name></member>
+    <member refid="lists_8h_1a0d0bbf94b1ca024423c3eebdeddd5b45" kind="function"><name>llist_max</name></member>
+    <member refid="lists_8h_1a1827cd59cdd098d4fac8bbff9687b9cd" kind="function"><name>llist_is_ordered</name></member>
+  </compound>
+  <compound refid="tests_8h" kind="file"><name>tests.h</name>
+    <member refid="tests_8h_1a9efeb0c057b35953c3158dea6bd6e403" kind="function"><name>test_trees</name></member>
+    <member refid="tests_8h_1a2289c78787e96c69276d9273a900478c" kind="function"><name>test_lists</name></member>
+  </compound>
+  <compound refid="trees_8h" kind="file"><name>trees.h</name>
+    <member refid="trees_8h_1aaccc16629dab8b2b9704a36d533523ae" kind="typedef"><name>BTree</name></member>
+    <member refid="trees_8h_1ae2ab18a19532402242b4e805781d09d4" kind="function"><name>btree_create</name></member>
+    <member refid="trees_8h_1ac862973ee5ce9b1a3b1f0c734d645ec5" kind="function"><name>btree_insert</name></member>
+    <member refid="trees_8h_1ab72da2d42d89830f3a0721e6ac7ebb31" kind="function"><name>btree_delete</name></member>
+    <member refid="trees_8h_1aa0bf4f9206d6af05656338e95091e808" kind="function"><name>btree_search</name></member>
+    <member refid="trees_8h_1a71d32be38234d4acc8cc69a97ef13ab2" kind="function"><name>btree_is_balanced</name></member>
+    <member refid="trees_8h_1a0c23021d9247abe82e08e7183111ddfc" kind="function"><name>btree_balance</name></member>
+    <member refid="trees_8h_1ada5522228b050edfe146a4d850722257" kind="function"><name>btree_size</name></member>
+    <member refid="trees_8h_1a02d32f7ad03d66fb22bd4db25b1a2e48" kind="function"><name>btree_height</name></member>
+    <member refid="trees_8h_1a8256a6eb633aaea85015b0fa37a3f6e7" kind="function"><name>btree_is_empty</name></member>
+    <member refid="trees_8h_1a667cb5020796638b8d4d17bdf8421d9f" kind="function"><name>btree_destroy</name></member>
+    <member refid="trees_8h_1a60ed6d1373b8cd425fe4c4effd2eba3d" kind="function"><name>btree_clone</name></member>
+    <member refid="trees_8h_1a296804184a546b9d056629868614b3be" kind="function"><name>btree_is_ordered</name></member>
+    <member refid="trees_8h_1aa231750825f6e9059187b5a44973bec0" kind="function"><name>btree_inorder</name></member>
+    <member refid="trees_8h_1a3340ef9e5ecf6600e34cb80b00ddd01c" kind="function"><name>btree_preorder</name></member>
+    <member refid="trees_8h_1a881d39bbbeadd56a1c16a2332e139a1d" kind="function"><name>btree_posorder</name></member>
+  </compound>
+  <compound refid="lists_8c" kind="file"><name>lists.c</name>
+    <member refid="lists_8c_1a5f42409cb96c4d2a930f173b314be2af" kind="typedef"><name>LList</name></member>
+    <member refid="lists_8c_1a91c18a1355ccb6cd8802a08d37c06257" kind="function"><name>llist_create</name></member>
+    <member refid="lists_8c_1ad4335ad41e03b4eaef716a0e4ef24cf0" kind="function"><name>llist_insert</name></member>
+    <member refid="lists_8c_1afe18ab41c27990f995740607de52efec" kind="function"><name>llist_append</name></member>
+    <member refid="lists_8c_1acee07baedbed5c2429327c2ecd4d3c19" kind="function"><name>llist_prepend</name></member>
+    <member refid="lists_8c_1aa2a5745998e9f9ce11b5525b38cbc87b" kind="function"><name>llist_delete</name></member>
+    <member refid="lists_8c_1aab50d10e364e816eccc343f56bf6cb23" kind="function"><name>llist_search</name></member>
+    <member refid="lists_8c_1a9fb9d1f74ffaadb328e943a30019bd26" kind="function"><name>llist_length</name></member>
+    <member refid="lists_8c_1a8d4ef1a033132c878c787c156b745fe5" kind="function"><name>llist_is_empty</name></member>
+    <member refid="lists_8c_1a0e0df66a631fd9768cfb1b29fc137e5f" kind="function"><name>llist_clone</name></member>
+    <member refid="lists_8c_1a050ed8f6c4417a1560924a32c87e0048" kind="function"><name>llist_destroy</name></member>
+    <member refid="lists_8c_1ad7e068d4c1d17cde53e3c8a26fde295a" kind="function"><name>llist_show</name></member>
+    <member refid="lists_8c_1aea56643b863ab91f5cb52f043192d6b3" kind="function"><name>llist_min</name></member>
+    <member refid="lists_8c_1a0d0bbf94b1ca024423c3eebdeddd5b45" kind="function"><name>llist_max</name></member>
+  </compound>
+  <compound refid="main_8c" kind="file"><name>main.c</name>
+    <member refid="main_8c_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="tests_8c" kind="file"><name>tests.c</name>
+    <member refid="tests_8c_1aef1c82014dafc80d6867c712c70b0cdc" kind="function"><name>compare_int</name></member>
+    <member refid="tests_8c_1a0b4dbb553d380c3fb86210926733d95f" kind="function"><name>free_int</name></member>
+    <member refid="tests_8c_1a3cf94b10699e83175c7a119eff98e5a2" kind="function"><name>duplicate_int</name></member>
+    <member refid="tests_8c_1a7038a941ef85f399fedd588d4aa3f762" kind="function"><name>create_int</name></member>
+    <member refid="tests_8c_1a2152f8a13ba6914d267db0632ff838ee" kind="function"><name>show_int</name></member>
+    <member refid="tests_8c_1ac2395c48ee22d0acc3cb9356be6670e5" kind="function"><name>show_tree</name></member>
+    <member refid="tests_8c_1a0550e5c9e1431e50e5c903c16a25afa1" kind="function"><name>lines</name></member>
+    <member refid="tests_8c_1a9efeb0c057b35953c3158dea6bd6e403" kind="function"><name>test_trees</name></member>
+    <member refid="tests_8c_1a2289c78787e96c69276d9273a900478c" kind="function"><name>test_lists</name></member>
+  </compound>
+  <compound refid="trees_8c" kind="file"><name>trees.c</name>
+    <member refid="trees_8c_1aaccc16629dab8b2b9704a36d533523ae" kind="typedef"><name>BTree</name></member>
+    <member refid="trees_8c_1ae2ab18a19532402242b4e805781d09d4" kind="function"><name>btree_create</name></member>
+    <member refid="trees_8c_1ac862973ee5ce9b1a3b1f0c734d645ec5" kind="function"><name>btree_insert</name></member>
+    <member refid="trees_8c_1a6a32ece9ffe57b5157c7da2886549516" kind="function"><name>btree_remove_smallest</name></member>
+    <member refid="trees_8c_1afea4ec6daebf28bd02598f0891202213" kind="function"><name>btree_remove_root</name></member>
+    <member refid="trees_8c_1ab72da2d42d89830f3a0721e6ac7ebb31" kind="function"><name>btree_delete</name></member>
+    <member refid="trees_8c_1aa0bf4f9206d6af05656338e95091e808" kind="function"><name>btree_search</name></member>
+    <member refid="trees_8c_1a8256a6eb633aaea85015b0fa37a3f6e7" kind="function"><name>btree_is_empty</name></member>
+    <member refid="trees_8c_1ada5522228b050edfe146a4d850722257" kind="function"><name>btree_size</name></member>
+    <member refid="trees_8c_1a667cb5020796638b8d4d17bdf8421d9f" kind="function"><name>btree_destroy</name></member>
+    <member refid="trees_8c_1a02d32f7ad03d66fb22bd4db25b1a2e48" kind="function"><name>btree_height</name></member>
+    <member refid="trees_8c_1a598c3649cb56d7787906e28655704d56" kind="function"><name>btree_bigger</name></member>
+    <member refid="trees_8c_1a50e366582429acdb090c239efef04ac7" kind="function"><name>btree_smaller</name></member>
+    <member refid="trees_8c_1a296804184a546b9d056629868614b3be" kind="function"><name>btree_is_ordered</name></member>
+    <member refid="trees_8c_1a60ed6d1373b8cd425fe4c4effd2eba3d" kind="function"><name>btree_clone</name></member>
+    <member refid="trees_8c_1a144a9dce4d63b8ceb00d546a2ce8689f" kind="function"><name>btree_build_spine_aux</name></member>
+    <member refid="trees_8c_1af29e3aa4009968e79d38b67e7d2f30f6" kind="function"><name>btree_build_spine</name></member>
+    <member refid="trees_8c_1ae739f5ac400066a960b25b65f26a108d" kind="function"><name>btree_balance_spine</name></member>
+    <member refid="trees_8c_1a0c23021d9247abe82e08e7183111ddfc" kind="function"><name>btree_balance</name></member>
+    <member refid="trees_8c_1a71d32be38234d4acc8cc69a97ef13ab2" kind="function"><name>btree_is_balanced</name></member>
+    <member refid="trees_8c_1aa231750825f6e9059187b5a44973bec0" kind="function"><name>btree_inorder</name></member>
+    <member refid="trees_8c_1a3340ef9e5ecf6600e34cb80b00ddd01c" kind="function"><name>btree_preorder</name></member>
+    <member refid="trees_8c_1a881d39bbbeadd56a1c16a2332e139a1d" kind="function"><name>btree_posorder</name></member>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

@@ -51,18 +51,25 @@ void show_tree(BTree *tree) {
     printf("\n");
 }
 
+void lines(void) {
+    printf("-----------------------------------------------------\n");
+}
+
 void test_trees(void) {
     srand(time(NULL));
 
     int value = rand() % 100;
     BTree *tree = NULL;
 
+    lines();
+
     // Creating a tree
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
     tree = btree_create(create_int(value));
     printf("Tree is empty: %s\n", btree_is_empty(tree) ? "true" : "false");
-
     show_tree(tree);
+
+    lines();
 
     // Testing Insertion
     int limit = rand() % 30;
@@ -78,32 +85,70 @@ void test_trees(void) {
             free(temp);
         }
     }
-
     show_tree(tree);
 
-    printf("Tree size: %u\n", btree_size(tree));
+    lines();
 
+    printf("Tree size: %u\n", btree_size(tree));
     printf("Tree is Ordered: %s\n",
            btree_is_ordered(tree, &compare_int) ? "true" : "false");
 
     printf("Tree height: %u\n", btree_height(tree));
 
-    // for (int i = 0; i < limit; i++) {
-    //     value = rand() % 100;
-    //     int * temp = create_int(value);
-    //     int *result = btree_delete(&tree, temp, &compare_int);
-    //     free(temp);
+    lines();
 
-    //     if (result) {
-    //         free(result);
+    // Testing Deletion
+    show_tree(tree);
+    for (int i = 0; i < limit; i++) {
+        value = rand() % 100;
+        int *temp = create_int(value);
+        int *result = btree_delete(&tree, temp, &compare_int);
+        free(temp);
 
-    //         printf("Deletion sucessfull: %d\n", value);
+        if (result) {
+            free(result);
+            printf("Deletion sucessfull: %d\n", value);
+            show_tree(tree);
+        }
+    }
 
-    //         show_tree(tree);
-    //     }
-    // }
+    lines();
+
+    // Testing Clone
+    BTree *copy = btree_clone(tree, &duplicate_int);
+    show_tree(tree);
+
+    printf("Copy -> ");
+    show_tree(copy);
+    btree_destroy(copy, &free_int);
+
+    lines();
+
+    // Testing Search
+    int tb_found = 0;
+    printf("Enter a value to search for: ");
+    scanf("%d", &tb_found);
 
     show_tree(tree);
+    int *temp_found = create_int(tb_found);
+    int *result = btree_search(tree, temp_found, &compare_int, &duplicate_int);
+
+    if (result) {
+        printf("Found: %d\n", *result);
+        free(result);
+    } else {
+        printf("Not found.\n");
+    }
+    free(temp_found);
+
+    lines();
+
+    // Testing Balance
+    printf("Tree is balanced: %s\n", btree_is_balanced(tree) ? "true" : "false");
+    // btree_balance(&tree); // NOT WORKING
+    printf("Tree is balanced: %s\n", btree_is_balanced(tree) ? "true" : "false");
+
+    lines();
 
     btree_destroy(tree, &free_int);
 }

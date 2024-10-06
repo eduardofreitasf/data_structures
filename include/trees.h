@@ -41,10 +41,11 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *));
  * @param btree Binary Search Tree
  * @param id Identifier of the element to be found
  * @param compare Function to compare elements on the Tree
+ * @param duplicate Function to duplicate data
  * @return void* Element that is being searched (NULL in case it doesn't exist
  * in the Tree)
  */
-void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *));
+void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *), void *(*duplicate)(void *));
 
 /**
  * @brief Checks if a Binary Search Tree is balanced
@@ -60,7 +61,7 @@ bool btree_is_balanced(BTree *btree);
  *
  * @param btree Binary Search Tree
  */
-void btree_balance(BTree *btree);
+void btree_balance(BTree **btree);
 
 /**
  * @brief Calculates the number of elements on the Tree

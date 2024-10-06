@@ -1,0 +1,44 @@
+\doxysection{trees.\+h}
+\hypertarget{trees_8h_source}{}\label{trees_8h_source}\index{include/trees.h@{include/trees.h}}
+\mbox{\hyperlink{trees_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TREES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TREES\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structb__tree}{b\_tree}}\ \mbox{\hyperlink{structb__tree}{BTree}};}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \mbox{\hyperlink{structb__tree}{BTree}}\ *\mbox{\hyperlink{trees_8h_ae2ab18a19532402242b4e805781d09d4}{btree\_create}}(\textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structb__tree_a7dc55a88854fb8458c78b6f77d463053}{data}});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{trees_8h_ac862973ee5ce9b1a3b1f0c734d645ec5}{btree\_insert}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structb__tree_a7dc55a88854fb8458c78b6f77d463053}{data}},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{trees_8h_ab72da2d42d89830f3a0721e6ac7ebb31}{btree\_delete}}(\mbox{\hyperlink{structb__tree}{BTree}}\ **btree,\ \textcolor{keywordtype}{void}\ *\textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{trees_8h_aa0bf4f9206d6af05656338e95091e808}{btree\_search}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ *\textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *),\ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{trees_8h_a71d32be38234d4acc8cc69a97ef13ab2}{btree\_is\_balanced}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{trees_8h_a0c23021d9247abe82e08e7183111ddfc}{btree\_balance}}(\mbox{\hyperlink{structb__tree}{BTree}}\ **btree);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{trees_8h_ada5522228b050edfe146a4d850722257}{btree\_size}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{trees_8h_a02d32f7ad03d66fb22bd4db25b1a2e48}{btree\_height}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{trees_8h_a8256a6eb633aaea85015b0fa37a3f6e7}{btree\_is\_empty}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{trees_8h_a667cb5020796638b8d4d17bdf8421d9f}{btree\_destroy}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ (*free\_data)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00107\ \mbox{\hyperlink{structb__tree}{BTree}}\ *\mbox{\hyperlink{trees_8h_a60ed6d1373b8cd425fe4c4effd2eba3d}{btree\_clone}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ *(*duplicate)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{trees_8h_a296804184a546b9d056629868614b3be}{btree\_is\_ordered}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{int}\ (*compare)(\textcolor{keywordtype}{void}\ *,\ \textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{trees_8h_aa231750825f6e9059187b5a44973bec0}{btree\_inorder}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ (*show)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00133\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{trees_8h_a3340ef9e5ecf6600e34cb80b00ddd01c}{btree\_preorder}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ (*show)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{trees_8h_a881d39bbbeadd56a1c16a2332e139a1d}{btree\_posorder}}(\mbox{\hyperlink{structb__tree}{BTree}}\ *btree,\ \textcolor{keywordtype}{void}\ (*show)(\textcolor{keywordtype}{void}\ *));}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
