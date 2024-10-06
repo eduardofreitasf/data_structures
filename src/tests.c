@@ -1,5 +1,5 @@
 /**
- * @file test_trees.c
+ * @file tests.c
  * @author Eduardo Fernandes (ef05238@gmail.com)
  * @brief Module for testing Binary Search Trees
  * @version 0.1

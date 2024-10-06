@@ -20,7 +20,9 @@
  */
 
 typedef struct l_list {
+    //! Stored object
     void *data;
+    //! Pointer to the next node
     struct l_list *next;
 } LList;
 

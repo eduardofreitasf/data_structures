@@ -23,8 +23,6 @@ LList *llist_create(void *data);
  * @param list Linked List
  * @param data Data to be stored
  * @param compare Function to compare elements on the List
- * @return true If insertion was sucessfull
- * @return false If insertion was not possible
  */
 void llist_insert(LList **list, void *data, int (*compare)(void *, void *));
 
@@ -60,6 +58,7 @@ void *llist_delete(LList **list, void *data, int (*compare)(void *, void *));
  * @param list Linked List
  * @param data Element to loom for
  * @param compare Function to compare elements on a List
+ * @param duplicate Function to duplicate data
  * @return void* Null if it does not belong to List
  */
 void *llist_search(LList *list, void *data, int (*compare)(void *, void *),
@@ -69,7 +68,7 @@ void *llist_search(LList *list, void *data, int (*compare)(void *, void *),
  * @brief Calculates the length of a Linked List
  *
  * @param list Linked List
- * @return unsigned int length
+ * @return unsigned int Length
  */
 unsigned int llist_length(LList *list);
 
