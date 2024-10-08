@@ -45,7 +45,8 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *));
  * @return void* Element that is being searched (NULL in case it doesn't exist
  * in the Tree)
  */
-void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *), void *(*duplicate)(void *));
+void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *),
+                   void *(*duplicate)(void *));
 
 /**
  * @brief Checks if a Binary Search Tree is balanced

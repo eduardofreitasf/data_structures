@@ -19,109 +19,147 @@
  * function don't support such condition. Reminder NOT to mix both modes.
  */
 
-typedef struct l_list {
+typedef struct node {
     //! Stored object
     void *data;
     //! Pointer to the next node
-    struct l_list *next;
+    struct node *next;
+} Node;
+
+typedef struct l_list {
+    //! List size
+    unsigned int size;
+    //! Function to compare elements
+    int (*compare)(void *, void *);
+    //! Function to duplicate elements
+    void *(*duplicate)(void *);
+    //! Function to free elements
+    void (*free_data)(void *);
+    //! Function to show elements
+    void (*show_data)(void *);
+    //! Nodes
+    Node *head;
 } LList;
 
-LList *llist_create(void *data) {
-    LList *new = (LList *)calloc(1, sizeof(LList));
+Node *node_create(void *data) {
+    Node *new = (Node *)calloc(1, sizeof(Node));
     assert(new); // is there memory??
 
     new->data = data;
+
     return new;
 }
 
-void llist_insert(LList **list, void *data, int (*compare)(void *, void *)) {
-    while (*list && compare((*list)->data, data) < 0)
-        list = &((*list)->next);
+LList *llist_create(int (*compare)(void *, void *), void *(*duplicate)(void *),
+                    void (*free_data)(void *), void (*show_data)(void *)) {
+    LList *new = (LList *)calloc(1, sizeof(LList));
+    assert(new); // is there memory??
+
+    // atribute the functions
+    new->compare = compare;
+    new->duplicate = duplicate;
+    new->free_data = free_data;
+    new->show_data = show_data;
+
+    return new;
+}
+
+void llist_insert(LList *list, void *data) {
+    Node **temp = &(list->head);
+    while (*temp && list->compare((*temp)->data, data) < 0)
+        temp = &((*temp)->next);
 
     // create new node
-    LList *new = llist_create(data);
+    Node *new = node_create(data);
     // conect it to the list
-    new->next = *list;
-    *list = new;
+    new->next = *temp;
+    *temp = new;
+
+    // increment the size of the list
+    list->size++;
 }
 
 void llist_append(LList *list, void *data) {
-    LList **temp = &list;
+    Node **temp = &(list->head);
 
     while (*temp)
         temp = &((*temp)->next);
 
-    LList *new = llist_create(data);
+    Node *new = node_create(data);
     new->next = *temp;
     *temp = new;
+
+    // increment the size of the list
+    list->size++;
 }
 
-void llist_prepend(LList **list, void *data) {
-    LList *new = llist_create(data);
+void llist_prepend(LList *list, void *data) {
+    Node *new = node_create(data);
 
-    new->next = *list;
-    *list = new;
+    new->next = list->head;
+    list->head = new;
+
+    // increment the size of the list
+    list->size++;
 }
 
-void *llist_delete(LList **list, void *data, int (*compare)(void *, void *)) {
+void *llist_delete(LList *list, void *data) {
     // list is empty
     if (list == NULL)
         return NULL;
 
+    Node **temp = &(list->head);
     // go to the wanted node
-    while (*list && compare((*list)->data, data) != 0)
-        list = &((*list)->next);
-
-    // end of the list
-    if (*list == NULL)
-        return NULL;
-
-    LList *aux_next = (*list)->next;
-    void *aux_data = (*list)->data;
-    // free the node
-    free(*list);
-    *list = aux_next;
-
-    return aux_data;
-}
-
-void *llist_search(LList *list, void *data, int (*compare)(void *, void *),
-                   void *(*duplicate)(void *)) {
-    // list is empty
-    if (list == NULL)
-        return NULL;
-
-    LList **temp = &list;
-
-    // go to the wanted node
-    while (*temp && compare((*temp)->data, data) != 0)
+    while (*temp && list->compare((*temp)->data, data) != 0)
         temp = &((*temp)->next);
 
     // end of the list
     if (*temp == NULL)
         return NULL;
 
-    return duplicate((*temp)->data);
+    Node *aux_next = (*temp)->next;
+    void *aux_data = (*temp)->data;
+    // free the node
+    free(*temp);
+    *temp = aux_next;
+
+    // decrement the size of the list
+    list->size--;
+
+    return aux_data;
 }
 
-unsigned int llist_length(LList *list) {
-    unsigned int count = 0;
-    while (list) {
-        list = list->next;
-        count++;
-    }
+void *llist_search(LList *list, void *data) {
+    // list is empty
+    if (list == NULL)
+        return NULL;
 
-    return count;
+    Node **temp = &(list->head);
+
+    // go to the wanted node
+    while (*temp && list->compare((*temp)->data, data) != 0)
+        temp = &((*temp)->next);
+
+    // end of the list
+    if (*temp == NULL)
+        return NULL;
+
+    return list->duplicate((*temp)->data);
 }
 
-bool llist_is_empty(LList *list) { return list == NULL; }
+unsigned int llist_length(LList *list) { return list->size; }
 
-LList *llist_clone(LList *list, void *(*duplicate)(void *)) {
-    LList *new = NULL, **temp = &new;
+bool llist_is_empty(LList *list) { return list == NULL || list->size == 0; }
 
-    while (list) {
-        *temp = llist_create(duplicate(list->data));
-        list = list->next;
+LList *llist_clone(LList *list) {
+    LList *new = llist_create(list->compare, list->duplicate, list->free_data,
+                              list->show_data);
+    Node **temp = &(new->head);
+    Node *top = list->head;
+
+    while (top) {
+        *temp = node_create(list->duplicate(top->data));
+        top = top->next;
         temp = &((*temp)->next);
     }
 
@@ -129,71 +167,92 @@ LList *llist_clone(LList *list, void *(*duplicate)(void *)) {
     return new;
 }
 
-void llist_destroy(LList *list, void (*free_data)(void *)) {
-    LList *temp = NULL;
+void llist_destroy(LList *list) {
+    Node *temp = NULL;
 
-    while (list) {
-        free_data(list->data);
-        temp = list->next;
-        free(list);
-        list = temp;
+    while (list->head) {
+        list->free_data(list->head->data);
+        temp = list->head->next;
+        free(list->head);
+        list->head = temp;
     }
+
+    free(list->head);
+    free(list);
 }
 
-void llist_show(LList *list, void (*show_data)(void *)) {
-    while (list) {
-        show_data(list->data);
+void llist_show(LList *list) {
+    Node *temp = list->head;
+    while (temp) {
+        list->show_data(temp->data);
         printf("-> ");
         // printf("\n");
-        list = list->next;
+        temp = temp->next;
     }
     printf("X\n");
 }
 
-void *llist_min(LList *list, void *(*duplicate)(void *),
-                int (*compare)(void *, void *)) {
+void *llist_min(LList *list) {
     // list is empty
     if (list == NULL)
         return NULL;
 
     // first element is the reference
-    void *min = list->data;
-    list = list->next;
+    void *min = list->head->data;
+    Node *temp = list->head;
+    temp = temp->next;
 
     // go through the list
-    while (list) {
+    while (temp) {
         // if there is one object smaller
-        if (compare(list->data, min) < 0)
-            min = list->data;
+        if (list->compare(temp->data, min) < 0)
+            min = temp->data;
 
-        list = list->next;
+        temp = temp->next;
     }
 
     // allocate space for a duplicate
     // assume caller calls free
-    return duplicate(min);
+    return list->duplicate(min);
 }
 
-void *llist_max(LList *list, void *(*duplicate)(void *),
-                int (*compare)(void *, void *)) {
+void *llist_max(LList *list) {
     // list is empty
     if (list == NULL)
         return NULL;
 
     // first element is the reference
-    void *max = list->data;
-    list = list->next;
+    void *max = list->head->data;
+    Node *temp = list->head;
+    temp = temp->next;
 
     // go through the list
-    while (list) {
+    while (temp) {
         // if there is one object smaller
-        if (compare(list->data, max) > 0)
-            max = list->data;
+        if (list->compare(temp->data, max) > 0)
+            max = temp->data;
 
-        list = list->next;
+        temp = temp->next;
     }
 
     // allocate space for a duplicate
     // assume caller calls free
-    return duplicate(max);
+    return list->duplicate(max);
+}
+
+bool llist_is_ordered(LList *list) {
+    // list is empty
+    if (list->head == NULL)
+        return true;
+
+    Node *prev = list->head;
+    Node *temp = list->head->next;
+
+    while (temp && list->compare(prev->data, temp->data) < 0)
+        temp = temp->next;
+
+    if (temp)
+        return false;
+
+    return true;
 }

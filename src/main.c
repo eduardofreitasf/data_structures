@@ -15,8 +15,8 @@
 
 int main(int argc, char **argv) {
 
-    test_trees();
-    // test_lists();
+    // test_trees();
+    test_lists();
 
     return 0;
 }

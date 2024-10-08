@@ -120,7 +120,7 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *)) {
     // BTree **temp = btree;
     while (*btree && compare((*btree)->data, id) != 0)
         btree = compare((*btree)->data, id) > 0 ? &((*btree)->left)
-                                              : &((*btree)->right);
+                                                : &((*btree)->right);
 
     // return the data
     if (*btree)
@@ -129,7 +129,8 @@ void *btree_delete(BTree **btree, void *id, int (*compare)(void *, void *)) {
         return NULL; // does not belong to the tree
 }
 
-void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *), void *(*duplicate)(void *)) {
+void *btree_search(BTree *btree, void *id, int (*compare)(void *, void *),
+                   void *(*duplicate)(void *)) {
     // tree is empty
     if (btree == NULL)
         return NULL;
@@ -289,7 +290,7 @@ int btree_build_spine_aux(BTree **btree, BTree **last) {
  * @return int Number of nodes on the Tree
  */
 int btree_build_spine(BTree **btree) {
-    BTree * auxiliar = NULL;
+    BTree *auxiliar = NULL;
 
     return btree_build_spine_aux(btree, &auxiliar);
 }
@@ -346,7 +347,8 @@ bool btree_is_balanced(BTree *btree) {
     unsigned int r_height = btree_height(btree->right);
 
     // difference is above 1, not balanced
-    if ((l_height > r_height && l_height - r_height > 1) || (r_height > l_height && r_height - l_height > 1))
+    if ((l_height > r_height && l_height - r_height > 1) ||
+        (r_height > l_height && r_height - l_height > 1))
         return false;
 
     // check the left and right side
