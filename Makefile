@@ -12,7 +12,7 @@ CFLAGS=-Wall -g -Wextra $(OPTS) -pedantic-errors -I $(INC_DIR)
 C_FILES=$(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES=$(patsubst $(SRC_DIR)/%.c, $(BLD_DIR)/%.o, $(C_FILES))
 #------------------------------------------------------------------------------------------
-PROGRAM=hash
+PROGRAM=program
 #==========================================================================================
 
 .DEFAULT_GOAL = all

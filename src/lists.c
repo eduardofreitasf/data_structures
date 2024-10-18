@@ -1,7 +1,7 @@
 /**
  * @file lists.c
  * @author Eduardo Fernandes (ef05238@gmail.com)
- * @brief Module that contains implementation of a Linked List
+ * @brief Module that contains an implementation of a Linked List
  * @version 0.1
  * @date 2024-10-05
  *
@@ -9,6 +9,7 @@
  *
  */
 #include "lists.h"
+#include "node.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,13 +19,6 @@
  * condition: llist_insert() llist_delete() (works on both) The remaining
  * function don't support such condition. Reminder NOT to mix both modes.
  */
-
-typedef struct node {
-    //! Stored object
-    void *data;
-    //! Pointer to the next node
-    struct node *next;
-} Node;
 
 typedef struct l_list {
     //! List size
@@ -40,15 +34,6 @@ typedef struct l_list {
     //! Nodes
     Node *head;
 } LList;
-
-Node *node_create(void *data) {
-    Node *new = (Node *)calloc(1, sizeof(Node));
-    assert(new); // is there memory??
-
-    new->data = data;
-
-    return new;
-}
 
 LList *llist_create(int (*compare)(void *, void *), void *(*duplicate)(void *),
                     void (*free_data)(void *), void (*show_data)(void *)) {
@@ -185,8 +170,6 @@ void llist_show(LList *list) {
     Node *temp = list->head;
     while (temp) {
         list->show_data(temp->data);
-        printf("-> ");
-        // printf("\n");
         temp = temp->next;
     }
     printf("X\n");

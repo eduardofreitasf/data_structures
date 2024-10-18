@@ -1,6 +1,6 @@
 /**
  * @file lists.h
- * @author your name (ef05238@gmail.com)
+ * @author Eduardo Fernandes (ef05238@gmail.com)
  * @brief Module that contains declarations for Lists
  * @version 0.1
  * @date 2024-10-08
@@ -12,20 +12,6 @@
 #define LISTS_H
 
 #include <stdbool.h>
-
-/**
- * @brief Node
- *
- */
-typedef struct node Node;
-
-/**
- * @brief Creates a Node with data stored
- *
- * @param data
- * @return Node*
- */
-Node *node_create(void *data);
 
 /**
  * @brief Linked List
