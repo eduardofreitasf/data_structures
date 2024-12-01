@@ -5,9 +5,9 @@ INC_DIR=include
 SRC_DIR=src
 #------------------------------------------------------------------------------------------
 CC=gcc
-OPTS=
+OPTS=-O2
 LDFLAGS=-lm
-CFLAGS=-Wall -g -Wextra $(OPTS) -pedantic-errors -I $(INC_DIR)
+CFLAGS=-Wall -Wextra $(OPTS) -pedantic-errors -I $(INC_DIR)
 #------------------------------------------------------------------------------------------
 C_FILES=$(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES=$(patsubst $(SRC_DIR)/%.c, $(BLD_DIR)/%.o, $(C_FILES))
@@ -47,17 +47,6 @@ memory: all
 docs:
 	@doxygen -q $(DOC_DIR)/Doxyfile
 	@firefox docs/html/index.html
-
-# determines the complexity of each function in your code
-.PHONY: complexity
-complexity:
-	@echo | pmccabe -v
-	@pmccabe $(SRC_DIR)/*.c | sort -nr | awk '{if($$1>5)print}'
-
-# gives advice on how to improve code
-.PHONY: check
-check:
-	@cppcheck -I $(INC_DIR) --enable=all --suppress=missingIncludeSystem .
 
 # formates the code
 .PHONY: fmt
