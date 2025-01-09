@@ -1,9 +1,9 @@
 #include "sorts.h"
 #include <string.h>
 
-#define PARENT(i) (i-1)/2
-#define LEFT(i) 2*i + 1
-#define RIGHT(i) 2*i + 2
+#define PARENT(i) (i - 1) / 2
+#define LEFT(i) 2 * i + 1
+#define RIGHT(i) 2 * i + 2
 
 
 bool is_ordered(const void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
@@ -63,7 +63,7 @@ void insertion_sort(void *base, size_t size, size_t n_memb, int (*compare)(const
 
 /**
  * @brief Breaks the array in two, first come the elements smaller than pivot, and then come the rest are equal or bigger
- * pre: base and compare are not NULL
+ * pre: base and compare are not NULL, and n_memb > 0
  * 
  * @param base Array to make the change
  * @param size Size of each element on the array
@@ -74,13 +74,12 @@ void insertion_sort(void *base, size_t size, size_t n_memb, int (*compare)(const
 static size_t partition(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
     // pivot point is last position
     size_t pivot = n_memb - 1, next = 0, i;
-    for (i = n_memb - 2; i > 0 && i >= next;) {
+    for (i = 0; i < n_memb; i++) {
         // if pivot is bigger
         if (compare(base + i * size, base + pivot * size) < 0) {
             swap(base, next, i, size);
             next++;
-        } else
-            i--;
+        }
     }
 
     swap(base, pivot, next, size);
@@ -94,7 +93,7 @@ void quick_sort(void *base, size_t size, size_t n_memb, int (*compare)(const voi
 
     size_t pivot = partition(base, size, n_memb, compare);
     quick_sort(base, size, pivot, compare);
-    quick_sort(base + pivot * size, size, n_memb - pivot, compare);
+    quick_sort(base + (pivot + 1) * size, size, n_memb - pivot - 1, compare);
 }
 
 /**
@@ -163,14 +162,13 @@ void merge_sort(void *base, size_t size, size_t n_memb, int (*compare)(const voi
     copy(base, temp, size, n_memb);
 }
 
-
 /**
- * @brief 
+ * @brief Repeatedly swaps a node with its parent until the property is satisfied or the root is reached
  * 
- * @param base 
- * @param size 
- * @param index 
- * @param compare 
+ * @param base Array
+ * @param size Size of each element on the array
+ * @param index Number of elements on the array
+ * @param compare Function to compare elements
  */
 static void bubble_up(void *base, size_t size, size_t index, int (*compare)(const void *, const void *)) {
     size_t up = PARENT(index);
@@ -183,12 +181,12 @@ static void bubble_up(void *base, size_t size, size_t index, int (*compare)(cons
 }
 
 /**
- * @brief 
+ * @brief Repeatedly swaps a node with its largest child until the property is satisfied or a leaf is reached
  * 
- * @param base 
- * @param size 
- * @param n_memb 
- * @param compare 
+ * @param base Array
+ * @param size Size of each element on the array
+ * @param n_memb Number of elements on the array
+ * @param compare Function to compare elements
  */
 static void bubble_down(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
     size_t index = 0;
@@ -207,12 +205,12 @@ static void bubble_down(void *base, size_t size, size_t n_memb, int (*compare)(c
 }
 
 /**
- * @brief 
+ * @brief Builds a MAX heap
  * 
- * @param base 
- * @param size 
- * @param n_memb 
- * @param compare 
+ * @param base Array
+ * @param size Size of each element on the array
+ * @param n_memb Number of elements on the array
+ * @param compare Function to compare elements
  */
 static void heapify(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
     for (size_t i = 1; i < n_memb; i++)
@@ -227,27 +225,3 @@ void heap_sort(void *base, size_t size, size_t n_memb, int (*compare)(const void
         bubble_down(base, size, i, compare);
     }
 }
-
-
-
-// int compare_int(const void *integer1, const void *integer2) {
-//     return *(size_t *)integer1 - *(size_t *)integer2;
-// }
-
-
-// int main(void) {
-
-//     int arr[10] = {24,5,6,12,6,25,14,56,2,1};
-
-//     for (int i = 0; i < 10; i++)
-//         printf("%d ", arr[i]);
-//     putchar('\n');
-
-//     heapify(arr, sizeof(int), 10, &compare_int);
-
-//     for (int i = 0; i < 10; i++)
-//         printf("%d ", arr[i]);
-//     putchar('\n');
-
-//     return 0;
-// }

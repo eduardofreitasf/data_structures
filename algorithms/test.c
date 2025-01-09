@@ -5,7 +5,7 @@
 #include <time.h>
 #include <string.h>
 
-#define MAX 10
+#define MAX 100
 
 typedef struct {
     char *name;
