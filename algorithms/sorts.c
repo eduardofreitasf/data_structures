@@ -33,6 +33,9 @@ static void swap(void *base, size_t index1, size_t index2, size_t size) {
 }
 
 void bubble_sort(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
+    if (n_memb < 2)
+        return;
+
     for (size_t i = n_memb - 1; i > 0; i--) {
         for (size_t j = 1; j <= i; j++) {
             if (compare(base + (j - 1) * size, base + j * size) > 0)
@@ -218,6 +221,9 @@ static void heapify(void *base, size_t size, size_t n_memb, int (*compare)(const
 }
 
 void heap_sort(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
+    if (n_memb < 2)
+        return;
+
     heapify(base, size, n_memb, compare);
 
     for (size_t i = n_memb - 1; i > 0; i--) {

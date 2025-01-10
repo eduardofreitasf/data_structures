@@ -1,72 +1,148 @@
 #include "sorts.h"
 #include "search.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#include <utils.h>
+#include <criterion/criterion.h>
+#include <criterion/new/assert.h>
 
-#define MAX 100
+Test(sorts, has_order) {
+    cr_expect(true, "This test will fail.");
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Inverted array.");
+} 
 
-typedef struct {
-    char *name;
-    int age;
-} person;
+Test(sorts, bubblesort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    bubble_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
 
-person *create(char *name, int age) {
-    person *new = malloc(sizeof(person));
-    new->name = name;
-    new->age = age;
+    bubble_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
 
-    return new;
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    bubble_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
+
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    bubble_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
 }
 
-void destroy(person *p) {
-    if (p != NULL)
-        free(p);
+Test(sorts, selectionsort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    selection_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
+
+    selection_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
+
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    selection_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
+
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    selection_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
 }
 
-int compare_int(const void *integer1, const void *integer2) {
-    return *(size_t *)integer1 - *(size_t *)integer2;
+Test(sorts, insertionsort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    insertion_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
+
+    insertion_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
+
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    insertion_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
+
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    insertion_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
 }
 
-void copy(void *dest, const void *src, size_t size, size_t n_memb) {
-    for (size_t i = 0; i < n_memb; i++)
-        memcpy(dest + i * size, src + i * size, size);
+Test(sorts, quicksort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    quick_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
+
+    quick_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
+
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    quick_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
+
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    quick_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
 }
 
-int main(void) {
-    srand(time(0));
+Test(sorts, mergesort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    merge_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
 
-    size_t num_array[MAX];
-    size_t i;
-    FILE *fp = fopen("result.log", "w");
+    merge_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
 
-    for (i = 0; i < MAX; i++)
-        num_array[i] = rand() % MAX;
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    merge_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
 
-    fprintf(fp, "[");
-    for (i = 0; i < MAX; i++)
-        fprintf(fp, "%ld,", num_array[i]);
-    fprintf(fp, "]\n");
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    merge_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
+}
 
-    fprintf(fp, "order: %s\n", is_ordered(num_array, sizeof(size_t), MAX, &compare_int) == true ? "true" : "false");
+Test(sorts, heapsort) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    heap_sort(arr, sizeof(int), 0, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 0, &compare_int), "Empty array must be ordered.");
 
-    heap_sort(num_array, sizeof(size_t), MAX, &compare_int);
+    heap_sort(arr, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(arr, sizeof(int), 10, &compare_int), "Ordered array.");
 
-    fprintf(fp, "[");
-    for (i = 0; i < MAX; i++)
-        fprintf(fp, "%ld,", num_array[i]);
-    fprintf(fp, "]\n");
+    int no_order[10] = {4,1,5,3,1,0,5,9,-3,10};
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    heap_sort(no_order, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(no_order, sizeof(int), 10, &compare_int), "Array with no order.");
 
-    fprintf(fp, "order: %s\n", is_ordered(num_array, sizeof(size_t), MAX, &compare_int) == true ? "true" : "false");
+    int reverse_array[10] = {10,9,8,7,6,5,4,3,2,1};
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int) == false, "Array with no order.");
+    heap_sort(reverse_array, sizeof(int), 10, &compare_int);
+    cr_expect(is_ordered(reverse_array, sizeof(int), 10, &compare_int), "Array with no order.");
+}
 
-    size_t *r = malloc(sizeof(size_t));
-    *r = 300;
-    fprintf(fp, "index of %ld: %ld\n", *r, linear_search(num_array, sizeof(size_t), MAX, &compare_int, r));
-    *r = rand() % MAX;
-    fprintf(fp, "index of %ld: %ld\n", *r, linear_search(num_array, sizeof(size_t), MAX, &compare_int, r));
+Test(search, linear) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    int temp = 8;
+    cr_expect(linear_search(arr, sizeof(int), 10, &compare_int, &temp) == 7, "Finding 8");
+    temp = 20;
+    cr_expect(linear_search(arr, sizeof(int), 10, &compare_int, &temp) == -1, "Value not on the array.");
+    cr_expect(linear_search(arr, sizeof(int), 0, &compare_int, &temp) == -1, "Empty array.");
+}
 
-    fclose(fp);
-
-    return 0;
+Test(search, binary) {
+    int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+    int temp = 8;
+    cr_expect(linear_search(arr, sizeof(int), 10, &compare_int, &temp) == 7, "Finding 8");
+    temp = 20;
+    cr_expect(linear_search(arr, sizeof(int), 10, &compare_int, &temp) == -1, "Value not on the array.");
+    cr_expect(linear_search(arr, sizeof(int), 0, &compare_int, &temp) == -1, "Empty array.");
 }
