@@ -233,7 +233,7 @@ void array_sort(Array *arr, int (*compare)(const void *, const void *)) {
     qsort(arr->data, arr->count, arr->data_size, compare);
 }
 
-void show_array(Array *arr, void (*show)(void *, FILE *), FILE *fp) {
+void show_array(Array *arr, void (*show)(const void *, FILE *), FILE *fp) {
     if (arr == NULL || arr->data == NULL)
         return;
 

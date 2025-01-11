@@ -18,7 +18,7 @@ int _array_insert(Array *arr, const void *data, size_t index);
 int array_remove(Array *arr, void *dest, size_t index);
 void array_index(Array *arr, size_t index, void *dest);
 void array_sort(Array *arr, int (*compare)(const void *, const void *));
-void show_array(Array *arr, void (*show)(void *, FILE *), FILE *fp);
+void show_array(Array *arr, void (*show)(const void *, FILE *), FILE *fp);
 
 #define array_append(arr, d) _array_append((arr), &(d))
 #define array_preppend(arr, d) _array_preppend((arr), &(d))

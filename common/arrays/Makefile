@@ -1,6 +1,6 @@
 CC=gcc
-LDFLAGS=
-CFLAGS=-c -Wall -Wextra -g
+LDFLAGS= -lutils
+CFLAGS=-Wall -Wextra -g
 
 CFILES=$(wildcard *.c)
 OBJS=$(patsubst %.c, %.o, $(CFILES))
