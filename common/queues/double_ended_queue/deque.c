@@ -73,7 +73,7 @@ size_t deque_size(Deque *dq) {
 
 void deque_reverse(Deque *dq) {
     if (dq != NULL)
-        dq->reverse != dq->reverse;
+        dq->reverse = !(dq->reverse);
 }
 
 /*
@@ -85,6 +85,8 @@ static int push_front(Deque *dq, void *data) {
         return 1;
 
     new_node->next = dq->front;
+    if (dq->front != NULL)
+        dq->front->prev = new_node;
     dq->front = new_node;
 
     // empty deque
@@ -105,6 +107,8 @@ static int push_back(Deque *dq, void *data) {
         return 1;
 
     new_node->prev = dq->back;
+    if (dq->back != NULL)
+        dq->back->next = new_node;
     dq->back = new_node;
     
     // empty deque
@@ -126,11 +130,17 @@ static void * pop_front(Deque *dq) {
 
     void *temp = dq->front->data;
     struct d_node *temp_node = dq->front->next;
-
     free(dq->front);
+    
     dq->front = temp_node;
+    if (temp_node != NULL)
+        temp_node->prev = NULL;
 
     dq->size--;
+    if (dq->size == 0) {
+        dq->back = NULL;
+        dq->front = NULL;
+    }
 
     return temp;
 }
@@ -146,9 +156,16 @@ static void * pop_back(Deque *dq) {
     void *temp = dq->back->data;
     struct d_node *temp_node = dq->back->prev;
     free(dq->back);
+
     dq->back = temp_node;
+    if (temp_node != NULL)
+        temp_node->next = NULL;
 
     dq->size--;
+    if (dq->size == 0) {
+        dq->back = NULL;
+        dq->front = NULL;
+    }
 
     return temp;
 }
@@ -183,4 +200,24 @@ void * deque_pop_back(Deque * dq) {
 
 bool deque_is_empty(Deque *dq) {
     return dq == NULL || dq->size == 0;
+}
+
+void show_deque(Deque *dq, void (*show)(const void *, FILE *), FILE *fp) {
+    if (dq == NULL || show == NULL || fp == NULL)
+        return;
+    
+    struct d_node *temp = NULL;
+    if (dq->reverse == true) {
+        temp = dq->back;
+        while (temp != NULL) {
+            show(temp->data, fp);
+            temp = temp->prev;
+        }
+    } else {
+        temp = dq->front;
+        while (temp != NULL) {
+            show(temp->data, fp);
+            temp = temp->next;
+        }
+    }
 }
