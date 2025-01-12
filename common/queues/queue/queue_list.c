@@ -1,5 +1,4 @@
 #include "queue.h"
-#include <stdbool.h>
 #include <stdlib.h>
 
 struct chain {
@@ -8,7 +7,7 @@ struct chain {
 };
 
 typedef struct queue {
-    unsigned size;
+    size_t size;
     struct chain *front, *back;
 } Queue;
 
@@ -58,8 +57,10 @@ void enqueue(Queue *queue, void *data) {
         return;
 
     // empty queue
-    if (queue->front == NULL)
+    if (queue->front == NULL) {
         queue->front = new_node;
+        queue->back = new_node;
+    }
     else {
         queue->back->next = new_node;
         queue->back = queue->back->next;
@@ -115,9 +116,20 @@ void queue_clear(Queue *queue, void (*destroy)(void *)) {
     *queue = (struct queue){.size = 0, .front = NULL, .back = NULL};
 }
 
-unsigned queue_size(Queue *queue) {
+size_t queue_size(Queue *queue) {
     if (queue == NULL)
         return 0;
 
     return queue->size;
+}
+
+void show_queue(Queue *queue, void (*show)(const void *, FILE *), FILE *fp) {
+    if (queue == NULL || show == NULL || fp == NULL)
+        return;
+
+    struct chain *temp = queue->front;
+    while (temp != NULL) {
+        show(temp->data, fp);
+        temp = temp->next;
+    }
 }

@@ -8,22 +8,32 @@ The data structures you may find here are:
     - Arrays
     - Stacks
     - Queues
+        - Single Ended Queue
+        - Double Ended Queue
+        - Circular Queue
 - Lists
-    - Single Linked List
+    - Linked List
     - Double Linked List
 - Heaps
-    - Min Heap
-    - Max Heap
-- Tries
+    - Min/Max Heap
 - Tuples
 - Sets
+    - Set
+    - Multi Sets
 - Dictionaries
+    - Dictionary
     - Hash Tables
+        - Closed Adressing
+        - Open Adressing
+        - Cuckoo Hashing
+        - Hopscotch Hashing
+    - Tries (Prefix Trees)
 - Trees
     - Binary Search Trees
     - AVL Trees
     - Red and Black Trees
     - N-Ary Trees
+    - B+ Trees
 - Graphs
 
 ## Algoritms
@@ -36,8 +46,15 @@ There is also a section that presents various sorting and searching algorithms, 
     - Quick Sort
     - Merge Sort
     - Heap Sort
+    - Tim Sort
+    - Counting Sort
+    - Radix Sort
+    - Stalin Sort
+    - Bogo Sort
+
 - Search
     - Linear Seach
-    - Binary
+    - Binary Search
+    - Jump Search
 
 This repository is still in (early) development.

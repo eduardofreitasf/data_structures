@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct queue {
-    unsigned size, front, length;
+    size_t size, front, length;
     void **data;
 } Queue;
 
@@ -27,12 +27,12 @@ void queue_destroy(Queue *queue, void (*destroy)(void *)) {
     if (queue == NULL || destroy == NULL)
         return;
 
-    unsigned i = queue->front;
-    while (queue->length-- >= 0) {
-        if (queue->data[i] != NULL)
-            destroy(queue->data[i]);
+    size_t index = queue->front, i = 0;
+    while (i++ < queue->length) {
+        if (queue->data[index] != NULL)
+            destroy(queue->data[index]);
 
-        i = (i + 1) % queue->size;
+        index = (index + 1) % queue->size;
     }
 
     if (queue->data != NULL)
@@ -41,14 +41,14 @@ void queue_destroy(Queue *queue, void (*destroy)(void *)) {
     free(queue);
 }
 
-float queue_load_factor(Queue *queue) {
+static float queue_load_factor(Queue *queue) {
     if (queue == NULL)
         return 0;
 
     return (float)queue->length / (float)queue->size;
 }
 
-int queue_resize(Queue *queue, bool growth) {
+static int queue_resize(Queue *queue, bool growth) {
     if (queue == NULL)
         return 1;
 
@@ -84,7 +84,7 @@ void enqueue(Queue *queue, void *data) {
     queue->data[(queue->front + queue->length++) % queue->size] = data;
 }
 
-void queue_cleanup(Queue *queue) {
+static void queue_cleanup(Queue *queue) {
     if (queue == NULL || queue->data)
         return;
 
@@ -93,7 +93,7 @@ void queue_cleanup(Queue *queue) {
     if (new_data == NULL)
         return;
 
-    unsigned i = 0;
+    size_t i = 0;
     while (i < queue->length) {
         new_data[i] = queue->data[(queue->front + i) % queue->size];
         i++;
@@ -131,24 +131,37 @@ void *queue_back(Queue *queue) {
     if (queue == NULL || queue->data == NULL || queue->length == 0)
         return NULL;
 
-    return queue->data[(queue->front + queue->length) % queue->size];
+    return queue->data[(queue->front + queue->length - 1) % queue->size];
 }
 
 void queue_clear(Queue *queue, void (*destroy)(void *)) {
     if (queue == NULL || queue->data == NULL || destroy == NULL)
         return;
 
-    unsigned i = 0;
+    size_t i = 0;
     while (i < queue->length) {
         if (queue->data[i] != NULL)
             destroy(queue->data[i]);
         i++;
     }
+
+    queue->front = 0;
+    queue->length = 0;
 }
 
-unsigned queue_size(Queue *queue) {
+size_t queue_size(Queue *queue) {
     if (queue == NULL)
         return 0;
 
     return queue->length;
+}
+
+void show_queue(Queue *queue, void (*show)(const void *, FILE *), FILE *fp) {
+    if (queue == NULL || show == NULL || fp == NULL)
+        return;
+
+    for (size_t i = 0, index = queue->front; i < queue->length; i++) {
+        show(queue->data[index], fp);
+        index = (index + 1) % queue->size;            
+    }
 }
