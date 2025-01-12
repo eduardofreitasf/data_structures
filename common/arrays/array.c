@@ -155,17 +155,14 @@ int _array_preppend(Array *arr, const void *data) {
 }
 
 int array_pop(Array *arr, void *dest) {
-    if (arr == NULL)
-        return 1;
-
     // array is empty
-    if (arr->count == 0 || arr->data == NULL)
-        return 2;
+    if (arr == NULL || arr->count == 0 || arr->data == NULL)
+        return 1;
 
     // occupation is less than 30%, so reduce to 2/3 of the original size
     if (array_load_factor(arr) < 0.3) {
         if (array_resize(arr, SHRINK) != 0)
-            return 3;
+            return 2;
     }
 
     arr->count--;    
