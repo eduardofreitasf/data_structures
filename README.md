@@ -3,6 +3,8 @@
 This repository is sort of a library that contains multiple implementations of different data structures.
 These implementations are generic, capable of storing any data type, as long it's a pointer.
 
+In each function provided, there is also the complexity of that operation.
+
 The data structures you may find here are:
 - Common data structures
     - Arrays
@@ -36,7 +38,7 @@ The data structures you may find here are:
     - B+ Trees
 - Graphs
 
-## Algoritms
+## Algorithms
 
 There is also a section that presents various sorting and searching algorithms, also generic:
 - Sorts
