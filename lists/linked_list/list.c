@@ -238,6 +238,10 @@ List *list_take(List *list, size_t size) {
     if (list == NULL || list->head == NULL)
         return NULL;
 
+    List *result = list_create();
+    if (result == NULL)
+        return NULL;
+
     struct node **remainder = &(list->head);
     size_t length = 0;
     while (size > 0 && length < list->size && *remainder != NULL) {
@@ -245,10 +249,6 @@ List *list_take(List *list, size_t size) {
         size--;
         length++;
     }
-
-    List *result = list_create();
-    if (result == NULL)
-        return NULL;
 
     result->size = list->size - length;
     list->size = length;
@@ -299,6 +299,10 @@ List *list_concat(List *list1, List *list2) {
     temp->next = list2->head;
     list1->size += list2->size;
 
+    // empty list 2
+    list2->size = 0;
+    list2->head = NULL;
+
     return list1;
 }
 
@@ -312,3 +316,117 @@ void show_list(List *list, void (*show)(const void *, FILE *), FILE *fp) {
         temp = temp->next;
     }
 }
+
+/**
+ * @brief Merge two ordered lists
+ * 
+ * Assumes both lists are ordered, and have atleast on element.
+ * 
+ * @param list1 List one
+ * @param list2 List two
+ * @param compare Function to compare lists
+ * @return struct node* Pointer to the first node of the list
+ */
+static void _list_merge(struct node *list1, struct node *list2, struct node **build, int (*compare)(const void *, const void *)) {
+    while (list1 != NULL && list2 != NULL) {
+        if (compare(list1->data, list2->data) < 0) {
+            *build = list1;
+            list1 = list1->next;
+        } else {
+            *build = list2;
+            list2 = list2->next;
+        }
+        build = &((*build)->next);
+    }
+
+    if (list1 != NULL)
+        *build = list1;
+    else
+        *build = list2;
+
+}
+
+List *list_merge(List *list1, List *list2, int (*compare)(const void *, const void *)) {
+    if (list_order(list1, compare) == false || list_order(list2, compare) == false)
+        return NULL;
+    
+    if (list1 == NULL || list1->head == NULL)
+        return list2;
+
+    if (list2 == NULL || list2->head == NULL)
+        return list1;
+
+    struct node *build = NULL;
+    _list_merge(list1->head, list2->head, &build, compare);
+    list1->head = build;
+    list1->size += list2->size;
+
+    // empty list 2, otherwise it will be pointing to somewhere else
+    list2->head = NULL;
+    list2->size = 0;
+
+    return list1;
+}
+
+/**
+ * @brief Splits the list in half
+ * 
+ * If size is not even, the second half is the one with more elements
+ * Assumes list is not NULL and size is bigger than 0
+ * 
+ * @param list Linked list
+ * @param size Size of the list
+ * @return struct node* Pointer to the middle of the list
+ */
+static struct node *split_half(struct node *list, size_t size) {
+    size_t middle = size / 2;
+    struct node **temp = &list;
+    struct node *half = NULL;
+
+    while (middle > 0 && *temp != NULL) {
+        middle--;
+        temp = &((*temp)->next);
+    }
+
+    half = *temp;
+    *temp = NULL;
+
+    return half;
+}
+
+/**
+ * @brief Sorts a linked list
+ * 
+ * Assumes list and compare are not NULL, and size is bigger thant 0
+ * 
+ * @param list Head of the linked list
+ * @param size Size of the list
+ * @param compare Function to compare data
+ * @return struct node* Sorted list
+ */
+static struct node * _list_sort(struct node *list, size_t size, int (*compare)(const void *, const void *)) {
+    if (size < 2)
+        return list;
+
+    struct node *middle = split_half(list, size);
+    list = _list_sort(list, size / 2, compare);
+    middle = _list_sort(middle, size - (size / 2), compare);
+
+    struct node *build = NULL;
+    _list_merge(list, middle, &build, compare);
+
+    return build;
+}
+
+void list_sort(List *list, int (*compare)(const void *, const void *)) {
+    if (list == NULL || compare == NULL)
+        return;
+
+    list->head = _list_sort(list->head, list->size, compare);
+}
+
+/*
+    MAKE PARTITION
+    AND THEN
+    DO QUICK SORT ON LINKED LIST
+*/

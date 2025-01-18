@@ -46,9 +46,9 @@ List *list_drop(List *list, size_t size);
 // done and working
 List *list_concat(List *list1, List *list2);
 
-List *list_union(List *list1, List *list2, void *(unite)(void *, void *));
-List *list_intersect(List *list1, List *list2, void *(intersect)(void *, void *));
+// done and working
 List *list_merge(List *list1, List *list2, int (*compare)(const void *, const void *));
+// done and working
 void list_sort(List *list, int (*compare)(const void *, const void *));
 
 // done and working
