@@ -1,6 +1,6 @@
 CC=gcc
-LDFLAGS=-lutils
-CFLAGS=-Wall -Wextra -g
+LDFLAGS=-lutils -lm
+CFLAGS=-Wall -Wextra -g -fsanitize=address -static-libasan -fno-omit-frame-pointer
 
 CFILES=$(wildcard *.c)
 OBJS=$(patsubst %.c, %.o, $(CFILES))
@@ -9,7 +9,7 @@ BIN=trees
 all: $(BIN)
 
 $(BIN): $(OBJS)
-	$(CC) $^ $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $^ -o $@

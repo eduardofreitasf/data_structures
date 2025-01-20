@@ -23,4 +23,7 @@ size_t btree_height(const BSTree *btree);
 bool btree_is_balanced(const BSTree *btree);
 void btree_balance(BSTree *btree);
 
+
+void show_btree(BSTree *btree, void (*show)(const void *, FILE *), FILE *fp);
+
 #endif
