@@ -65,17 +65,17 @@ void insertion_sort(void *base, size_t size, size_t n_memb, int (*compare)(const
 }
 
 /**
- * @brief Breaks the array in two, first come the elements smaller than pivot, and then come the rest are equal or bigger
+ * @brief Breaks the array in two, first come the elements smaller than pivot, and then come the rest of the elements
  * pre: base and compare are not NULL, and n_memb > 0
  * 
- * @param base Array to make the change
+ * @param base Array
  * @param size Size of each element on the array
  * @param n_memb Number of elements in the array
  * @param compare Function to compare the elements of the array
  * @return size_t Position in each the pivot point is
  */
 static size_t partition(void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *)) {
-    // pivot point is last position
+    // pivot point is the last position
     size_t pivot = n_memb - 1, next = 0, i;
     for (i = 0; i < n_memb; i++) {
         // if pivot is bigger
@@ -224,6 +224,7 @@ void heap_sort(void *base, size_t size, size_t n_memb, int (*compare)(const void
     if (n_memb < 2)
         return;
 
+    // turn the array in a max heap
     heapify(base, size, n_memb, compare);
 
     for (size_t i = n_memb - 1; i > 0; i--) {
