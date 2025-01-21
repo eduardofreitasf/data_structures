@@ -94,7 +94,85 @@ int btree_insert(BSTree *btree, void *data, int (*compare)(const void *, const v
     return result;
 }
 
-int btree_remove(BSTree *btree, void *data, int (*compare)(const void *, const void *));
+/**
+ * @brief Removes the biggest element from a binary search tree
+ * 
+ * Assumes root and compare are not NULL
+ * 
+ * @param root Root of the tree
+ * @param compare Function to compare elements
+ * @return struct node* Biggest node
+ */
+static struct node *remove_biggest(struct node **root) {
+    while ((*root)->right != NULL)
+        root = &((*root)->right);
+
+    struct node *result = *root;
+    *root = NULL;
+
+    return result;
+}
+
+/**
+ * @brief Removes the root of a tree and replaces it with the largest node from the left subtree
+ * 
+ * Assumes root and compare are not NULL
+ * 
+ * @param root Root of the tree
+ * @param compare Function to compare elements
+ * @return void* Data stored on the root
+ */
+static void *remove_root(struct node **root) {
+    void *result = (*root)->data;
+    struct node *temp = NULL;
+    struct node *left = (*root)->left;
+    struct node *right = (*root)->right;
+
+    if (left == NULL) {
+        temp = right;
+        // free the node
+        free(*root);
+        // replace the node
+        *root = temp;
+    } else {
+        // remove the biggest on the left sub-tree
+        temp = remove_biggest(&left);
+
+        // free the node
+        free(*root);
+        // replace the node
+        *root = temp;
+        // atach the sub-trees
+        if (temp->left == NULL)
+            (*root)->left = left;
+        (*root)->right = right;
+    }
+
+    return result;
+}
+
+void *btree_remove(BSTree *btree, void *data, int (*compare)(const void *, const void *)) {
+    if (btree == NULL || compare == NULL || data == NULL)
+        return NULL;
+
+    struct node **temp = &(btree->root);
+    // find the node
+    while (*temp != NULL && compare((*temp)->data, data) != 0) {
+        if (compare((*temp)->data, data) < 0)
+            temp = &((*temp)->right);
+        else
+            temp = &((*temp)->left);
+    }
+
+    void *result = NULL;
+    // found data
+    if (*temp != NULL) {
+        result = remove_root(temp);
+        btree->size--;
+    }
+
+    return result;
+}
 
 bool btree_search(const BSTree *btree, void *data, int (*compare)(const void *, const void *)) {
     if (btree == NULL || compare == NULL)
