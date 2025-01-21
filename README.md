@@ -1,11 +1,14 @@
 # Data Structures
 
 This repository is sort of a library that contains multiple implementations of different data structures.
-These implementations are generic, capable of storing any data type, as long it's a pointer.
+These implementations are generic, capable of storing any data type, as long it's a **pointer**.
 
-In each function provided, there is also the complexity of that operation.
+In each function provided, there is also the **complexity** of that operation.
 
-The data structures you may find here are:
+**WARNING**:
+This repository is still in (**early**) development.
+
+The **data structures** you may find here are:
 - Common data structures
     - Arrays
     - Stacks
@@ -18,6 +21,10 @@ The data structures you may find here are:
     - Double Linked List
 - Heaps
     - Min/Max Heap
+    - Fibonacci Heap
+    - Binomial Queue
+    - Leftist Heap
+    - Skew Heap
 - Tuples
 - Sets
     - Set
@@ -29,6 +36,7 @@ The data structures you may find here are:
         - Open Adressing
         - Cuckoo Hashing
         - Hopscotch Hashing
+        - Hash Functions
     - Tries (Prefix Trees)
 - Trees
     - Binary Search Trees
@@ -36,12 +44,16 @@ The data structures you may find here are:
     - Red and Black Trees
     - N-Ary Trees
     - B+ Trees
+    - Splay Tree
+    - Radix Tree
+    - Ternary Search Tree
+
 - Graphs
 
 ## Algorithms
 
-There is also a section that presents various sorting and searching algorithms, also generic:
-- Sorts
+There is also a section that presents various **sorting** and **searching** (generic) algorithms:
+- Sorting
     - Bubble Sort
     - Selection Sort
     - Insertion Sort
@@ -53,10 +65,12 @@ There is also a section that presents various sorting and searching algorithms, 
     - Radix Sort
     - Stalin Sort
     - Bogo Sort
+    - Shell Sort
+    - Bucket Sort
+    - Counting Sort
+    - Radix Sort
 
 - Search
     - Linear Seach
     - Binary Search
     - Jump Search
-
-This repository is still in (early) development.
