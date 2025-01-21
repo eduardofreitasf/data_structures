@@ -5,31 +5,31 @@ These implementations are generic, capable of storing any data type, as long it'
 
 In each function provided, there is also the **complexity** of that operation.
 
-**WARNING**:
+:warning: **WARNING**:
 This repository is still in (**early**) development.
 
 The **data structures** you may find here are:
-- Common data structures
+- [Common data structures](/common/)
     - Arrays
     - Stacks
     - Queues
         - Single Ended Queue
         - Double Ended Queue
         - Circular Queue
-- Lists
+- [Lists](/lists/)
     - Linked List
     - Double Linked List
-- Heaps
+- [Heaps](/heaps/)
     - Min/Max Heap
     - Fibonacci Heap
     - Binomial Queue
     - Leftist Heap
     - Skew Heap
-- Tuples
-- Sets
+- [Tuples](/tuples/)
+- [Sets](/sets/)
     - Set
     - Multi Sets
-- Dictionaries
+- [Dictionaries](/dictionaries/)
     - Dictionary
     - Hash Tables
         - Closed Adressing
@@ -38,7 +38,7 @@ The **data structures** you may find here are:
         - Hopscotch Hashing
         - Hash Functions
     - Tries (Prefix Trees)
-- Trees
+- [Trees](/trees/)
     - Binary Search Trees
     - AVL Trees
     - Red and Black Trees
@@ -48,11 +48,11 @@ The **data structures** you may find here are:
     - Radix Tree
     - Ternary Search Tree
 
-- Graphs
+- [Graphs](/graphs/)
 
 ## Algorithms
 
-There is also a section that presents various **sorting** and **searching** (generic) algorithms:
+There is also a section that presents various **sorting** and **searching** (generic) [algorithms](/algorithms/):
 - Sorting
     - Bubble Sort
     - Selection Sort
