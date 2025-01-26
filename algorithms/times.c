@@ -5,7 +5,6 @@
 #include <stdlib.h>
 
 #define MAX_VALUE 100
-#define STR_SIZE 9
 
 int main(int argc, char **argv) {
     srand(time(0));
@@ -25,7 +24,6 @@ int main(int argc, char **argv) {
     FILE *output = fopen(original_file, "w");
     FILE *sorted = fopen(sorted_file, "w");
 
-    char *temp = NULL;
     size_t sorted_array[array_size];
     size_t reverse_array[array_size];
     size_t random_array[array_size];
@@ -75,11 +73,9 @@ int main(int argc, char **argv) {
 
     size_t iterate;
     for (iterate = 0; iterate < array_size; iterate++) {
-        temp = random_string(STR_SIZE);
         sorted_array[iterate] = iterate;
         reverse_array[iterate] = array_size - 1 - iterate;
         random_array[iterate] = rand() % MAX_VALUE;
-        free(temp);
     }
 
     fprintf(output, "--- SORTED ARRAY ---\n");
