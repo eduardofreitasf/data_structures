@@ -11,7 +11,6 @@
 
 /**
  * @brief Node containing the key value pair, and a pointer to another bucket
- * 
  */
 struct bucket {
     void *data;

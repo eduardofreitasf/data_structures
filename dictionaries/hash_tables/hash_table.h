@@ -5,10 +5,6 @@
 #include <stdio.h>
 
 /**
- * This module implements a Hash Table that uses closed adressing has conflict resolution.
- * The key is a string (char *), this helps keeping the implementation simple, but the correct way
- * would be to use a generic key (void *), but this implies freeing it and other operations.
- * 
  * When the capacity of the table reaches 80%, it doubles it's size, reahashing every node to a new position.
  * Same thing happens when the capacity is less than 30%, only this time the size is reduced to 2/3 of the
  * original.
