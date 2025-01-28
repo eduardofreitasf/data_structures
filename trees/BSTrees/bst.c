@@ -108,7 +108,7 @@ static struct node *remove_biggest(struct node **root) {
         root = &((*root)->right);
 
     struct node *result = *root;
-    *root = NULL;
+    *root = result->left;
 
     return result;
 }
@@ -128,25 +128,20 @@ static void *remove_root(struct node **root) {
     struct node *left = (*root)->left;
     struct node *right = (*root)->right;
 
-    if (left == NULL) {
+    if (left == NULL)
         temp = right;
-        // free the node
-        free(*root);
-        // replace the node
-        *root = temp;
-    } else {
+    else {
         // remove the biggest on the left sub-tree
         temp = remove_biggest(&left);
 
-        // free the node
-        free(*root);
-        // replace the node
-        *root = temp;
         // atach the sub-trees
-        if (temp->left == NULL)
-            (*root)->left = left;
-        (*root)->right = right;
+        temp->left = left;
+        temp->right = right;
     }
+
+    free(*root);
+    // replace the node
+    *root = temp;
 
     return result;
 }
@@ -306,10 +301,10 @@ static void build_spine(struct node **root) {
 }
 
 /**
- * @brief 
+ * @brief Balances a spine throught the DSW algorithm
  * 
- * @param root 
- * @param n_memb 
+ * @param root Root of the tree
+ * @param n_memb Total number of elements on the tree
  */
 static void balance_spine(struct node **root, size_t n_memb) {
     size_t height = log2(n_memb);
@@ -410,4 +405,91 @@ void show_btree(BSTree *btree, void (*show)(const void *, FILE *), FILE *fp) {
     }
 
     fprintf(fp, "\n");
+}
+
+/**
+ * @brief In order traversal of a binary tree
+ * 
+ * @param root Root of the tree
+ * @param storage Array to store the content of the tree
+ * @param current Current position of the array
+ */
+static void inorder_rec(const struct node *root, void **storage, size_t *current) {
+    if (root != NULL) {
+        inorder_rec(root->left, storage, current);
+        storage[*current] = root->data;
+        (*current)++;
+        inorder_rec(root->right, storage, current);
+    }
+}
+
+void **btree_inorder(const BSTree *btree) {
+    if (btree != NULL && btree->size != 0) {
+        void **storage = (void **)malloc(btree->size * sizeof(void *));
+        if (storage == NULL)
+            return NULL;
+
+        size_t current = 0;
+        inorder_rec(btree->root, storage, &current);
+        return storage;
+    }
+    return NULL;
+}
+
+/**
+ * @brief Pos order traversal of a binary tree
+ * 
+ * @param root Root of the tree
+ * @param storage Array to store the content of the tree
+ * @param current Current position of the array
+ */
+static void posorder_rec(const struct node *root, void **storage, size_t *current) {
+    if (root != NULL) {
+        posorder_rec(root->left, storage, current);
+        posorder_rec(root->right, storage, current);
+        storage[*current] = root->data;
+        (*current)++;
+    }
+}
+
+void **btree_posorder(const BSTree *btree) {
+    if (btree != NULL && btree->size != 0) {
+        void **storage = (void **)malloc(btree->size * sizeof(void *));
+        if (storage == NULL)
+            return NULL;
+
+        size_t current = 0;
+        posorder_rec(btree->root, storage, &current);
+        return storage;
+    }
+    return NULL;
+}
+
+/**
+ * @brief Pre order traversal of a binary tree
+ * 
+ * @param root Root of the tree
+ * @param storage Array to store the content of the tree
+ * @param current Current position of the array
+ */
+static void preorder_rec(const struct node *root, void **storage, size_t *current) {
+    if (root != NULL) {
+        storage[*current] = root->data;
+        (*current)++;
+        preorder_rec(root->left, storage, current);
+        preorder_rec(root->right, storage, current);
+    }
+}
+
+void **btree_preorder(const BSTree *btree) {
+    if (btree != NULL && btree->size != 0) {
+        void **storage = (void **)malloc(btree->size * sizeof(void *));
+        if (storage == NULL)
+            return NULL;
+
+        size_t current = 0;
+        preorder_rec(btree->root, storage, &current);
+        return storage;
+    }
+    return NULL;
 }

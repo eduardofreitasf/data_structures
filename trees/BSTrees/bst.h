@@ -30,10 +30,19 @@ bool btree_is_empty(const BSTree *btree);
 // done and working
 size_t btree_height(const BSTree *btree);
 
+// done and working
 bool btree_is_balanced(const BSTree *btree);
+// done and working
 void btree_balance(BSTree *btree);
 
 // done and working
 void show_btree(BSTree *btree, void (*show)(const void *, FILE *), FILE *fp);
+
+// done and working
+void **btree_inorder(const BSTree *btree);
+// done and working
+void **btree_posorder(const BSTree *btree);
+// done and working
+void **btree_preorder(const BSTree *btree);
 
 #endif
