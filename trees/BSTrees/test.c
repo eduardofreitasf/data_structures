@@ -133,6 +133,23 @@ int main(void) {
     else
         fprintf(output, "tree has no max\n");
 
+    fprintf(output, "------------------- INORDER -------------------\n");
+    void **storage = btree_inorder(tree);
+    int s = btree_size(tree);
+    for (i = 0; i < s; i++)
+        show_int(storage[i], output);
+
+    fprintf(output, "\n------------------- POSORDER -------------------\n");
+    storage = btree_posorder(tree);
+    for (i = 0; i < s; i++)
+        show_int(storage[i], output);
+
+    fprintf(output, "\n------------------- PREORDER -------------------\n");
+    storage = btree_preorder(tree);
+    for (i = 0; i < s; i++)
+        show_int(storage[i], output);
+
+    fprintf(output, "\n");
     destroy_btree(tree, &free);
 
     return 0;
