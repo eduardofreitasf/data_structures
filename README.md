@@ -67,8 +67,6 @@ There is also a section that presents various **sorting** and **searching** (gen
     - Bogo Sort
     - Shell Sort
     - Bucket Sort
-    - Counting Sort
-    - Radix Sort
 
 - Search
     - Linear Seach
