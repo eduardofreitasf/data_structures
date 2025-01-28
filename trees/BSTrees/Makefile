@@ -1,6 +1,6 @@
 CC=gcc
 LDFLAGS=-lutils -lm
-CFLAGS=-Wall -Wextra -g -fsanitize=address -static-libasan -fno-omit-frame-pointer
+CFLAGS=-Wall -Wextra -g
 
 CFILES=$(wildcard *.c)
 OBJS=$(patsubst %.c, %.o, $(CFILES))
