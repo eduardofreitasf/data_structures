@@ -13,130 +13,127 @@ int main(void) {
     // FILE *output = fopen("trees.txt", "w");
     FILE *output = stdout;
     void *temp = NULL;
+    int value = 0, i = 0, aux = 0;
+    int size = 20;
 
-    BSTree *new_tree = create_btree();
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
-
-    fprintf(output, "--- INSERT ---\n");
-    for (size_t i = 0; i < 15; i++) {
-        btree_insert(new_tree, create_int(rand() % MAX_VALUE), &compare_int);
+    int array[size], vis[size];
+    for (i = 0; i < size; i++) {
+        array[i] = i;
+        vis[i] = 0;
     }
-    show_btree(new_tree, &show_int, output);
 
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
+    BSTree *tree = create_btree();
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
 
-    fprintf(output, "MIN: ");
-    temp = btree_min(new_tree);
-    show_int(temp, output);
+    fprintf(output, "------------------- INSERT -------------------\n");
+    for (i = 0; i < size;) {
+        aux = rand() % size;
+        if (vis[aux] == 0) {
+            btree_insert(tree, create(array[aux]), &compare_int);
+            vis[aux] = 1;
+            i++;
+        }
+    }
 
-    fprintf(output, "\nMAX: ");
-    temp = btree_max(new_tree);
-    show_int(temp, output);
-    fprintf(output, "\n");
+    show_btree(tree, &show_int, output);
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
 
-    fprintf(output, "--- SEARCH ---\n");
-    fprintf(output, "searching for: %d\n", *(int *)temp);
-    fprintf(output, "found: '%s'\n", btree_search(new_tree, temp, compare_int) ? "true" : "false");
+    fprintf(output, "------------------- BALANCE -------------------\n");
 
-    temp = create_int(rand() % MAX_VALUE);
-    fprintf(output, "searching for: %d\n", *(int *)temp);
-    fprintf(output, "found: '%s'\n", btree_search(new_tree, temp, compare_int) ? "true" : "false");
-    free(temp);
+    btree_balance(tree);
+    show_btree(tree, &show_int, output);
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
+
+    fprintf(output, "------------------- SEARCH -------------------\n");
+
+    fprintf(output, "searching for %d: '%s'\n", array[3], btree_search(tree, create(array[3]), &compare_int) ? "found" : "not found");
+    fprintf(output, "searching for %d: '%s'\n", array[10], btree_search(tree, create(array[10]), &compare_int) ? "found" : "not found");
+    value = 50;
+    fprintf(output, "searching for %d: '%s'\n", value, btree_search(tree, create(value), &compare_int) ? "found" : "not found");
+    fprintf(output, "searching for %d: '%s'\n", array[13], btree_search(tree, create(array[13]), &compare_int) ? "found" : "not found");
+    value = 99;
+    fprintf(output, "searching for %d: '%s'\n", value, btree_search(tree, create(value), &compare_int) ? "found" : "not found");
+
+    fprintf(output, "------------------- REMOVE -------------------\n");
+
+    temp = btree_remove(tree, create(array[14]), &compare_int);
+    if (temp != NULL)
+        fprintf(output, "removed %d\n", *(int *)temp);
+    else
+        fprintf(output, "%d not found\n", array[14]);
+    show_btree(tree, &show_int, output);
     
-    fprintf(output, "--- REMOVE ---\n");
-    void *aux = create_int(rand() % MAX_VALUE);
-    temp = btree_remove(new_tree, aux, &compare_int);
+    temp = btree_remove(tree, create(array[3]), &compare_int);
+    if (temp != NULL)
+        fprintf(output, "removed %d\n", *(int *)temp);
+    else
+        fprintf(output, "%d not found\n", array[3]);
+    temp = btree_remove(tree, create(array[14]), &compare_int);
+    if (temp != NULL)
+        fprintf(output, "removed %d\n", *(int *)temp);
+    else
+        fprintf(output, "%d not found\n", array[14]);
+    temp = btree_remove(tree, create(array[10]), &compare_int);
+    if (temp != NULL)
+        fprintf(output, "removed %d\n", *(int *)temp);
+    else
+        fprintf(output, "%d not found\n", array[10]);
 
-    if (temp != NULL) {
-        fprintf(output, "removed: %d\n", *(int *)temp);
-        free(temp);
-    } else
-        fprintf(output, "%d not found\n", *(int *)aux);
-    free(aux);
+    show_btree(tree, &show_int, output);
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
 
-    show_btree(new_tree, &show_int, output);
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
+    destroy_btree(tree, &free);
 
-    destroy_btree(new_tree, &free);
+    fprintf(output, "------------------- RANDOM TREE -------------------\n");
+    tree = create_btree();
 
-    fprintf(output, "--- Controled tree ---\n");
-    new_tree = create_btree();
-    btree_insert(new_tree, create_int(50), &compare_int);
-    btree_insert(new_tree, create_int(30), &compare_int);
-    btree_insert(new_tree, create_int(70), &compare_int);
-    btree_insert(new_tree, create_int(60), &compare_int);
-    btree_insert(new_tree, create_int(80), &compare_int);
-    btree_insert(new_tree, create_int(90), &compare_int);
-    btree_insert(new_tree, create_int(20), &compare_int);
-    btree_insert(new_tree, create_int(10), &compare_int);
-    btree_insert(new_tree, create_int(15), &compare_int);
-    btree_insert(new_tree, create_int(25), &compare_int);
-    btree_insert(new_tree, create_int(22), &compare_int);
-    btree_insert(new_tree, create_int(5), &compare_int);
-    btree_insert(new_tree, create_int(2), &compare_int);
-    btree_insert(new_tree, create_int(7), &compare_int);
-    btree_insert(new_tree, create_int(75), &compare_int);
+    for (i = 0; i < 30; i++) {
+        value = rand() % MAX_VALUE;
+        btree_insert(tree, create(value), &compare_int);
+    }
 
-    show_btree(new_tree, &show_int, output);
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
+    show_btree(tree, &show_int, output);
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
 
-    fprintf(output, "--- REMOVE ---\n");
-    aux = create_int(20);
-    temp = btree_remove(new_tree, aux, &compare_int);
-    
-    if (temp != NULL) {
-        fprintf(output, "removed: %d\n", *(int *)temp);
-        free(temp);
-    } else
-        fprintf(output, "%d not found\n", *(int *)aux);
-    free(aux);
+    fprintf(output, "------------------- BALANCE -------------------\n");
 
-    show_btree(new_tree, &show_int, output);
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
+    btree_balance(tree);
+    show_btree(tree, &show_int, output);
+    fprintf(output, "tree is empty: '%s'\n", btree_is_empty(tree) ? "true" : "false");
+    fprintf(output, "tree size: %ld\n", btree_size(tree));
+    fprintf(output, "tree height: %ld\n", btree_height(tree));
+    fprintf(output, "tree is balanced: '%s'\n", btree_is_balanced(tree) ? "true" : "false");
 
-    fprintf(output, "--- REMOVE ---\n");
-    aux = create_int(50);
-    temp = btree_remove(new_tree, aux, &compare_int);
-    
-    if (temp != NULL) {
-        fprintf(output, "removed: %d\n", *(int *)temp);
-        free(temp);
-    } else
-        fprintf(output, "%d not found\n", *(int *)aux);
-    free(aux);
+    fprintf(output, "------------------- MIN -------------------\n");
+    temp = btree_min(tree);
+    if (temp != NULL)
+        fprintf(output, "min %d\n", *(int *)temp);
+    else
+        fprintf(output, "tree has no min\n");
 
-    show_btree(new_tree, &show_int, output);
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
+    fprintf(output, "------------------- MAX -------------------\n");
+    temp = btree_max(tree);
+    if (temp != NULL)
+        fprintf(output, "max %d\n", *(int *)temp);
+    else
+        fprintf(output, "tree has no max\n");
 
-    fprintf(output, "--- REMOVE ---\n");
-    aux = create_int(90);
-    temp = btree_remove(new_tree, aux, &compare_int);
-    
-    if (temp != NULL) {
-        fprintf(output, "removed: %d\n", *(int *)temp);
-        free(temp);
-    } else
-        fprintf(output, "%d not found\n", *(int *)aux);
-    free(aux);
-
-    show_btree(new_tree, &show_int, output);
-    fprintf(output, "Size: %ld\n", btree_size(new_tree));
-    fprintf(output, "Height: %ld\n", btree_height(new_tree));
-    fprintf(output, "Is empty: '%s'\n", btree_is_empty(new_tree) ? "true" : "false");
-
-
-
-    destroy_btree(new_tree, &free);
+    destroy_btree(tree, &free);
 
     return 0;
 }
