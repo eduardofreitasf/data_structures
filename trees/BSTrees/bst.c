@@ -246,21 +246,16 @@ size_t btree_height(const BSTree *btree) {
     return _btree_height(btree->root);
 }
 
-/**
- * @brief Checks if a tree is balanced
- * 
- * Assumes root and count are not NULL
- * 
- * @param root Root of the tree
- * @param count Place to store the number of nodes on the tree
- * @return true Is balanced
- * @return false Is not balanced
- */
-static bool is_balanced(const struct node *root, size_t *count) {
-    return false;
-}
-
 bool btree_is_balanced(const BSTree *btree) {
+    if (btree != NULL) {
+        if (btree->size == 0)
+            return true;
+
+        size_t ideal_height = (size_t) log2(btree->size) + 1;
+        size_t height = btree_height(btree);
+
+        return (height - ideal_height) < 2;
+    }
     return false;
 }
 
