@@ -247,6 +247,112 @@ size_t btree_height(const BSTree *btree) {
 }
 
 /**
+ * @brief Checks if a tree is balanced
+ * 
+ * Assumes root and count are not NULL
+ * 
+ * @param root Root of the tree
+ * @param count Place to store the number of nodes on the tree
+ * @return true Is balanced
+ * @return false Is not balanced
+ */
+static bool is_balanced(const struct node *root, size_t *count) {
+    return false;
+}
+
+bool btree_is_balanced(const BSTree *btree) {
+    return false;
+}
+
+/**
+ * @brief Rotates a binary tree to the left
+ * 
+ * Assumes root is not NULL, and the right sub tree is not NULL
+ * 
+ * @param root Root of the tree
+ */
+static void rotate_left(struct node **root) {
+    struct node *right = (*root)->right;
+
+    (*root)->right = right->left;
+    right->left = *root;
+    *root = right;
+}
+
+/**
+ * @brief Rotates a binary tree to the right
+ * 
+ * Assumes root is not NULL, and the left sub tree is not NULL
+ * 
+ * @param root Root of the tree
+ */
+static void rotate_right(struct node **root) {
+    struct node *left = (*root)->left;
+
+    (*root)->left = left->right;
+    left->right = *root;
+    *root = left;
+}
+
+/**
+ * @brief Transforms a binary search tree in a spine (each node has no left sub-tree)
+ * 
+ * Assumes root is not NULL
+ * 
+ * @param root Root of the tree
+ */
+static void build_spine(struct node **root) {
+    while (*root != NULL) {
+        while ((*root)->left != NULL)
+            rotate_right(root);
+
+        root = &((*root)->right);
+    }
+}
+
+/**
+ * @brief 
+ * 
+ * @param root 
+ * @param n_memb 
+ */
+static void balance_spine(struct node **root, size_t n_memb) {
+    size_t height = log2(n_memb);
+    size_t total = pow(2, height) - 1;
+    // number of nodes on the last level
+    size_t bottom = n_memb - total;
+
+    struct node **temp = root;
+    // rotate the bottom nodes
+    while (bottom > 0 && *temp != NULL && (*temp)->right != NULL) {
+        rotate_left(temp);
+        temp = &((*temp)->right);
+        bottom--;
+    }
+
+    n_memb -= n_memb - total;
+    // rotate the odd nodes to the left
+    while (n_memb > 0) {
+        n_memb /= 2;
+        total = n_memb;
+        temp = root;
+
+        while (total > 0 && (*temp)->right != NULL) {
+            rotate_left(temp);
+            total--;
+            temp = &((*temp)->right);
+        }
+    }
+}
+
+void btree_balance(BSTree *btree) {
+    if (btree->root != NULL) {
+        build_spine(&(btree->root));
+        balance_spine(&(btree->root), btree->size);
+    }
+}
+
+/**
  * @brief Traversses the binary search tree, by the breath first algorithm
  * Fills the storage array with the nodes in the corresponding order
  * 
