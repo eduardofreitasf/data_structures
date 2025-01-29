@@ -13,9 +13,10 @@ void show_pair(const void *data, const char *key, FILE *fp) {
 }
 
 int main(void) {
-    // FILE *fp = stdout;
-    FILE *fp = fopen("result.log", "w");
+    FILE *fp = stdout;
+    // FILE *fp = fopen("result.log", "w");
     char *temp = NULL;
+    int value = 0;
 
     Hash_Table * ht = ht_create(7, &fnv_hash);
     ht_show(ht, &show_pair, fp);
@@ -23,21 +24,25 @@ int main(void) {
     fprintf(fp, "--- INSERT ---\n");
     for (int i = 0; i < 50; i++) {
         temp = random_string(STR_SIZE);
-        ht_insert(ht, create_int(rand() % MAX_VAL), temp);
+        value = rand() % MAX_VAL;
+        ht_insert(ht, create(value), temp);
         free(temp);
     }
 
     temp = strdup("hello wor");
-    ht_insert(ht, create_int(rand() % MAX_VAL), temp);
+    value = rand() % MAX_VAL;
+    ht_insert(ht, create(value), temp);
     free(temp);
-
+    
     temp = strdup("eduardo f");
-    ht_insert(ht, create_int(rand() % MAX_VAL), temp);
+    value = rand() % MAX_VAL;
+    ht_insert(ht, create(value), temp);
     free(temp);
 
     for (int i = 0; i < 5; i++) {
         temp = random_string(STR_SIZE);
-        ht_insert(ht, create_int(rand() % MAX_VAL), temp);
+        value = rand() % MAX_VAL;
+        ht_insert(ht, create(value), temp);
         free(temp);
     }
 

@@ -27,6 +27,6 @@ size_t ht_elements(const Hash_Table *ht);
 
 void ht_show(const Hash_Table *ht, void (*show)(const void *, const char *, FILE *), FILE *fp);
 
-size_t ht_max_probe(const Hash_Table *ht);
+void ht_refresh(Hash_Table *ht);
 
 #endif

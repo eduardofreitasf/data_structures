@@ -1,6 +1,6 @@
 CC=gcc
 LDFLAGS= -lutils
-CFLAGS=-c -Wall -Wextra -g
+CFLAGS=-Wall -Wextra -g -fsanitize=address
 
 CLOSED=closed_adressing.c
 OPEN=open_adressing.c
@@ -13,23 +13,23 @@ all:
 	@echo "Usage: make <closed | open | cuckoo | hopscotch>"
 
 closed: hash_functions.o test.c
-	$(CC) $(CFLAGS) $(CLOSED) -o closed_adressing.o
-	$(CC) closed_adressing.o $^ $(LDFLAGS) -o $(BIN)
+	$(CC) -c $(CFLAGS) $(CLOSED) -o closed_adressing.o
+	$(CC) $(CFLAGS) closed_adressing.o $^ $(LDFLAGS) -o $(BIN)
 
 open: hash_functions.o test.c
-	$(CC) $(CFLAGS) $(OPEN) -o open_adressing.o
-	$(CC) open_adressing.o $^ $(LDFLAGS) -o $(BIN)
+	$(CC) -c $(CFLAGS) $(OPEN) -o open_adressing.o
+	$(CC) $(CFLAGS) open_adressing.o $^ $(LDFLAGS) -o $(BIN)
 
 cuckoo: hash_functions.o test.c
-	$(CC) $(CFLAGS) $(CUCKOO) -o cuckoo_hashing.o
-	$(CC) cuckoo_hashing.o $^ $(LDFLAGS) -o $(BIN)
+	$(CC) -c $(CFLAGS) $(CUCKOO) -o cuckoo_hashing.o
+	$(CC) $(CFLAGS) cuckoo_hashing.o $^ $(LDFLAGS) -o $(BIN)
 
 hopscotch: hash_functions.o test.c
-	$(CC) $(CFLAGS) $(HOPSCOCTH) -o hopscotch_hashing.o
-	$(CC) hopscotch_hashing.o $^ $(LDFLAGS) -o $(BIN)
+	$(CC) -c $(CFLAGS) $(HOPSCOCTH) -o hopscotch_hashing.o
+	$(CC) $(CFLAGS) hopscotch_hashing.o $^ $(LDFLAGS) -o $(BIN)
 
 hash_functions.o: hash_functions.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm *.o $(BIN)
