@@ -4,5 +4,6 @@
 #include <stddef.h>
 
 size_t fnv_hash(const char *key);
+size_t character_folding(const char *key);
 
 #endif

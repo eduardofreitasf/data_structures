@@ -16,3 +16,14 @@ size_t fnv_hash(const char *key) {
 
     return hash;
 }
+
+size_t character_folding(const char *key) {
+    if (key == NULL)
+        return 0;
+
+    size_t hash = 0;
+    for (size_t i = 0; key[i] != '\0'; i++)
+        hash += key[i];
+
+    return hash;
+}

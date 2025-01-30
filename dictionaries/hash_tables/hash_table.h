@@ -18,6 +18,8 @@ typedef struct hash_table Hash_Table;
 Hash_Table *ht_create(size_t size, size_t (*hash)(const char *));
 void ht_destroy(Hash_Table *ht, void (*destroy)(void *));
 
+void ht_set_hash(Hash_Table *ht, size_t (*hash)(const char *));
+
 int ht_insert(Hash_Table *ht, void *data, const char *key);
 void *ht_remove(Hash_Table *ht, const char *key);
 void *ht_lookup(const Hash_Table *ht, const char *key);
