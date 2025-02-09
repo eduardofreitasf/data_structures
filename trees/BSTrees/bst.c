@@ -100,7 +100,6 @@ int btree_insert(BSTree *btree, void *data, int (*compare)(const void *, const v
  * Assumes root and compare are not NULL
  * 
  * @param root Root of the tree
- * @param compare Function to compare elements
  * @return struct node* Biggest node
  */
 static struct node *remove_biggest(struct node **root) {
@@ -119,7 +118,6 @@ static struct node *remove_biggest(struct node **root) {
  * Assumes root and compare are not NULL
  * 
  * @param root Root of the tree
- * @param compare Function to compare elements
  * @return void* Data stored on the root
  */
 static void *remove_root(struct node **root) {
