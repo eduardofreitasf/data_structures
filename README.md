@@ -36,9 +36,10 @@ The **data structures** you may find here are:
         - Open Adressing
         - Cuckoo Hashing
         - Hopscotch Hashing
-        - Hash Functions
+        - Hash Functions (**EXTRA**)
     - Tries (Prefix Trees)
 - [Trees](/trees/)
+    - Tree
     - Binary Search Trees
     - AVL Trees
     - Red and Black Trees
