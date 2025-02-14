@@ -2,49 +2,81 @@
 #define STACK_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct stack Stack;
 
-/*
- * Allocates space for a Stack
+/**
+ * @brief Allocates space for a Stack
+ * 
+ * @return Stack pointer
  */
 Stack *stack_create(void);
 
-/*
- * Liberates the space occupied by a Stack and it's elements
+/**
+ * @brief Frees the space occupied by a Stack and it's elements
+ * 
+ * @param stack Stack
+ * @param destroy Function to free the data stored
  */
 void stack_destroy(Stack *stack, void (*destroy)(void *));
 
-/*
- * Checks if a Stack is empty
+/**
+ * @brief Checks if a Stack is empty
+ * 
+ * @param stack Stack
+ * @return true Stack is empty
+ * @return false Stack is not empty
  */
 bool stack_is_empty(Stack *stack);
 
-/*
- * Adds data to the top of the Stack
+/**
+ * @brief Adds data to the top of the stack
+ * 
+ * @param stack Stack
+ * @param data Data to store
  */
-void stack_push(Stack *stack, void *data);
+int stack_push(Stack *stack, void *data);
 
-/*
- * Removes the element on the top of the Stack
- * NULL if it is empty
+/**
+ * @brief Removes the element on top of the Stack
+ * 
+ * @param stack Stack
+ * @return Element on the top of the Stack (NULL if stack is empty)
  */
 void *stack_pop(Stack *stack);
 
-/*
- * Returns the top element of the Stack
- * NULL if it is empty
+/**
+ * @brief Peeks the element on the top of the Stack
+ * 
+ * @param stack Stack
+ * @return Element on the top of the Stack (NULL if stack is empty)
  */
 void *stack_top(Stack *stack);
 
-/*
- * Removes every element on the Stack
+/**
+ * @brief Emptys the Stack
+ * 
+ * @param stack Stack
+ * @param destroy Function to free the elements on the Stack
  */
 void stack_clear(Stack *stack, void (*destroy)(void *));
 
-/*
- * Returns the current size of the Stack
+/**
+ * @brief Calculates the size of the Stack
+ * 
+ * @param stack Stack
+ * @return Number of elements on the Stack
  */
-unsigned stack_elements(Stack *stack);
+size_t stack_elements(Stack *stack);
+
+/**
+ * @brief Shows the content of a Stack
+ * 
+ * @param stack Stack
+ * @param show Function to show the content stored
+ * @param fp File pointer
+ */
+void show_stack(const Stack *stack, void (*show)(const void *, FILE *), FILE *fp);
 
 #endif

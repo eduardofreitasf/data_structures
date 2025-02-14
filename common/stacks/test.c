@@ -1,58 +1,67 @@
 #include "stack.h"
+#include <utils.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
-struct test {
-    char *name;
-    unsigned age;
-};
+#define STR_SIZE 7
+#define MAX_AGE 100
 
-void test_destroy(void *ptr) {
-    if (ptr != NULL) {
-        struct test *temp = (struct test *)ptr;
-        if (temp->name != NULL)
-            free(temp->name);
+int main(void) {
 
+    FILE *output = stdout;
+    // FILE *output = fopen("out.txt", "w");
+    char *temp = NULL;
+
+    fprintf(output, "--- STACKS ---\n");
+
+    Stack *st = stack_create();
+
+    fprintf(output, "stack is empty: '%s'\n", stack_is_empty(st) ? "true" : "false");
+    fprintf(output, "stack size: %lu\n", stack_elements(st));
+
+    fprintf(output, "--- PUSH ---\n");
+    for (int i = 0; i < 10; i++) {
+        temp = random_string(STR_SIZE);
+        stack_push(st, create_person(temp, rand() % MAX_AGE));
         free(temp);
     }
-}
 
-struct test *test_create(char *name, unsigned age) {
-    struct test *new = (struct test *)malloc(sizeof(struct test));
-    if (new == NULL)
-        return NULL;
+    show_stack(st, &show_person, output);
+    fprintf(output, "stack is empty: '%s'\n", stack_is_empty(st) ? "true" : "false");
+    fprintf(output, "stack size: %lu\n", stack_elements(st));
 
-    *new = (struct test){.name = name, .age = age};
+    Person *trash = NULL;
+    trash = stack_top(st);
+    if (trash != NULL) {
+        fprintf(output, "top: ");
+        show_person(trash, output);
+    } else
+        fprintf(output, "stack is empty\n");
 
-    return new;
-}
 
-unsigned random_int(unsigned limit) { return rand() % limit; }
-
-char *random_string(size_t size) {
-    const char charset[] =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    size_t charsetSize = sizeof(charset) - 1; // Exclude the null terminator
-
-    // Allocate memory for the random string (+1 for the null terminator)
-    char *output = (char *)malloc((size + 1) * sizeof(char));
-    if (output == NULL) {
-        perror("Failed to allocate memory");
-        exit(EXIT_FAILURE);
+    fprintf(output, "--- POP ---\n");
+    for (int i = 0; i < 3; i++) {
+        trash = stack_pop(st);
+        if (trash != NULL) {
+            fprintf(output, "removed: ");
+            show_person(trash, output);
+            destroy_person(trash);
+        } else
+            fprintf(output, "stack is empty\n");
     }
 
-    // Seed the random number generator
-    srand((unsigned int)time(NULL));
+    show_stack(st, &show_person, output);
+    fprintf(output, "stack is empty: '%s'\n", stack_is_empty(st) ? "true" : "false");
+    fprintf(output, "stack size: %lu\n", stack_elements(st));
 
-    // Generate the random string
-    for (size_t i = 0; i < size; i++)
-        output[i] = charset[rand() % charsetSize];
+    trash = stack_top(st);
+    if (trash != NULL) {
+        fprintf(output, "top: ");
+        show_person(trash, output);
+    } else
+        fprintf(output, "stack is empty\n");
 
-    // Null-terminate the string
-    output[size] = '\0';
+    stack_destroy(st, &destroy_person);
 
-    return output;
+    return 0;
 }
-
-int main(int argc, char **argv) { return 0; }

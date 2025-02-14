@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 typedef struct stack {
-    unsigned size, used;
+    size_t size, used;
     void **data;
 } Stack;
 
@@ -18,7 +18,9 @@ Stack *stack_create(void) {
         return NULL;
     }
 
-    *new = (Stack){.size = 1, .used = 0, .data = data};
+    new->data = data;
+    new->size = 1;
+    new->used = 0;
 
     return new;
 }
@@ -53,7 +55,7 @@ float stack_load_factor(Stack *stack) {
  *
  * Errors: 1 == stack is NULL
  *         2 == realloc() did not work
- *         3 == there are than 2/3 elements on the stack
+ *         3 == there are more than 2/3 elements on the stack
  */
 int stack_resize(Stack *stack, bool grow) {
     if (stack == NULL)
@@ -79,25 +81,26 @@ int stack_resize(Stack *stack, bool grow) {
     return 0;
 }
 
-void stack_push(Stack *stack, void *data) {
-    if (stack == NULL)
-        return;
+int stack_push(Stack *stack, void *data) {
+    if (stack == NULL || data == NULL)
+        return 1;
 
     // double the size
     if (stack->used == stack->size) {
         int result = stack_resize(stack, true);
         if (result == 2)
-            return;
+            // allocation problems
+            return 2;
     }
 
     stack->data[stack->used++] = data;
+    return 0;
 }
 
 void *stack_pop(Stack *stack) {
     if (stack == NULL || stack->used == 0 || stack->size == 0)
         return NULL;
 
-    // error checking ??
     if (stack_load_factor(stack) < 0.3) {
         stack_resize(stack, false);
     }
@@ -123,8 +126,15 @@ void stack_clear(Stack *stack, void (*destroy)(void *)) {
     stack->used = 0;
 }
 
-unsigned stack_elements(Stack *stack) {
+size_t stack_elements(Stack *stack) {
     if (stack == NULL)
         return 0;
     return stack->used;
+}
+
+void show_stack(const Stack *stack, void (*show)(const void *, FILE *), FILE *fp) {
+    if (stack != NULL && show != NULL && fp != NULL) {
+        for (size_t i = 0; i < stack->used; i++)
+            show(stack->data[stack->used - 1 - i], fp);
+    }
 }

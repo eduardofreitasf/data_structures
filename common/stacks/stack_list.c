@@ -7,7 +7,7 @@ struct chain {
 };
 
 typedef struct stack {
-    unsigned size;
+    size_t size;
     struct chain *top;
 } Stack;
 
@@ -16,7 +16,8 @@ struct chain *create_chain(void *data) {
     if (new == NULL)
         return NULL;
 
-    *new = (struct chain){.data = data, .next = NULL};
+    new->data = data;
+    new->next = NULL;
 
     return new;
 }
@@ -26,7 +27,8 @@ Stack *stack_create(void) {
     if (new == NULL)
         return NULL;
 
-    *new = (Stack){.size = 0, .top = NULL};
+    new->size = 0;
+    new->top = NULL;
 
     return new;
 }
@@ -51,25 +53,35 @@ void stack_destroy(Stack *stack, void (*destroy)(void *)) {
 
 bool stack_is_empty(Stack *stack) { return stack == NULL || stack->size == 0; }
 
-void stack_push(Stack *stack, void *data) {
+int stack_push(Stack *stack, void *data) {
+    if (stack == NULL || data == NULL)
+        return 1;
+
     struct chain *new_node = create_chain(data);
-    // error handling ??
-    if (new_node == NULL || stack == NULL)
-        return;
+    if (new_node == NULL)
+        return 2;
 
     new_node->next = stack->top;
     stack->top = new_node;
     stack->size++;
+
+    return 0;
 }
 
 void *stack_pop(Stack *stack) {
     if (stack == NULL || stack->top == NULL)
         return NULL;
 
-    void *temp = stack->top->data;
-    stack->top = stack->top->next;
+    struct chain *temp = stack->top;
+    void *result = temp->data;
 
-    return temp;
+    // remove the first node
+    stack->top = stack->top->next;
+    stack->size--;
+
+    free(temp);
+
+    return result;
 }
 
 void *stack_top(Stack *stack) {
@@ -94,12 +106,24 @@ void stack_clear(Stack *stack, void (*destroy)(void *)) {
         temp = current;
     }
 
-    *stack = (Stack){.size = 0, .top = NULL};
+    stack->size = 0;
+    stack->top = NULL;
 }
 
-unsigned stack_elements(Stack *stack) {
+size_t stack_elements(Stack *stack) {
     if (stack == NULL)
         return 0;
 
     return stack->size;
+}
+
+void show_stack(const Stack *stack, void (*show)(const void *, FILE *), FILE *fp) {
+    if (stack != NULL && show != NULL && fp != NULL) {
+        struct chain *temp = stack->top;
+
+        while (temp != NULL) {
+            show(temp->data, fp);
+            temp = temp->next;
+        }
+    }
 }
