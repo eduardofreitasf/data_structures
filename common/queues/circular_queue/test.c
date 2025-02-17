@@ -1,6 +1,7 @@
 #include "circular_queue.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define MAX_VALUE 100
 
@@ -17,6 +18,8 @@ void *create_int(int value) {
 }
 
 int main(void) {
+    srand(time(0));
+    
     FILE *output = stdout;
     int temp = 0, i = 0;
     void *trash = NULL;
