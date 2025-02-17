@@ -1,6 +1,9 @@
 #include "queue.h"
 #include <stdlib.h>
 
+/**
+ * @brief Struct for a node in a Queue
+ */
 struct chain {
     void *data;
     struct chain *next;
@@ -11,12 +14,19 @@ typedef struct queue {
     struct chain *front, *back;
 } Queue;
 
-struct chain *create_chain(void *data) {
+/**
+ * @brief Creates a node for a Queue
+ * 
+ * @param data Data to store in the node
+ * @return Pointer to a node
+ */
+static struct chain *create_chain(void *data) {
     struct chain *new = (struct chain *)malloc(sizeof(struct chain));
     if (new == NULL)
         return NULL;
 
-    *new = (struct chain){.data = data, .next = NULL};
+    new->data = data;
+    new->next = NULL;
 
     return new;
 }
@@ -26,7 +36,8 @@ Queue *queue_create(void) {
     if (new == NULL)
         return NULL;
 
-    *new = (Queue){.size = 0, .front = NULL, .back = NULL};
+    new->size = 0;
+    new->back = new->front = NULL;
 
     return new;
 }
@@ -39,22 +50,24 @@ void queue_destroy(Queue *queue, void (*destroy)(void *)) {
     while (temp != NULL) {
         queue->back = temp->next;
 
-        if (temp->data)
+        // free data
+        if (temp->data != NULL)
             destroy(temp->data);
+
+        free(temp);
         temp = queue->back;
     }
 
     free(queue);
 }
 
-void enqueue(Queue *queue, void *data) {
+int enqueue(Queue *queue, void *data) {
     if (queue == NULL)
-        return;
+        return 1;
 
     struct chain *new_node = create_chain(data);
-    // error handling ??
     if (new_node == NULL)
-        return;
+        return 2;
 
     // empty queue
     if (queue->front == NULL) {
@@ -67,6 +80,7 @@ void enqueue(Queue *queue, void *data) {
     }
 
     queue->size++;
+    return 0;
 }
 
 void *dequeue(Queue *queue) {
@@ -81,17 +95,21 @@ void *dequeue(Queue *queue) {
     queue->front = aux;
     queue->size--;
 
+    // removed the last element
+    if (queue->size == 0)
+        queue->back = queue->front = NULL;
+
     return temp;
 }
 
-void *queue_front(Queue *queue) {
+void *queue_front(const Queue *queue) {
     if (queue == NULL || queue->front == NULL)
         return NULL;
 
     return queue->front->data;
 }
 
-void *queue_back(Queue *queue) {
+void *queue_back(const Queue *queue) {
     if (queue == NULL || queue->back == NULL)
         return NULL;
 
@@ -113,17 +131,22 @@ void queue_clear(Queue *queue, void (*destroy)(void *)) {
         temp = queue->back;
     }
 
-    *queue = (struct queue){.size = 0, .front = NULL, .back = NULL};
+    queue->size = 0;
+    queue->back = queue->front = NULL;
 }
 
-size_t queue_size(Queue *queue) {
+size_t queue_size(const Queue *queue) {
     if (queue == NULL)
         return 0;
 
     return queue->size;
 }
 
-void show_queue(Queue *queue, void (*show)(const void *, FILE *), FILE *fp) {
+bool queue_is_empty(const Queue *queue) {
+    return queue != NULL && queue->size == 0 && queue->back == NULL && queue->front == NULL;
+}
+
+void show_queue(const Queue *queue, void (*show)(const void *, FILE *), FILE *fp) {
     if (queue == NULL || show == NULL || fp == NULL)
         return;
 
