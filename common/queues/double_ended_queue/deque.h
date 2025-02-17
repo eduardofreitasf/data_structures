@@ -62,6 +62,22 @@ void * deque_pop_front(Deque *dq);
 void * deque_pop_back(Deque *dq);
 
 /**
+ * @brief Peek the front element on the queue
+ * 
+ * @param dq Pointer to a double ended queue
+ * @return data stored at the front
+ */
+void *deque_front(const Deque *dq);
+
+/**
+ * @brief Peek the back element on the queue
+ * 
+ * @param dq Pointer to a double ended queue
+ * @return data stored at the back
+ */
+void *deque_back(const Deque *dq);
+
+/**
  * @brief Calculates the size of the queue
  *
  *  If dq is NULL, the return value is 0
@@ -69,7 +85,7 @@ void * deque_pop_back(Deque *dq);
  *  @param dq Double ended queue
  *  @return Length of the queue
  */
-size_t deque_size(Deque *dq);
+size_t deque_size(const Deque *dq);
 
 /**
  * @brief Inverts the order of the elements in the queue
@@ -84,7 +100,7 @@ void deque_reverse(Deque *dq);
  * @return true Queue is empty
  * @return false Queue is not empty
  */
-bool deque_is_empty(Deque *dq);
+bool deque_is_empty(const Deque *dq);
 
 /**
  * @brief Shows the content of a Double ended Queue
@@ -93,6 +109,6 @@ bool deque_is_empty(Deque *dq);
  * @param show Function to show the content
  * @param fp File pointer to output
  */
-void show_deque(Deque *dq, void (*show)(const void *, FILE *), FILE *fp);
+void show_deque(const Deque *dq, void (*show)(const void *, FILE *), FILE *fp);
 
 #endif

@@ -1,36 +1,33 @@
 #include "deque.h"
 #include <stdlib.h>
 
-/*
- * Double ended node that stores generic data
+/**
+ * @brief Double ended node that stores generic data
  */
 struct d_node {
     void *data;
     struct d_node *next, *prev;
 };
 
-/*
- * Double ended queue
- */
 typedef struct deque {
     size_t size;
     bool reverse;
     struct d_node *front, *back;
 } Deque;
 
-/*
- * Allocates space for a double ended node
+/**
+ * @brief Allocates space for a double ended node
+ * 
+ * @param data Data to store in the node
+ * @return pointer to the node
  */
 static struct d_node *create_double_node(void *data) {
     struct d_node *new = (struct d_node *) malloc(sizeof(struct deque));
     if (new == NULL)
         return NULL;
 
-    *new = (struct d_node) {
-        .data = data,
-        .next = NULL,
-        .prev = NULL
-    };
+    new->data = data;
+    new->next = new->prev = NULL;
 
     return new;
 }
@@ -40,12 +37,9 @@ Deque *create_deque(void) {
     if (new == NULL)
         return NULL;
 
-    *new = (struct deque) {
-        .size = 0,
-        .reverse = false,
-        .front = NULL,
-        .back = NULL
-    };
+    new->size = 0;
+    new->reverse = false;
+    new->back = new->front = NULL;
 
     return new;
 }
@@ -67,7 +61,7 @@ void destroy_deque(Deque *dq, void (*destroy)(void *)) {
     free(dq);
 }
 
-size_t deque_size(Deque *dq) {
+size_t deque_size(const Deque *dq) {
     return dq == NULL ? 0 : dq->size;
 }
 
@@ -76,8 +70,14 @@ void deque_reverse(Deque *dq) {
         dq->reverse = !(dq->reverse);
 }
 
-/*
- * pre: dq != NULL
+/**
+ * @brief Adds data to the front of the queue
+ * 
+ * @note assumes dq is not NULL
+ * @param dq Pointer to a Double ended queue
+ * @param data Data to store
+ * @return 0 on sucess
+ *         1 allocation problems
  */
 static int push_front(Deque *dq, void *data) {
     struct d_node *new_node = create_double_node(data);
@@ -98,8 +98,14 @@ static int push_front(Deque *dq, void *data) {
     return 0;
 }
 
-/*
- * pre: dq != NULL
+/**
+ * @brief Adds data to the back of the queue
+ * 
+ * @note assumes dq is not NULL
+ * @param dq Pointer to a Double ended queue
+ * @param data Data to store
+ * @return 0 on sucess
+ *         1 allocation problems
  */
 static int push_back(Deque *dq, void *data) {
     struct d_node *new_node = create_double_node(data);
@@ -120,8 +126,12 @@ static int push_back(Deque *dq, void *data) {
     return 0;
 }
 
-/*
- * pre: dq != NULL
+/**
+ * @brief Removes the front element of the queue
+ * 
+ * @note assumes dq is not NULL
+ * @param dq Pointer to the double ended queue
+ * @return data stored on the node
  */
 static void * pop_front(Deque *dq) {
     // empty deque
@@ -145,8 +155,12 @@ static void * pop_front(Deque *dq) {
     return temp;
 }
 
-/*
- * pre: dq != NULL
+/**
+ * @brief Removes the back element of the queue
+ * 
+ * @note assumes dq is not NULL
+ * @param dq Pointer to the double ended queue
+ * @return data stored on the node
  */
 static void * pop_back(Deque *dq) {
     // empty deque
@@ -198,11 +212,25 @@ void * deque_pop_back(Deque * dq) {
     return dq->reverse == false ? pop_back(dq) : pop_front(dq);
 }
 
-bool deque_is_empty(Deque *dq) {
+void *deque_front(const Deque *dq) {
+    if (dq != NULL && dq->front != NULL)
+        return dq->front->data;
+
+    return NULL;
+}
+
+void *deque_back(const Deque *dq) {
+    if (dq != NULL && dq->back != NULL)
+        return dq->back->data;
+
+    return NULL;
+}
+
+bool deque_is_empty(const Deque *dq) {
     return dq == NULL || dq->size == 0;
 }
 
-void show_deque(Deque *dq, void (*show)(const void *, FILE *), FILE *fp) {
+void show_deque(const Deque *dq, void (*show)(const void *, FILE *), FILE *fp) {
     if (dq == NULL || show == NULL || fp == NULL)
         return;
     

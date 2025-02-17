@@ -1,73 +1,133 @@
 #include "deque.h"
 #include <stdio.h>
-#include <utils.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define MAX 100
+#define MAX_VALUE 100
+
+void show_int(const void *data, FILE *fp) {
+    if (data != NULL && fp != NULL)
+        fprintf(fp, "%d ", *(int *)data);
+}
+
+void *create_int(int value) {
+    int *new = malloc(sizeof(int));
+    *new = value;
+
+    return new;
+}
 
 int main(void) {
+    srand(time(0));
+
+    FILE *output = stdout;
+    int temp = 0, i = 0;
+    void *trash = NULL;
 
     Deque *dq = create_deque();
-    char *temp = NULL;
-    FILE *fp = stdout;
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    fprintf(fp, "--- PUSH FRONT ---\n");
-    temp = random_string(7);
-    deque_push_front(dq, create_person(temp, rand() % MAX));
-    free(temp);
+    fprintf(output, "--- PUSH FRONT ---\n");
+    for (i = 0; i < 10; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "push front %d\n", temp);
+        deque_push_front(dq, create_int(temp));
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    temp = random_string(7);
-    deque_push_front(dq, create_person(temp, rand() % MAX));
-    free(temp);
+    fprintf(output, "--- PUSH BACK ---\n");
+    for (i = 0; i < 10; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "push front %d\n", temp);
+        deque_push_back(dq, create_int(temp));
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    temp = random_string(7);
-    deque_push_front(dq, create_person(temp, rand() % MAX));
-    free(temp);
-    
-    show_deque(dq, &show_person, stdout);
+    fprintf(output, "--- FRONT ---\n");
+    trash = deque_front(dq);
+    if (trash != NULL)
+        fprintf(output, "front: %d\n", *(int *)trash);
 
-    fprintf(fp, "--- PUSH BACK ---\n");
-    temp = random_string(7);
-    deque_push_back(dq, create_person(temp, rand() % MAX));
-    free(temp);
+    fprintf(output, "--- BACK ---\n");
+    trash = deque_back(dq);
+    if (trash != NULL)
+        fprintf(output, "back: %d\n", *(int *)trash);
 
-    temp = random_string(7);
-    deque_push_back(dq, create_person(temp, rand() % MAX));
-    free(temp);
+    fprintf(output, "--- POP FRONT ---\n");
+    for (i = 0; i < 5; i++) {
+        trash = deque_pop_front(dq);
+        if (trash != NULL) {
+            fprintf(output, "pop front %d\n", *(int *)trash);
+            free(trash);
+        } else
+            fprintf(output, "deque is empty or error\n");
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    temp = random_string(7);
-    deque_push_back(dq, create_person(temp, rand() % MAX));
-    free(temp);
-    
-    show_deque(dq, &show_person, stdout);
+    fprintf(output, "--- FRONT ---\n");
+    trash = deque_front(dq);
+    if (trash != NULL)
+        fprintf(output, "front: %d\n", *(int *)trash);
 
-    fprintf(stdout, "\nQueue size: %ld\n", deque_size(dq));
+    fprintf(output, "--- BACK ---\n");
+    trash = deque_back(dq);
+    if (trash != NULL)
+        fprintf(output, "back: %d\n", *(int *)trash);
 
-    fprintf(stdout, "--- REVERSE ---\n");
+    fprintf(output, "--- POP BACK ---\n");
+    for (i = 0; i < 5; i++) {
+        trash = deque_pop_back(dq);
+        if (trash != NULL) {
+            fprintf(output, "pop back %d\n", *(int *)trash);
+            free(trash);
+        } else
+            fprintf(output, "deque is empty or error\n");
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
+
+    fprintf(output, "--- REVERSE ---\n");
     deque_reverse(dq);
-    show_deque(dq, &show_person, stdout);
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    fprintf(fp, "--- POP FRONT ---\n");
-    deque_pop_front(dq);
-    deque_pop_front(dq);
-    show_deque(dq, &show_person, stdout);
+    fprintf(output, "--- PUSH FRONT ---\n");
+    for (i = 0; i < 5; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "push front %d\n", temp);
+        deque_push_front(dq, create_int(temp));
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    fprintf(fp, "--- POP BACK ---\n");
-    deque_pop_back(dq);
-    deque_pop_back(dq);
-    show_deque(dq, &show_person, stdout);
+    fprintf(output, "--- PUSH BACK ---\n");
+    for (i = 0; i < 5; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "push front %d\n", temp);
+        deque_push_back(dq, create_int(temp));
+    }
+    show_deque(dq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "deque size: %lu\n", deque_size(dq));
+    fprintf(output, "deque is empty: '%s'\n", deque_is_empty(dq)? "true" : "false");
 
-    fprintf(stdout, "--- REVERSE ---\n");
-    deque_reverse(dq);
-    show_deque(dq, &show_person, stdout);
-
-    deque_pop_front(dq);
-    deque_pop_back(dq);
-    show_deque(dq, &show_person, stdout);
-
-    fprintf(fp, "Queue is empty: '%s'\n", deque_is_empty(dq) ? "true" : "false");
-
-    destroy_deque(dq, &destroy_person);
+    destroy_deque(dq, &free);
 
     return 0;
 }
