@@ -1,5 +1,5 @@
 CC=gcc
-LDFLAGS= -lutils
+LDFLAGS=
 CFLAGS=-Wall -Wextra -g
 
 CFILES=$(wildcard *.c)

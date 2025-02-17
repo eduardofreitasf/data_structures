@@ -11,6 +11,12 @@ typedef struct circular_queue {
     struct chain *back;
 } CQueue;
 
+/**
+ * @brief Allocate space for a node for a Circular Queue
+ * 
+ * @param data Data to store
+ * @return Pointer to the node
+ */
 static struct chain *create_chain(void *data) {
     struct chain *new = (struct chain *)malloc(sizeof(struct chain));
     if (new == NULL)
@@ -49,6 +55,8 @@ void destroy_cqueue(CQueue *cq, void (*destroy)(void *)) {
             temp = cq->back;
         }
     }
+
+    free(cq);
 }
 
 int cqueue_enqueue(CQueue *cq, void *data) {
@@ -97,14 +105,14 @@ void *cqueue_dequeue(CQueue *cq) {
     return result;
 }
 
-void *cqueue_front(CQueue *cq) {
+void *cqueue_front(const CQueue *cq) {
     if (cq == NULL || cq->back == NULL)
         return NULL;
 
     return cq->back->next->data;
 }
 
-void *cqueue_back(CQueue *cq) {
+void *cqueue_back(const CQueue *cq) {
     if (cq == NULL || cq->back == NULL)
         return NULL;
 
@@ -132,23 +140,23 @@ void cqueue_clear(CQueue *cq, void (*destroy)(void *)) {
     cq->size = 0;
 }
 
-size_t cqueue_size(CQueue *cq) {
+size_t cqueue_size(const CQueue *cq) {
     if (cq == NULL)
         return 0;
     return cq->size;
 }
 
-bool cqueue_is_empty(CQueue *cq) {
+bool cqueue_is_empty(const CQueue *cq) {
     return cq == NULL || cq->size == 0 || cq->back == NULL;
 }
 
-void show_cqueue(CQueue *cq, void (*show)(const void *, FILE *), FILE *fp) {
+void show_cqueue(const CQueue *cq, void (*show)(const void *, FILE *), FILE *fp) {
     if (cq == NULL || show == NULL || fp == NULL || cq->back == NULL)
         return;
 
     struct chain *temp = cq->back->next;
     size_t ite = 0;
-    // first condition will never fail (but we never know)
+    // first condition will never fail (failsafe)
     while (temp != NULL && ite < cq->size) {
         show(temp->data, fp);
         ite++;

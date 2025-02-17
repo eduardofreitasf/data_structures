@@ -1,60 +1,82 @@
 #include "circular_queue.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <utils.h>
 
-#define MAX_AGE 100
-#define STR_SIZE 7
+#define MAX_VALUE 100
+
+void show_int(const void *data, FILE *fp) {
+    if (data != NULL && fp != NULL)
+        fprintf(fp, "%d ", *(int *)data);
+}
+
+void *create_int(int value) {
+    int *new = malloc(sizeof(int));
+    *new = value;
+
+    return new;
+}
 
 int main(void) {
-    FILE *fp = stdout;
-    char *temp = NULL;
-
+    FILE *output = stdout;
+    int temp = 0, i = 0;
+    void *trash = NULL;
     CQueue *cq = create_cqueue();
-    show_cqueue(cq, &show_person, fp);
-    fprintf(fp, "IS EMPTY: '%s'\n", cqueue_is_empty(cq) ? "true" : "false");
-
-    fprintf(fp, "--- ENQUEUE ---\n");
-    temp = random_string(STR_SIZE);
-    cqueue_enqueue(cq, create_person(temp, rand() % MAX_AGE));
-    free(temp);
-    show_cqueue(cq, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", cqueue_size(cq));
-
-    fprintf(fp, "--- DEQUEUE ---\n");
-    show_person(cqueue_dequeue(cq), fp);
-    show_person(cqueue_dequeue(cq), fp);
-    fprintf(fp, "SIZE: %ld\n", cqueue_size(cq));
-
-    fprintf(fp, "--- ENQUEUE ---\n");
-    for (int i = 0; i < 10; i++) {
-        temp = random_string(STR_SIZE);
-        cqueue_enqueue(cq, create_person(temp, rand() % MAX_AGE));
-        free(temp);
-    }
-    show_cqueue(cq, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", cqueue_size(cq));
-    fprintf(fp, "--- FRONT ---\n");
-    show_person(cqueue_front(cq), fp);
-
-    fprintf(fp, "--- BACK ---\n");
-    show_person(cqueue_back(cq), fp);
-
-    fprintf(fp, "--- DEQUEUE ---\n");
-    show_person(cqueue_dequeue(cq), fp);
-    show_person(cqueue_dequeue(cq), fp);
-    show_person(cqueue_dequeue(cq), fp);
     
-    fprintf(fp, "IS EMPTY: '%s'\n", cqueue_is_empty(cq) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", cqueue_size(cq));
-    show_cqueue(cq, &show_person, fp);
+    fprintf(output, "queue size: %lu\n", cqueue_size(cq));
+    fprintf(output, "queue is empty: '%s'\n", cqueue_is_empty(cq)? "true" : "false");
 
-    fprintf(fp, "--- CLEAR ---\n");
-    cqueue_clear(cq, &destroy_person);
-    show_cqueue(cq, &show_person, fp);
-    fprintf(fp, "IS EMPTY: '%s'\n", cqueue_is_empty(cq) ? "true" : "false");
+    fprintf(output, "--- ENQUEUE ---\n");
+    for (i = 0; i < 10; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "enqueue %d\n", temp);
+        cqueue_enqueue(cq, create_int(temp));
+    }
+    show_cqueue(cq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "queue size: %lu\n", cqueue_size(cq));
+    fprintf(output, "queue is empty: '%s'\n", cqueue_is_empty(cq)? "true" : "false");
 
-    destroy_cqueue(cq, &destroy_person);
+    fprintf(output, "--- FRONT ---\n");
+    trash = cqueue_front(cq);
+    if (trash != NULL)
+        fprintf(output, "front: %d\n", *(int *)trash);
+
+    fprintf(output, "--- BACK ---\n");
+    trash = cqueue_back(cq);
+    if (trash != NULL)
+        fprintf(output, "back: %d\n", *(int *)trash);
+
+    fprintf(output, "--- CLEAR ---\n");
+    cqueue_clear(cq, &free);
+    fprintf(output, "queue size: %lu\n", cqueue_size(cq));
+    fprintf(output, "queue is empty: '%s'\n", cqueue_is_empty(cq)? "true" : "false");
+
+    fprintf(output, "--- ENQUEUE ---\n");
+    for (i = 0; i < 15; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "enqueue %d\n", temp);
+        cqueue_enqueue(cq, create_int(temp));
+    }
+    show_cqueue(cq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "queue size: %lu\n", cqueue_size(cq));
+    fprintf(output, "queue is empty: '%s'\n", cqueue_is_empty(cq)? "true" : "false");
+
+    fprintf(output, "--- DEQUEUE ---\n");
+    for (i = 0; i < 7; i++) {
+        trash = cqueue_dequeue(cq);
+        if (trash != NULL) {
+            fprintf(output, "dequeue %d\n", *(int *)trash);
+            free(trash);
+        } else
+            fprintf(output, "circular queue is empty or error\n");
+    }
+    show_cqueue(cq, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "queue size: %lu\n", cqueue_size(cq));
+    fprintf(output, "queue is empty: '%s'\n", cqueue_is_empty(cq)? "true" : "false");
+
+    destroy_cqueue(cq, &free);
 
     return 0;
 }
