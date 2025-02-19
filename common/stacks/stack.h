@@ -28,7 +28,7 @@ void stack_destroy(Stack *stack, void (*destroy)(void *));
  * @return true Stack is empty
  * @return false Stack is not empty
  */
-bool stack_is_empty(Stack *stack);
+bool stack_is_empty(const Stack *stack);
 
 /**
  * @brief Adds data to the top of the stack
@@ -52,7 +52,7 @@ void *stack_pop(Stack *stack);
  * @param stack Stack
  * @return Element on the top of the Stack (NULL if stack is empty)
  */
-void *stack_top(Stack *stack);
+void *stack_top(const Stack *stack);
 
 /**
  * @brief Emptys the Stack
@@ -68,7 +68,7 @@ void stack_clear(Stack *stack, void (*destroy)(void *));
  * @param stack Stack
  * @return Number of elements on the Stack
  */
-size_t stack_elements(Stack *stack);
+size_t stack_elements(const Stack *stack);
 
 /**
  * @brief Shows the content of a Stack

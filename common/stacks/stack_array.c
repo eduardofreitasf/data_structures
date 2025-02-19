@@ -1,6 +1,10 @@
 #include "stack.h"
 #include <stdlib.h>
 
+#define GROW 1
+#define SHRINK (-1)
+#define CLEAN 0
+
 typedef struct stack {
     size_t size, used;
     void **data;
@@ -39,44 +43,40 @@ void stack_destroy(Stack *stack, void (*destroy)(void *)) {
     }
 }
 
-bool stack_is_empty(Stack *stack) {
+bool stack_is_empty(const Stack *stack) {
     return stack == NULL || stack->used == 0 || stack->size == 0;
 }
 
-float stack_load_factor(Stack *stack) {
+/**
+ * @brief Determine load factor of a Stack
+ * 
+ * @param stack Pointer to a Stack
+ * @return float load factor
+ */
+static float stack_load_factor(const Stack *stack) {
     return (float)stack->used / (float)stack->size;
 }
 
-/*
- * Resizes the array stored by the Stack
- *
- * grow == true -> doubles the size
- * grow == false -> resizes to 2/3
- *
- * Errors: 1 == stack is NULL
- *         2 == realloc() did not work
- *         3 == there are more than 2/3 elements on the stack
+/**
+ * @brief Resizes the Stack
+ * 
+ * @param stack Pointer to stack
+ * @param growth Flag to grow/shrink/clean the stack
+ * @return 0 on sucess, 1 allocation problems
  */
-int stack_resize(Stack *stack, bool grow) {
-    if (stack == NULL)
-        return 1;
-
+static int stack_resize(Stack *stack, int growth) {
     // double the size
-    if (grow == true) {
+    if (growth > 0) {
         stack->size *= 2;
-    } else {
+    } else if (growth < 0) {
         // resize to 2/3
-        if (stack_load_factor(stack) < 2.0 / 3.0) {
-            stack->size *= 2;
-            stack->size /= 3;
-        } else {
-            return 3;
-        }
+        stack->size *= 2;
+        stack->size /= 3;
     }
-
+    
     stack->data = realloc(stack->data, stack->size * sizeof(void *));
     if (stack->data == NULL)
-        return 2;
+        return 1;
 
     return 0;
 }
@@ -87,8 +87,7 @@ int stack_push(Stack *stack, void *data) {
 
     // double the size
     if (stack->used == stack->size) {
-        int result = stack_resize(stack, true);
-        if (result == 2)
+        if (stack_resize(stack, GROW) != 0)
             // allocation problems
             return 2;
     }
@@ -102,13 +101,15 @@ void *stack_pop(Stack *stack) {
         return NULL;
 
     if (stack_load_factor(stack) < 0.3) {
-        stack_resize(stack, false);
+        if (stack_resize(stack, SHRINK) != 0)
+            // allocation problems
+            return NULL;
     }
 
     return stack->data[--stack->used];
 }
 
-void *stack_top(Stack *stack) {
+void *stack_top(const Stack *stack) {
     if (stack == NULL || stack->used == 0 || stack->size == 0)
         return NULL;
 
@@ -126,7 +127,7 @@ void stack_clear(Stack *stack, void (*destroy)(void *)) {
     stack->used = 0;
 }
 
-size_t stack_elements(Stack *stack) {
+size_t stack_elements(const Stack *stack) {
     if (stack == NULL)
         return 0;
     return stack->used;
