@@ -1,5 +1,5 @@
 CC=gcc
-LDFLAGS= -lutils
+LDFLAGS=
 CFLAGS=-c -Wall -Wextra -g
 
 ARRAY_FILE=stack_array.c
