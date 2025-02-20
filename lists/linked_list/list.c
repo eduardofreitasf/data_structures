@@ -79,6 +79,7 @@ int list_preppend(List *list, void *data) {
     if (new_node == NULL)
         return 2;
 
+    // replace the head
     new_node->next = list->head;
     list->head = new_node;
 
@@ -162,7 +163,17 @@ void *list_remove(List *list, const void *key,
     return result;
 }
 
-List *list_clone(List *list, void *(*clone)(const void *)) {
+bool list_search(const List *list, const void *key, int (*compare)(const void *, const void *)) {
+    if (list == NULL || key == NULL || compare == NULL)
+        return false;
+
+    struct node *temp = list->head;
+    while (temp != NULL && compare(temp->data, key) != 0);
+
+    return temp != NULL;
+}
+
+List *list_clone(const List *list, void *(*clone)(const void *)) {
     List *new_list = list_create();
     if (new_list == NULL || list == NULL)
         return NULL;
@@ -172,7 +183,8 @@ List *list_clone(List *list, void *(*clone)(const void *)) {
     while (temp != NULL) {
         *build = create_node(clone(temp->data));
         if (*build == NULL) {
-            // loop through the new list and free it
+            // MEMORY LEAK !!!
+            // loop through the new list and free it!!
             return NULL;
         }
 
@@ -201,7 +213,7 @@ void list_reverse(List *list) {
     list->head = result;
 }
 
-void *list_min(List *list, int (*compare)(const void *, const void *)) {
+void *list_min(const List *list, int (*compare)(const void *, const void *)) {
     if (list == NULL || list->head == NULL)
         return NULL;
 
@@ -217,7 +229,7 @@ void *list_min(List *list, int (*compare)(const void *, const void *)) {
     return min;
 }
 
-void *list_max(List *list, int (*compare)(const void *, const void *)) {
+void *list_max(const List *list, int (*compare)(const void *, const void *)) {
     if (list == NULL || list->head == NULL)
         return NULL;
 
@@ -306,26 +318,15 @@ List *list_concat(List *list1, List *list2) {
     return list1;
 }
 
-void show_list(List *list, void (*show)(const void *, FILE *), FILE *fp) {
-    if (list == NULL || show == NULL || fp == NULL)
-        return;
-
-    struct node *temp = list->head;
-    while (temp != NULL) {
-        show(temp->data, fp);
-        temp = temp->next;
-    }
-}
-
 /**
  * @brief Merge two ordered lists
  * 
- * Assumes both lists are ordered, and have atleast on element.
+ * Assumes both lists are ordered, and have atleast one element.
  * 
  * @param list1 List one
  * @param list2 List two
  * @param compare Function to compare lists
- * @return struct node* Pointer to the first node of the list
+ * @return Pointer to the first node of the list
  */
 static void _list_merge(struct node *list1, struct node *list2, struct node **build, int (*compare)(const void *, const void *)) {
     while (list1 != NULL && list2 != NULL) {
@@ -339,6 +340,7 @@ static void _list_merge(struct node *list1, struct node *list2, struct node **bu
         build = &((*build)->next);
     }
 
+    // either one of the list is empty
     if (list1 != NULL)
         *build = list1;
     else
@@ -376,7 +378,7 @@ List *list_merge(List *list1, List *list2, int (*compare)(const void *, const vo
  * 
  * @param list Linked list
  * @param size Size of the list
- * @return struct node* Pointer to the middle of the list
+ * @return Pointer to the middle of the list
  */
 static struct node *split_half(struct node *list, size_t size) {
     size_t middle = size / 2;
@@ -388,6 +390,7 @@ static struct node *split_half(struct node *list, size_t size) {
         temp = &((*temp)->next);
     }
 
+    // split the list
     half = *temp;
     *temp = NULL;
 
@@ -395,14 +398,14 @@ static struct node *split_half(struct node *list, size_t size) {
 }
 
 /**
- * @brief Sorts a linked list
+ * @brief Sorts a linked list with merge sort
  * 
  * Assumes list and compare are not NULL, and size is bigger thant 0
  * 
  * @param list Head of the linked list
  * @param size Size of the list
  * @param compare Function to compare data
- * @return struct node* Sorted list
+ * @return Sorted list
  */
 static struct node * _list_sort(struct node *list, size_t size, int (*compare)(const void *, const void *)) {
     if (size < 2)
@@ -425,8 +428,13 @@ void list_sort(List *list, int (*compare)(const void *, const void *)) {
     list->head = _list_sort(list->head, list->size, compare);
 }
 
-/*
-    MAKE PARTITION
-    AND THEN
-    DO QUICK SORT ON LINKED LIST
-*/
+void show_list(const List *list, void (*show)(const void *, FILE *), FILE *fp) {
+    if (list == NULL || show == NULL || fp == NULL)
+        return;
+
+    struct node *temp = list->head;
+    while (temp != NULL) {
+        show(temp->data, fp);
+        temp = temp->next;
+    }
+}
