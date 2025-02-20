@@ -1,163 +1,177 @@
+#include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <utils.h>
+#include <string.h>
 #include <time.h>
-#include "list.h"
 
-#define MAX_AGE 100
-#define STR_SIZE 7
+#define MAX_VALUE 100
+
+void *clone_int(const void *data) {
+    int *new = (int *) malloc(sizeof(int));
+    memcpy(new, data, sizeof(int));
+
+    return new;
+}
+
+void show_int(const void *data, FILE *fp) {
+    if (data != NULL && fp != NULL)
+        fprintf(fp, "%d ", *(int *)data);
+}
+
+void *create_int(int value) {
+    int *new = malloc(sizeof(int));
+    *new = value;
+
+    return new;
+}
+
+int compare_int(const void *value1, const void *value2) {
+    return *(int *)value1 - *(int *)value2;
+}
 
 int main(void) {
     srand(time(0));
-    // FILE *fp = fopen("result.log", "w");
-    FILE *fp = stdout;
-    char *temp = NULL;
 
-    List *l = list_create();
-    fprintf(fp, "Is EMPTY: '%s'\n", list_is_empty(l) ? "true" : "false");
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
+    FILE *output = stdout;
+    int temp = 0;
+    void *trash = NULL, *aux = NULL;
 
-    fprintf(fp, "--- PREPPENDING ---\n");
-    for (int i = 0; i < 4; i++) {
-        temp = random_string(STR_SIZE);
-        list_preppend(l, create_person(temp, rand() % MAX_AGE));
-        free(temp);
-    }
-    show_list(l, &show_person, fp);
+    List *ll = list_create();
 
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
+    fprintf(output, "list is empty '%s'\n", list_is_empty(ll) ? "true" : "false");
+    fprintf(output, "list size %lu\n", list_size(ll));
 
-    fprintf(fp, "--- APPENDING ---\n");
-    for (int i = 0; i < 4; i++) {
-        temp = random_string(STR_SIZE);
-        list_append(l, create_person(temp, rand() % MAX_AGE));
-        free(temp);
-    }
-    show_list(l, &show_person, fp);
-
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
-    fprintf(fp, "Is EMPTY: '%s'\n", list_is_empty(l) ? "true" : "false");
-
-    fprintf(fp, "--- CLONE ---\n");
-    List * clone = list_clone(l, &duplicate_person);
-    show_list(clone, &show_person, fp);
-
-    fprintf(fp, "--- MIN ---\n");
-    Person * p1 = list_min(l, &compare_person);
-    show_person(p1, fp);
-    p1 = list_remove(l, p1, &compare_person);
-    destroy_person(p1);
-    fprintf(fp, "--- MAX ---\n");
-    p1 = list_max(l, &compare_person);
-    show_person(p1, fp);
-
-    fprintf(fp, "--- REMOVE (min and max) ---\n");
-    p1 = list_remove(l, p1, &compare_person);
-    destroy_person(p1);
-    show_list(l, &show_person, fp);
-
-    fprintf(fp, "--- REVERSE ---\n");
-    list_reverse(l);
-    show_list(l, &show_person, fp);
-
-    fprintf(fp, "--- INSERT WITH ORDER ---\n");
-    List *with_order = list_create();
+    fprintf(output, "--- APPEND ---\n");
     for (int i = 0; i < 15; i++) {
-        temp = random_string(STR_SIZE);
-        list_insert(with_order, create_person(temp, rand() % MAX_AGE), &compare_person);
-        free(temp);
+        temp = rand() % MAX_VALUE;
+        if (list_append(ll, create_int(temp)) != 0)
+            fprintf(output, "error ocurred in append\n");
+        else
+            fprintf(output, "append %d\n", temp);
     }
-    show_list(with_order, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(with_order, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(with_order));
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list is empty '%s'\n", list_is_empty(ll) ? "true" : "false");
+    fprintf(output, "list size %lu\n", list_size(ll));
 
-    fprintf(fp, "--- MIN ---\n");
-    p1 = list_min(with_order, &compare_person);
-    show_person(p1, fp);
-    fprintf(fp, "--- MAX ---\n");
-    p1 = list_max(with_order, &compare_person);
-    show_person(p1, fp);
-
-    fprintf(fp, "--- CONCAT ---\n");
-    l = list_concat(l, clone);
-    show_list(l, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
-    list_destroy(clone, &destroy_person);
-
-    fprintf(fp, "--- TAKE ---\n");
-    clone = list_take(l, 4);
-    show_list(l, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
-
-    fprintf(fp, "--- REMAINDER ---\n");
-    show_list(clone, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", list_size(clone));
-
-    fprintf(fp, "--- DROP ---\n");
-    List *remainder = list_drop(clone, 5);
-    show_list(clone, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", list_size(clone));
-
-    fprintf(fp, "--- REMAINDER ---\n");
-    show_list(remainder, &show_person, fp);
-    fprintf(fp, "SIZE: %ld\n", list_size(remainder));
-
-    list_destroy(l, &destroy_person);
-    list_destroy(with_order, &destroy_person);
-    list_destroy(remainder, &destroy_person);
-    list_destroy(clone, &destroy_person);
-
-    fprintf(fp, "--- INSERT WITH ORDER ---\n");
-    with_order = list_create();
-    for (int i = 0; i < 5; i++) {
-        temp = random_string(STR_SIZE);
-        list_insert(with_order, create_person(temp, rand() % MAX_AGE), &compare_person);
-        free(temp);
+    fprintf(output, "--- PREPPEND ---\n");
+    for (int i = 0; i < 15; i++) {
+        temp = rand() % MAX_VALUE;
+        if (list_preppend(ll, create_int(temp)) != 0)
+            fprintf(output, "error ocurred in preppend\n");
+        else
+            fprintf(output, "preppend %d\n", temp);
     }
-    show_list(with_order, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(with_order, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(with_order));
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list is empty '%s'\n", list_is_empty(ll) ? "true" : "false");
+    fprintf(output, "list size %lu\n", list_size(ll));
+    fprintf(output, "list has order '%s'\n", list_order(ll, &compare_int) ? "true" : "false");
 
-    fprintf(fp, "--- INSERT WITH ORDER ---\n");
-    l = list_create();
-    for (int i = 0; i < 4; i++) {
-        temp = random_string(STR_SIZE);
-        list_insert(l, create_person(temp, rand() % MAX_AGE), &compare_person);
-        free(temp);
-    }
-    show_list(l, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
+    fprintf(output, "--- CLONE ---\n");
+    List *second = list_clone(ll, &clone_int);
+    show_list(second, &show_int, output);
+    fprintf(output, "\n");
 
-    fprintf(fp, "--- MERGE ---\n");
-    l = list_merge(l, with_order, &compare_person);
-    show_list(l, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
+    fprintf(output, "--- REVERSE ---\n");
+    list_reverse(second);
+    show_list(second, &show_int, output);
+    fprintf(output, "\n");
 
-    list_destroy(with_order, &destroy_person);
-    list_destroy(l, &destroy_person);
+    trash = list_min(second, &compare_int);
+    if (trash != NULL)
+        fprintf(output, "list min %d\n", *(int *)trash);
 
-    fprintf(fp, "--- NEW LIST ---\n");
-    l = list_create();
+    trash = list_max(second, &compare_int);
+    if (trash != NULL)
+        fprintf(output, "list max %d\n", *(int *)trash);
+
+    fprintf(output, "--- SORT ---\n");
+    fprintf(output, "before:\n");
+    show_list(ll, &show_int, output);
+    fprintf(output, "\nafter:\n");
+    list_sort(ll, &compare_int);
+    show_list(ll, &show_int, output);
+
+    fprintf(output, "\n--- CLEANUP ---\n");
+    list_destroy(ll, &free);
+    list_destroy(second, &free);
+
+    ll = list_create();
+
+    fprintf(output, "--- INSERT WITH ORDER ---\n");
     for (int i = 0; i < 10; i++) {
-        temp = random_string(STR_SIZE);
-        list_preppend(l, create_person(temp, rand() % MAX_AGE));
-        free(temp);
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "insert %d\n", temp);
+        list_insert(ll, create_int(temp), &compare_int);
     }
-    show_list(l, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
 
-    fprintf(fp, "--- SORTING ---\n");
-    list_sort(l, &compare_person);
-    show_list(l, &show_person, fp);
-    fprintf(fp, "ORDER '%s'\n", list_order(l, &compare_person) ? "true" : "false");
-    fprintf(fp, "SIZE: %ld\n", list_size(l));
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+    fprintf(output, "list has order '%s'\n", list_order(ll, &compare_int) ? "true" : "false");
 
-    list_destroy(l, &destroy_person);
+    fprintf(output, "insert 50\n");
+    list_insert(ll, create_int(50), &compare_int);
+
+    fprintf(output, "insert 30\n");
+    list_insert(ll, create_int(30), &compare_int);
+
+    fprintf(output, "insert 70\n");
+    list_insert(ll, create_int(70), &compare_int);
+
+    for (int i = 0; i < 3; i++) {
+        temp = rand() % MAX_VALUE;
+        fprintf(output, "insert %d\n", temp);
+        list_insert(ll, create_int(temp), &compare_int);
+    }
+
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));    
+
+    fprintf(output, "--- REMOVE ---\n");
+
+    aux = create_int(50);
+    trash = list_remove(ll, aux, &compare_int);
+    if (trash != NULL) {
+        fprintf(output, "removed %d\n", *(int *)trash);
+        free(trash);
+    }
+    free(aux);
+
+    aux = create_int(30);
+    trash = list_remove(ll, aux, &compare_int);
+    if (trash != NULL) {
+        fprintf(output, "removed %d\n", *(int *)trash);
+        free(trash);
+    }
+    free(aux);
+
+    aux = create_int(70);
+    trash = list_remove(ll, aux, &compare_int);
+    if (trash != NULL) {
+        fprintf(output, "removed %d\n", *(int *)trash);
+        free(trash);
+    }
+    free(aux);
+
+    aux = create_int(500);
+    trash = list_remove(ll, aux, &compare_int);
+    if (trash != NULL) {
+        fprintf(output, "removed %d\n", *(int *)trash);
+        free(trash);
+    } else
+        fprintf(output, "500 is not in the list\n");
+    free(aux);
+
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+
+
+
+    list_destroy(ll, &free);
 
     return 0;
 }
