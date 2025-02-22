@@ -169,9 +169,62 @@ int main(void) {
     fprintf(output, "\n");
     fprintf(output, "list size %lu\n", list_size(ll));
 
+    fprintf(output, "--- CLONE ---\n");
+    second = list_clone(ll, &clone_int);
+    show_list(second, &show_int, output);
+    fprintf(output, "\n");
 
+    fprintf(output, "--- MERGE ---\n");
+    ll = list_merge(ll, second, &compare_int);
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+
+    list_destroy(second, &free);
+    list_destroy(ll, &free);
+
+
+    ll = list_create();
+
+    fprintf(output, "--- RANDOM LIST ---\n");
+    for (int i = 0; i < 25; i++)
+        list_preppend(ll, create_int(rand() % MAX_VALUE));
+
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+
+    fprintf(output, "--- TAKE ---\n");
+    second = list_take(ll, 13);
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+
+    fprintf(output, "remainder:\n");
+    show_list(second, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(second));
+
+    fprintf(output, "--- DROP ---\n");
+    List * third = list_drop(ll, 5);
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+
+    fprintf(output, "remainder:\n");
+    show_list(third, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(third));
 
     list_destroy(ll, &free);
+
+    fprintf(output, "--- CONCAT ---\n");
+    ll = list_concat(second, third);
+    show_list(ll, &show_int, output);
+    fprintf(output, "\n");
+    fprintf(output, "list size %lu\n", list_size(ll));
+
+    list_destroy(ll, &free);
+    list_destroy(third, &free);
 
     return 0;
 }
