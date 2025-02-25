@@ -49,6 +49,10 @@ void destroy_heap(Heap *hp, void (*destroy)(void *)) {
     free(hp);
 }
 
+bool heap_is_empty(const Heap *hp) {
+    return hp != NULL && hp->count == 0;
+}
+
 /**
  * @brief Swaps two values on an array
  * 
@@ -124,8 +128,6 @@ void *heap_remove_root(Heap *hp, int (*compare)(const void *, const void *)) {
     if (hp == NULL || hp->data == NULL || compare == NULL || hp->count == 0)
         return NULL;
 
-    // SHRINK TO 2/3 OF THE ORIGINAL WHEN IT HITS 30%
-
     void *result = hp->data[0];
     swap(hp->data, 0, --(hp->count));
     bubble_down(hp->data, 0, hp->count, compare);
@@ -139,10 +141,24 @@ size_t heap_size(const Heap *hp) {
     return 0;
 }
 
-void show_heap(Heap *hp, void (*show)(const void *, FILE *), FILE *fp) {
+void show_heap(const Heap *hp, void (*show)(const void *, FILE *), FILE *fp) {
     if (hp == NULL || show == NULL || fp == NULL)
         return;
 
     for (size_t i = 0; i < hp->count; i++)
         show(hp->data[i], fp);
+}
+
+Heap *heapify(void **data, size_t size, int (*compare)(const void *, const void *)) {
+    if (data == NULL || compare == NULL)
+        return NULL;
+
+    for (size_t i = 1; i < size; i++)
+        bubble_up(data, i, compare);
+
+    Heap *new_heap = NULL;
+    new_heap->count = new_heap->size = size;
+    new_heap->data = data;
+
+    return new_heap;
 }
