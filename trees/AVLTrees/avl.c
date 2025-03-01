@@ -16,7 +16,6 @@ typedef struct avl {
     struct node *root;
 } AVLTree;
 
-
 AVLTree *create_avl(void) {
     AVLTree *new = (AVLTree *)malloc(sizeof(AVLTree));
     if (new == NULL)
@@ -29,10 +28,10 @@ AVLTree *create_avl(void) {
 }
 
 /**
- * @brief 
- * 
- * @param data 
- * @return 
+ * @brief Allocates space for Tree node
+ *
+ * @param data data to store
+ * @return pointer to the node
  */
 static struct node *create_node(void *data) {
     struct node *new_node = (struct node *)malloc(sizeof(struct node));
@@ -47,12 +46,12 @@ static struct node *create_node(void *data) {
 }
 
 /**
- * @brief 
- * 
+ * @brief Frees the allocated memory for a Tree
+ *
  * Assumes destroy is not NULL
- * 
- * @param root 
- * @param destroy 
+ *
+ * @param root root of the tree
+ * @param destroy function to free the stored data
  */
 static void clean_nodes(struct node *root, void (*destroy)(void *)) {
     if (root != NULL) {
@@ -72,11 +71,11 @@ void destroy_avl(AVLTree *tree, void (*destroy)(void *)) {
 }
 
 /**
- * @brief 
- * 
+ * @brief Rotates an AVL Tree to the left
+ *
  * Assumes root is not NULL, and there is atleast 3 elements on the tree
- * 
- * @param root 
+ *
+ * @param root root of the tree
  */
 static void rotate_left(struct node **root) {
     struct node *right = (*root)->right;
@@ -85,11 +84,11 @@ static void rotate_left(struct node **root) {
 }
 
 /**
- * @brief 
- * 
+ * @brief Rotates an AVL Tree to the right
+ *
  * Assumes root is not NULL, and there is atleast 3 elements on the tree
- * 
- * @param root 
+ *
+ * @param root root of the tree
  */
 static void rotate_right(struct node **root) {
     struct node *left = (*root)->left;
@@ -98,12 +97,12 @@ static void rotate_right(struct node **root) {
 }
 
 /**
- * @brief 
- * 
+ * @brief Fix's the right sub-tree
+ *
  * Assumes root and root->right are not NULL
- * 
- * @param root 
- * @return struct node* 
+ *
+ * @param root root of the tree
+ * @return pointer to the fixed tree
  */
 static struct node *fix_right(struct node *root) {
     struct node *temp = root->right;
@@ -113,6 +112,8 @@ static struct node *fix_right(struct node *root) {
         root->balance = temp->balance = BALANCED;
         rotate_left(&root);
     } else if (temp->balance == LEFT) {
+        // right sub-tree is heavier on the left
+
         // adjust the balance factors
         switch (temp->left->balance) {
             case BALANCED:
@@ -135,18 +136,18 @@ static struct node *fix_right(struct node *root) {
         rotate_left(&root);
 
         root->balance = BALANCED;
-    } // the right sub-tree will never be balanced in this situation
+    }
 
     return root;
 }
 
 /**
- * @brief 
- * 
- * Assumes root and root->right are not NULL
- * 
- * @param root 
- * @return struct node* 
+ * @brief Fix's the left sub-tree
+ *
+ * Assumes root and root->left are not NULL
+ *
+ * @param root root of the tree
+ * @return pointer to the fixed tree
  */
 static struct node *fix_left(struct node *root) {
     struct node *temp = root->left;
@@ -156,6 +157,8 @@ static struct node *fix_left(struct node *root) {
         root->balance = temp->balance = BALANCED;
         rotate_right(&root);
     } else if (temp->balance == RIGHT) {
+        // left sub-tree is heavier on the right
+
         // adjust the balance factors
         switch (temp->right->balance) {
             case BALANCED:
@@ -178,23 +181,25 @@ static struct node *fix_left(struct node *root) {
         rotate_right(&root);
 
         root->balance = BALANCED;
-    } // the left sub-tree will never be balanced in this situation
+    }
 
     return root;
 }
 
 /**
- * @brief 
- * 
+ * @brief Adds data to the tree and balances it if necessary
+ *
  * Assumes input is not NULL
- * 
- * @param root 
- * @param data 
- * @param compare 
- * @param growth 
- * @return struct node* 
+ *
+ * @param root pointer to the root of the tree
+ * @param data data to store
+ * @param compare function to compare data
+ * @param growth flag to indicate whether the height of the tree changed
+ * @return pointer to the root of the tree
  */
-static struct node *avl_insert_rec(struct node *root, void *data, int (*compare)(const void *, const void *), bool *growth) {
+static struct node *avl_insert_rec(struct node *root, void *data,
+                                   int (*compare)(const void *, const void *),
+                                   bool *growth) {
     // bottom of the tree
     if (root == NULL) {
         struct node *new_node = create_node(data);
@@ -261,9 +266,53 @@ int avl_insert(AVLTree *tree, void *data, int (*compare)(const void *, const voi
     return 1;
 }
 
-void *avl_remove(AVLTree *tree, const void *key, int (*compare)(const void *, const void *));
+/**
+ * @brief 
+ * 
+ * @param root 
+ * @return struct node* 
+ */
+static struct node *remove_smallest(struct node **root) {
+    return NULL;
+}
 
-bool avl_search(const AVLTree *tree, const void *key, int (*compare)(const void *, const void *)) {
+/**
+ * @brief Removes the root of a Tree, replacing it by the smallest on the right
+ * 
+ * @param root root of the tree
+ * @return stored data
+ */
+static void *remove_root(struct node **root) {
+    void *result = (*root)->data;
+    struct node *temp = NULL;
+    struct node *left = (*root)->left;
+    struct node *right = (*root)->right;
+
+    if (left == NULL)
+        temp = right;
+    else {
+        // remove the smallest on the right sub-tree
+        temp = remove_smallest(&left);
+
+        // atach the sub-trees
+        temp->left = left;
+        temp->right = right;
+    }
+
+    free(*root);
+    // replace the node
+    *root = temp;
+
+    return result;
+}
+
+void *avl_remove(AVLTree *tree, const void *key, int (*compare)(const void *, const void *)) {
+    if (tree == NULL || key == NULL || compare == NULL)
+        return NULL;
+}
+
+bool avl_search(const AVLTree *tree, const void *key,
+                int (*compare)(const void *, const void *)) {
     if (tree == NULL || key == NULL || compare == NULL)
         return false;
 
@@ -338,6 +387,5 @@ bool avl_is_empty(const AVLTree *tree) {
     return tree == NULL || tree->root == NULL || tree->size == 0;
 }
 
-void show_avl(const AVLTree *tree, void (*show)(const void *, FILE *), FILE *fp);
-
-
+void show_avl(const AVLTree *tree, void (*show)(const void *, FILE *),
+              FILE *fp);
