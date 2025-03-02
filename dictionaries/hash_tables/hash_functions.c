@@ -27,3 +27,28 @@ size_t character_folding(const char *key) {
 
     return hash;
 }
+
+size_t djb2(const char *key) {
+    if (key == NULL)
+        return 0;
+
+    size_t hash = 5381;
+    int c;
+
+    while (c = *key++) {
+        /* hash * 33 + c */
+        hash = ((hash << 5) + hash) + c;
+    }
+
+    return hash;
+}
+
+size_t sdbm(const char *str) {
+    size_t hash = 0;
+    int c;
+
+    while (c = *str++)
+        hash = c + (hash << 6) + (hash << 16) - hash;
+
+    return hash;
+}
