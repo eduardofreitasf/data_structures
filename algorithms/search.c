@@ -13,7 +13,7 @@ ssize_t linear_search(const void *base, size_t size, size_t n_memb, int (*compar
 ssize_t binary_search(const void *base, size_t size, size_t n_memb, int (*compare)(const void *, const void *), const void *lookup) {
     size_t middle = 0, bottom = 0, top = n_memb - 1;
     while (bottom <= top) {
-        middle = (top - bottom) / 2;
+        middle = (top + bottom) / 2;
         if (compare(base + middle * size, lookup) == 0)
             return middle;
 
