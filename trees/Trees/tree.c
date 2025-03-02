@@ -1,5 +1,4 @@
 #include "tree.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -13,11 +12,11 @@ typedef struct tree {
     struct node *root;
 } Tree;
 
-/*
- * @brief
+/**
+ * @brief Allocates space for a tree node
  *
- * @param data
- * @return
+ * @param data Data to store
+ * @return Pointer to the node
  */
 static struct node *create_node(void *data) {
     struct node *new = (struct node *)calloc(1, sizeof(struct node));
@@ -41,13 +40,13 @@ Tree *create_tree(void) {
     return NULL;
 }
 
-/*
- * @brief
+/**
+ * @brief Frees the allocated space for a tree
  *
  * Assumes destroy is not NULL
  *
- * @param root
- * @param destroy
+ * @param root Root of the tree
+ * @param destroy Function to free data
  */
 static void clean_nodes(struct node *root, void (*destroy)(void *)) {
     if (root != NULL) {
@@ -107,6 +106,43 @@ int tree_insert(Tree *tree, void *data) {
     return 0;
 }
 
+void *tree_remove(Tree *tree, void *data, int (*compare)(const void *, const void *));
+
+/**
+ * @brief Traversses the tree with a depth first algorithm
+ * 
+ * Assumes compare is not NULL
+ * 
+ * @param root Root of the tree
+ * @param compare Function to compare data
+ * @return true Key was found
+ * @return false Key was not found
+ */
+static bool depth_first_traversal(const struct node *root, const void *key, int (*compare)(const void *, const void *)) {
+    if (root != NULL) {
+        if (compare(key, root->data) == 0)
+            return true;
+
+        bool temp = depth_first_traversal(root->left, key, compare);
+        if (temp == true)
+            return true;
+
+        temp = depth_first_traversal(root->right, key, compare);
+        if (temp == true)
+            return true;
+    }
+
+    return false;
+}
+
+bool tree_search(const Tree *tree, const void *key, int (*compare)(const void *, const void *)) {
+    if (tree == NULL || key == NULL || compare == NULL)
+        return false;
+
+    return depth_first_traversal(tree->root, key, compare);
+}
+
+
 size_t tree_size(const Tree *tree) {
     if (tree != NULL)
         return tree->size;
@@ -117,11 +153,11 @@ bool tree_is_empty(const Tree *tree) {
     return tree != NULL && tree->root == NULL;
 }
 
-/*
- * @brief 
+/**
+ * @brief Determines the height of a tree
  *
- * @param root
- * @return
+ * @param root Root of the tree
+ * @return Height of the tree
  */
 static size_t _tree_height(const struct node *root) {
     if (root == NULL)
