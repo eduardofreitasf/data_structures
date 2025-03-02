@@ -14,7 +14,7 @@ typedef struct binary_tree {
 } BSTree;
 
 /**
- * @brief Allocates space for a tree node
+ * @brief Allocates memory for a tree node
  * 
  * @param data Data to store
  * @return struct node* Allocated Node (NULL on allocation error)
@@ -42,9 +42,9 @@ BSTree *create_btree(void) {
 }
 
 /**
- * @brief Frees the allocated space for all the node on the tree
+ * @brief Frees the allocated space for all the nodes on the tree
  * 
- * This function assumes destroy is not NULL
+ * This function assumes 'destroy' is not NULL
  * 
  * @param root Binary Search Tree
  * @param destroy Function to free the content of each node
@@ -371,6 +371,7 @@ void show_btree(BSTree *btree, void (*show)(const void *, FILE *), FILE *fp) {
     if (btree == NULL || show == NULL || fp == NULL || btree->root == NULL || btree->size == 0)
         return;
 
+    // number of nodes if the tree was full with this height
     size_t total = (size_t) pow(2, btree_height(btree)) - 1;
 
     struct node *storage[total];
